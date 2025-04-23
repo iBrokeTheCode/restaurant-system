@@ -1,3 +1,18 @@
 from django.db import models
 
-# Create your models here.
+
+class Expense(models.Model):
+    class CategoryChoice(models.TextChoices):
+        INVENTORY = ('inventory', 'Inventory')
+        SALARY = ('salary', 'Salary')
+        MAINTENANCE = ('maintenance', 'Maintenance')
+        OTHER = ('other', 'Other')
+
+    description = models.CharField(max_length=255)
+    amount = models.DecimalField(max_digits=8, decimal_places=2)
+    category = models.CharField(
+        max_length=20, choices=CategoryChoice, default=CategoryChoice.INVENTORY)
+    date = models.DateField()
+
+    def __str__(self) -> str:
+        return f'{self.description} - S/.{self.amount} on {self.date}'
