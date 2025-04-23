@@ -1,109 +1,282 @@
 # Project Roadmap: Restaurant Management System
 
-**Goal:** To develop a comprehensive system for managing a restaurant's menu, inventory, orders, sales, expenses, and user roles, initially utilizing a customized Django Admin panel and eventually transitioning to a RESTful API with Django REST Framework and a potential light frontend.
+## Overview
 
-**Technologies:** Django, Django REST Framework, Poetry, Git, Docker, PostgreSQL.
+### 1. Menu Management
 
-**Phases:**
+- **Dish model** with fields like name, description, category, price, availability.
+- **Daily Menu** model to select dishes for each day.
+- Stock/availability tracking per day (like you mentioned previously).
 
-**Phase 1: Core Data Models and Django Admin Interface**
+### 2. Orders
 
-1.  **Project Setup:**
+- Support for dine-in and takeaway.
+- Order model with status (e.g., pending, preparing, served, canceled, paid).
+- Ordered items with quantity, price snapshot, notes.
+- Optional: assign to a table (linked with table management).
 
-    - Initialize a new Django project.
-    - Set up Poetry for dependency management (`poetry init`, `poetry add django psycopg2`).
-    - Create the necessary Django apps (e.g., `menu`, `inventory`, `orders`, `sales`, `expenses`, `users`).
-    - Configure PostgreSQL as the database.
-    - Set up Git for version control (`git init`).
-    - Create a basic `.gitignore` file.
+### 3. Sales and Invoicing
 
-2.  **Define Core Models:**
+- Automatically generate invoices when orders are paid.
+- Track payments (cash, card, etc.).
+- Optional: discounts, taxes.
 
-    - In the respective apps, define the Django models based on the core functionalities:
-      - `menu`: `Category`, `Dish` (with fields for name, description, price, image, availability, category).
-      - `inventory`: `Ingredient` (with fields for name, unit, current stock), `DishIngredient` (through model for many-to-many relationship between `Dish` and `Ingredient` with quantity).
-      - `orders`: `Order` (with fields for order time, table number/customer info, status), `OrderItem` (through model for many-to-many with `Dish` and quantity, price at the time of order).
-      - `sales`: `Sale` (with fields for order, sale time, total amount).
-      - `expenses`: `ExpenseCategory`, `Expense` (with fields for category, description, amount, date).
-      - `users`: Leverage Django's built-in `User` model and potentially create a `UserProfile` for additional restaurant-specific information.
+### 4. Expenditures
 
-3.  **Customize Django Admin:**
+- Record purchases (e.g., ingredients, supplies).
+- Categories of spending (e.g., food, maintenance, salaries).
+- Attach receipts/files.
+- Optional: recurring expenses.
 
-    - Register your models with the Django Admin interface (`admin.py` in each app).
-    - Customize the Admin views for each model to provide a user-friendly experience:
-      - Use `list_display`, `list_filter`, `search_fields`, `ordering`.
-      - Implement `inlines` for related models (e.g., `OrderItem` within `Order`, `DishIngredient` within `Dish`).
-      - Customize forms for better data input.
-      - Potentially create custom Admin actions for specific tasks (e.g., marking an order as "prepared").
+### 5. Reporting
 
-4.  **Implement Basic User Roles and Permissions:**
+- Sales per day/week/month.
+- Most sold dishes.
+- Profit vs expenses.
+- Best clients (if implementing authentication).
+- Optional: export to CSV, Excel, or PDF.
 
-    - Utilize Django's built-in permission system and potentially create custom permission groups (e.g., `manager`, `staff`).
-    - Assign permissions to different user roles to control access to different parts of the Admin interface.
+### 6. Table Management
 
-5.  **Basic Reporting via Django Admin:**
-    - Explore the possibility of creating custom Admin views or using libraries like `django-admin-charts` to display basic sales and expense reports within the Admin panel.
+- Manage restaurant tables (table number, capacity).
+- Current status (available, reserved, occupied).
+- Assign orders to tables.
 
-**Phase 2: REST API Development with Django REST Framework**
+### 7. User Management
 
-1.  **Install Django REST Framework:**
+- Staff roles (waiter, cook, admin).
+- Admin dashboard (using Django admin or a custom frontend).
+- Authentication with JWT (already in your stack).
 
-    - `poetry add djangorestframework`
+### 8. Background Tasks
 
-2.  **Create Serializers:**
+- Use Celery for:
+  - Sending order notifications.
+  - Daily report generation.
+  - Automatic archival of old records.
 
-    - Develop DRF serializers for all your core models to handle data serialization and deserialization. Consider using `ModelSerializer` where appropriate and customize fields as needed.
+## Tech Stack & Tools
 
-3.  **Build API Views:**
+- **Django + DRF** for backend logic and APIs.
+- **PostgreSQL** for database.
+- **Redis + Celery** for background tasks and caching.
+- **Docker** for development environment.
+- **drf-spectacular** for API docs.
+- **django-silk / django-debug-toolbar** for optimization.
+- **Poetry** for package management.
 
-    - Create API endpoints using `ViewSet`s or `APIView`s for all the functionalities:
-      - Menu listing and detail.
-      - Creating, updating, and viewing orders.
-      - Recording sales and expenses.
-      - Managing inventory (initially read-only or with basic update options).
-      - User management (carefully consider which operations to expose via the API).
+## Project Plan
 
-4.  **Implement Authentication and Permissions:**
+### Phase 1: Environment Setup & Base Project
 
-    - Set up JWT authentication using `djangorestframework-simplejwt` (`poetry add djangorestframework-simplejwt`).
-    - Implement appropriate permission classes to control access to API endpoints based on user roles.
+**Goal:** Establish your dev environment with Poetry, Docker, and PostgreSQL.
 
-5.  **Implement Filtering and Pagination:**
+**Tasks:**
 
-    - Use `django-filter` (`poetry add django-filter`) and DRF's built-in filtering and pagination to allow for efficient data retrieval.
+- Create a Poetry-managed Django project.
+- Set up `docker-compose` for Django + PostgreSQL.
+- Create apps:
+  - `menu`, `orders`, `tables`, `sales`, `expenses`, `users`, `reports`
+- Set up `.env` for config and connect DB.
+- Configure Git with `.gitignore`.
 
-6.  **API Documentation:**
-    - Integrate `drf-spectacular` (`poetry add drf-spectacular`) to automatically generate OpenAPI documentation for your API.
+**Tools:** Poetry, Docker, Git, PostgreSQL
 
-**Phase 3: Optional Light Frontend Integration**
+---
 
-1.  **Frontend Setup:**
+### Phase 2: Models & Admin Setup
 
-    - Initialize a new frontend project using a lightweight framework like Vue.js or React.js (outside the Django project directory).
+**Goal:** Define your database structure and set up admin panel for management.
 
-2.  **API Consumption:**
+**Tasks:**
 
-    - Develop the frontend to consume the DRF API endpoints for displaying data and performing actions (e.g., placing orders, viewing menu).
+- Design models for:
+  - Menu Items, Categories
+  - Orders and OrderItems
+  - Tables (with status)
+  - Sales & Invoices
+  - Expenses (supplies, salaries)
+- Add `__str__`, model methods (`get_absolute_url`, properties).
+- Admin customization (filters, inlines, read-only fields).
+- Model constraints (e.g., `unique_together`, `CheckConstraint`).
 
-3.  **User Interface Development:**
-    - Build user-friendly interfaces for different user roles based on the API capabilities.
+**Concepts Used:**
 
-**Phase 4: Dockerization and Deployment**
+- Migrations, Admin UI, Validators, Relationships (FK, M2M), Proxy Models
 
-1.  **Create Dockerfile and docker-compose.yml:**
+---
 
-    - Define the Docker environment for your Django/DRF backend (and potentially the frontend and PostgreSQL).
+### Phase 3: Django Views, URLs, and Templates
 
-2.  **Containerize Application:**
+**Goal:** Create full CRUD using Django templates and CBVs.
 
-    - Build and run your application using Docker.
+**Tasks:**
 
-3.  **Deployment:**
-    - Choose a deployment platform (e.g., Heroku, DigitalOcean, AWS) and deploy your containerized application.
-    - Set up your PostgreSQL database in the deployment environment.
+- Use Django **Class-Based Views**:
+  - `ListView`, `DetailView`, `CreateView`, `UpdateView`, `DeleteView`
+- Integrate **ModelForms** and form validation.
+- Build **HTML templates** for each app.
+- Use Django **Messages Framework** for feedback (success/error).
+- Add authentication views (login, logout, user permissions).
+- Apply basic styling (Bootstrap, Tailwind, or minimal CSS).
 
-**Continuous Learning:**
+**Concepts Used:**
 
-- Throughout the project, continuously refer to the official documentation for Django, DRF, Poetry, Git, Docker, and PostgreSQL.
-- Explore best practices for API design, security, and testing.
-- Consider exploring related technologies like Celery for background tasks (e.g., generating reports) or WebSockets for real-time features in the future.
+- CBVs, ModelForms, Django Templates, Messages, Auth System
+
+---
+
+### Phase 4: Business Logic & Query Optimization
+
+**Goal:** Implement and optimize core features like reports, filters, and performance.
+
+**Tasks:**
+
+- Write custom queries using:
+  - `annotate()`, `aggregate()`, `F`, `Q`, `Case`, `When`
+- Optimize views with:
+  - `select_related`, `prefetch_related`, `django-debug-toolbar`
+- Create business logic:
+
+  - Track daily sales, profits, expenses
+  - Menu availability logic
+  - Table status updates
+
+  **Concepts Used:**
+
+- ORM expressions, Aggregation, Filtering, Debugging, N+1 Problem
+
+---
+
+### Phase 5: Roles & Permissions
+
+**Goal:** Implement role-based access control using Django’s auth system.
+
+**Tasks:**
+
+- Create roles: admin, cashier, cook, waiter.
+- Restrict views/templates by user role.
+- Use Django’s **`User` model** + custom profile if needed.
+- Decorate views with `@login_required`, `user_passes_test`, or class-based equivalents.
+
+**Concepts Used:**
+
+- Django Permissions, Groups, `request.user`, Custom access logic
+
+---
+
+### Phase 6: Reporting Interface
+
+**Goal:** Enable staff to view business insights.
+
+**Tasks:**
+
+- Build template views for:
+  - Daily/weekly/monthly sales
+  - Best-selling items
+  - Expenses per category
+  - Table usage
+- Add filters (date range, category).
+- Export to CSV or JSON (optional).
+
+**Concepts Used:**
+
+- Aggregations, Custom views, CSV rendering, Query filters
+
+---
+
+### Phase 7: Caching & Performance
+
+**Goal:** Optimize heavy-read endpoints and reduce DB load.
+
+**Tasks:**
+
+- Install and configure **Redis**.
+- Use:
+  - `cache_page`, `cache.get/set`, or template caching.
+  - `Vary` headers (e.g., user role vs public)
+- Cache menu queries and reports.
+- Add expiration logic or manual invalidation.
+
+**Concepts Used:**
+
+- Redis, Django Caching, Template fragment caching, Vary Headers
+
+---
+
+### Phase 8: Background Tasks with Celery
+
+**Goal:** Introduce asynchronous task processing for reporting, maintenance, etc.
+
+**Tasks:**
+
+- Install **Celery** and configure with Redis.
+- Add periodic tasks with Celery Beat:
+  - Auto archive old orders
+  - Daily profit email to owner (optional)
+  - Pre-warm cache
+- Create asynchronous tasks for bulk processing.
+
+**Concepts Used:**
+
+- Celery, Redis, Async tasks, Periodic jobs
+
+---
+
+### Phase 9: Migrate to DRF (API Refactor)
+
+**Goal:** Rebuild backend using DRF for frontend/API clients.
+
+**Tasks:**
+
+- Refactor Django views into **DRF ViewSets**.
+- Use:
+  - Serializers (nested, `SerializerMethodField`)
+  - Permissions (admin vs staff)
+  - `django-filter`, pagination, search
+- Document API using **drf-spectacular** or **Swagger**.
+
+**Concepts Used:**
+
+- DRF Serializers, ViewSets, Filtering, Auth, Documentation
+
+---
+
+### Phase 10: React Frontend Integration
+
+**Goal:** Create a modern frontend to consume your new API.
+
+**Tasks:**
+
+- Scaffold React app (Vite, CRA, etc.).
+- Use `axios` or `fetch` to consume your DRF endpoints.
+- Create components for:
+  - Orders
+  - Menu browsing
+  - Reports dashboard
+  - Login / auth token handling
+- Deploy separately (e.g., Netlify, Vercel).
+
+**Concepts Used:**
+
+- REST API consumption, JWT Auth, React state management
+
+---
+
+### Bonus: Testing & Deployment
+
+**Goal:** Ensure your app is maintainable and ready for production.
+
+**Tasks:**
+
+- Write tests for models, forms, and views.
+- Test DRF endpoints using Django’s test tools.
+- Polish README with instructions and screenshots.
+- Deploy backend with:
+
+  - Railway / Render / VPS
+  - Gunicorn + Nginx + PostgreSQL
+
+**Concepts Used:**
+
+- Unit tests, API tests, Deployment configs
