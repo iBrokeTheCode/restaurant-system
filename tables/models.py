@@ -1,5 +1,7 @@
 from django.db import models
 
+from django.core.validators import MinValueValidator
+
 
 class Table(models.Model):
     class TableStatusChoices(models.TextChoices):
@@ -8,7 +10,7 @@ class Table(models.Model):
         RESERVED = ('reserved', 'Reserved')
 
     table_number = models.PositiveSmallIntegerField(unique=True)
-    seats = models.PositiveSmallIntegerField()
+    seats = models.PositiveSmallIntegerField(validators=[MinValueValidator(1)])
     status = models.CharField(
         max_length=10, choices=TableStatusChoices, default=TableStatusChoices.AVAILABLE)
 

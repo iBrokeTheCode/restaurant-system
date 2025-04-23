@@ -1,5 +1,7 @@
 from django.db import models
 
+from django.core.validators import MinValueValidator
+
 from tables.models import Table
 from menu.models import MenuItem
 
@@ -33,8 +35,10 @@ class OrderItem(models.Model):
     order = models.ForeignKey(
         Order, on_delete=models.CASCADE, related_name='items')
     menu_item = models.ForeignKey(MenuItem, on_delete=models.CASCADE)
-    quantity = models.PositiveSmallIntegerField(default=1)
-    unit_price = models.DecimalField(max_digits=8, decimal_places=2)
+    quantity = models.PositiveSmallIntegerField(
+        default=1, validators=[MinValueValidator(1)])
+    unit_price = models.DecimalField(max_digits=8, decimal_places=2, validators=[
+                                     MinValueValidator(0.01)])
     note = models.TextField(blank=True, default='')
 
     @property
