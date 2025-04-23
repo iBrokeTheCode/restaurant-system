@@ -280,3 +280,10 @@
 **Concepts Used:**
 
 - Unit tests, API tests, Deployment configs
+
+py manage.py startapp menu
+py manage.py startapp orders
+py manage.py startapp tables
+py manage.py startapp sales
+py manage.py startapp expenses
+py manage.py startapp reports

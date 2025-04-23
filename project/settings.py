@@ -25,12 +25,15 @@ SECRET_KEY = 'django-insecure-x&e36=h9=@t79swq&p#8^q0m0(%xrk$pj#r64v+mr0x_$n^rj!
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '127.0.0.1',
+]
 
 
 # Application definition
 
-INSTALLED_APPS = [
+
+DJANGO_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -38,6 +41,22 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
+
+THIRD_PARTY_APPS = [
+    'django_extensions',
+    'debug_toolbar',
+]
+
+LOCAL_APPS = [
+    'menu',
+    'orders',
+    'tables',
+    'sales',
+    'expenses',
+    'reports',
+]
+
+INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -47,6 +66,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    # THIRD PARTY MIDDLEWARES
+    "debug_toolbar.middleware.DebugToolbarMiddleware"
 ]
 
 ROOT_URLCONF = 'project.urls'
