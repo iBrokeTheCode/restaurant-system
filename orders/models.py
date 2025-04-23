@@ -1,6 +1,7 @@
 from django.db import models
 
 from django.core.validators import MinValueValidator
+from django.db.models import Q, CheckConstraint
 
 from tables.models import Table
 from menu.models import MenuItem
@@ -44,6 +45,14 @@ class OrderItem(models.Model):
     @property
     def total_price(self):
         return self.quantity * self.unit_price
+
+    class Meta:
+        constraints = [
+            CheckConstraint(check=Q(quantity__gte=1),
+                            name='order_item_quantity_gte_1'),
+            CheckConstraint(check=Q(unit_price__gt=0),
+                            name='order_item_price_gte_0')
+        ]
 
     def __str__(self) -> str:
         return f'{self.quantity} x {self.menu_item.name}'
