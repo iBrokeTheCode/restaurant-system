@@ -88,6 +88,8 @@
 
 **Goal:** Define your database structure and set up admin panel for management.
 
+![image](./ER-Diagram.svg)
+
 **Tasks:**
 
 - Design models for:
