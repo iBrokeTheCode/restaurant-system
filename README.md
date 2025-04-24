@@ -92,9 +92,13 @@
 - [Django 5](https://www.djangoproject.com/)
 - [django-crispy-forms](https://github.com/django-crispy-forms/django-crispy-forms)
 - [crispy-bootstrap5](https://github.com/django-crispy-forms/crispy-bootstrap5)
+
+**Development Packages**
+
 - [django_extensions](https://django-extensions.readthedocs.io/en/latest/)
 - [debug_toolbar](https://django-debug-toolbar.readthedocs.io/en/latest/installation.html)
 - [djLint](https://www.djlint.com/)
+- [ruff](https://docs.astral.sh/ruff/tutorial/#getting-started) | [VSCode extension](https://marketplace.visualstudio.com/items/?itemName=charliermarsh.ruff)
 
 **Pending Packages:**
 

@@ -22,4 +22,5 @@ build-backend = "poetry.core.masonry.api"
 django-extensions = "^4.1"
 django-debug-toolbar = "^5.1.0"
 djlint = "^1.36.4"
+ruff = "^0.11.6"
 
