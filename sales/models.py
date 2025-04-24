@@ -14,7 +14,7 @@ class Sale(models.Model):
         Order, on_delete=models.CASCADE, related_name='sale')
     payment_method = models.CharField(
         max_length=10, choices=PaymentMethodChoice, default=PaymentMethodChoice.CASH)
-    amount = models.DecimalField(max_digits=8, decimal_places=2, validators=[
+    amount = models.DecimalField(blank=True, null=True, max_digits=8, decimal_places=2, validators=[
                                  MinValueValidator(0.00)])
     payment_time = models.DateTimeField(auto_now_add=True)
 
@@ -24,10 +24,10 @@ class Sale(models.Model):
                             violation_error_message='Amount must be greater than or equal to 0'),
         ]
 
-    # def save(self, *args, **kwargs):
-    #     if self.order and not self.amount:
-    #         self.amount = self.order.total
-    #     super().save(*args, **kwargs)
+    def save(self, *args, **kwargs):
+        if self.order and self.amount is None:
+            self.amount = self.order.total
+        super().save(*args, **kwargs)
 
     def __str__(self) -> str:
         return f'Sale #{self.pk} - Order #{self.order.pk} - {self.payment_method}'

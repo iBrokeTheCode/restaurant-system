@@ -41,7 +41,7 @@ class OrderItem(models.Model):
     menu_item = models.ForeignKey(MenuItem, on_delete=models.CASCADE)
     quantity = models.PositiveSmallIntegerField(
         default=1, validators=[MinValueValidator(1)])
-    unit_price = models.DecimalField(max_digits=8, decimal_places=2, validators=[
+    unit_price = models.DecimalField(blank=True, null=True, max_digits=8, decimal_places=2, validators=[
                                      MinValueValidator(0.00)])
     note = models.TextField(blank=True, default='')
 
@@ -56,15 +56,15 @@ class OrderItem(models.Model):
             CheckConstraint(check=Q(quantity__gte=1),
                             name='order_item_quantity_gte_1',
                             violation_error_message='Quantity must be greater than or equal to 1'),
-            CheckConstraint(check=Q(unit_price__gt=0),
+            CheckConstraint(check=Q(unit_price__gte=0),
                             name='order_item_price_gte_0',
-                            violation_error_message='Price must be greater than 0'),
+                            violation_error_message='Price must be greater than or equal to 0'),
         ]
 
-    # def save(self, *args, **kwargs):
-    #     if not self.unit_price and self.menu_item:
-    #         self.unit_price = self.menu_item.price
-    #     super().save(*args, **kwargs)
+    def save(self, *args, **kwargs):
+        if self.unit_price is None and self.menu_item:
+            self.unit_price = self.menu_item.price
+        super().save(*args, **kwargs)
 
     def __str__(self) -> str:
         return f'{self.quantity} x {self.menu_item.name}'
