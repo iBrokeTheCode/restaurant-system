@@ -25,9 +25,7 @@ SECRET_KEY = 'django-insecure-x&e36=h9=@t79swq&p#8^q0m0(%xrk$pj#r64v+mr0x_$n^rj!
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [
-    '127.0.0.1',
-]
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -71,7 +69,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
     # THIRD PARTY MIDDLEWARES
-    "debug_toolbar.middleware.DebugToolbarMiddleware"
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'project.urls'
@@ -147,6 +145,11 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Debug Toolbar
+INTERNAL_IPS = [
+    '127.0.0.1',
+]
 
 # Crispy Forms
 CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap5'
