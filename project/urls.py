@@ -13,6 +13,7 @@ LOCAL_URLS = [
     path('', include('core.urls', namespace='core')),
     path('menu/', include('menu.urls', namespace='menu')),
     path('tables/', include('tables.urls', namespace='tables')),
+    path('orders/', include('orders.urls', namespace='orders')),
 ]
 
 urlpatterns = DJANGO_URLS + THIRD_PARTY_URLS + LOCAL_URLS

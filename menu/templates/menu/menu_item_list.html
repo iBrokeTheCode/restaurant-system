@@ -22,11 +22,11 @@
             <td>S/. {{ item.price }}</td>
             <td>{{ item.category }}</td>
             <td>
-              <a class="btn btn-sm btn-info"
+              <a class="btn btn-sm btn-outline-secondary"
                  href="{% url "menu:menu-item-detail" pk=item.id %}">View</a>
-              <a class="btn btn-sm btn-warning"
+              <a class="btn btn-sm btn-outline-primary"
                  href="{% url 'menu:menu-item-update' pk=item.id %}">Edit</a>
-              <a class="btn btn-sm btn-danger"
+              <a class="btn btn-sm btn-outline-danger"
                  href="{% url 'menu:menu-item-delete' pk=item.id %}">Delete</a>
             </td>
           </tr>
