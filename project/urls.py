@@ -12,6 +12,7 @@ THIRD_PARTY_URLS = [] + debug_toolbar_urls()
 
 LOCAL_URLS = [
     path('', include('core.urls', namespace='core')),
+    path('menu/', include('menu.urls', namespace='menu'))
 ]
 
 urlpatterns = DJANGO_URLS + THIRD_PARTY_URLS + LOCAL_URLS
