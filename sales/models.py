@@ -24,5 +24,10 @@ class Sale(models.Model):
                             violation_error_message='Amount must be greater than or equal to 0'),
         ]
 
+    # def save(self, *args, **kwargs):
+    #     if self.order and not self.amount:
+    #         self.amount = self.order.total
+    #     super().save(*args, **kwargs)
+
     def __str__(self) -> str:
         return f'Sale #{self.pk} - Order #{self.order.pk} - {self.payment_method}'

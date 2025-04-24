@@ -61,5 +61,10 @@ class OrderItem(models.Model):
                             violation_error_message='Price must be greater than 0'),
         ]
 
+    # def save(self, *args, **kwargs):
+    #     if not self.unit_price and self.menu_item:
+    #         self.unit_price = self.menu_item.price
+    #     super().save(*args, **kwargs)
+
     def __str__(self) -> str:
         return f'{self.quantity} x {self.menu_item.name}'
