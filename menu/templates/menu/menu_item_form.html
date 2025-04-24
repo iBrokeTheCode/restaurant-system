@@ -1,0 +1,17 @@
+{% extends 'base.html' %} {% block title %} {% if menu_item %} Update {% else %}
+Create {% endif %} Menu Item {% endblock title %}
+
+<span />
+
+{% block content %}
+<div class="container mt-4">
+  <h2>{{ menu_item.pk|yesno:"Update Menu Item,Create Menu Item" }}</h2>
+  <form method="post">
+    {% csrf_token %} {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Save</button>
+    <a class="btn btn-secondary" href="{% url 'menu:menu-item-list' %}"
+      >Cancel</a
+    >
+  </form>
+</div>
+{% endblock %}

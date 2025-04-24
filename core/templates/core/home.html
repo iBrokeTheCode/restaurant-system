@@ -5,11 +5,11 @@
 {% block content %}
 <h2>Welcome to the Restaurant Dashboard</h2>
 
-<!--
 <ul class="list-group">
   <li class="list-group-item">
-    <a href="{% url 'menu:item-list' %}">Menu Items</a>
+    <a href="{% url 'menu:menu-item-list' %}">Menu Items</a>
   </li>
+  {% comment %}
   <li class="list-group-item">
     <a href="{% url 'orders:order-list' %}">Orders</a>
   </li>
@@ -22,7 +22,7 @@
   <li class="list-group-item">
     <a href="{% url 'expenses:expense-list' %}">Expenses</a>
   </li>
+  {% endcomment %}
 </ul>
--->
 
 {% endblock content %}
