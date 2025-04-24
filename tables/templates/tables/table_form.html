@@ -14,7 +14,6 @@
         {% csrf_token %}
         {{ form|crispy }}
         <button type="submit" class="btn btn-success">Save</button>
-        <!-- TODO: Back to previous page -->
-        <a href="{% url 'tables:table-list' %}" class="btn btn-secondary">Cancel</a>
+        <a href="{{ next }}" class="btn btn-secondary">Cancel</a>
     </form>
 {% endblock content %}

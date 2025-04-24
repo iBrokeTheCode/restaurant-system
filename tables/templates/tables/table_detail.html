@@ -7,7 +7,7 @@
     <p>
         <strong>Status:</strong> {{ table.get_status_display }}
     </p>
-    <a href="{% url "tables:table-update" pk=table.id %}"
+    <a href="{% url "tables:table-update" pk=table.id %}?next={{ request.path }}"
        class="btn btn-warning">Edit</a>
     <a href="{% url "tables:table-delete" pk=table.id %}"
        class="btn btn-danger">Delete</a>
