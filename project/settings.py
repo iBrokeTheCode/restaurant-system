@@ -45,6 +45,8 @@ DJANGO_APPS = [
 THIRD_PARTY_APPS = [
     'django_extensions',
     'debug_toolbar',
+    'crispy_forms',
+    'crispy_bootstrap5',
 ]
 
 LOCAL_APPS = [
@@ -145,3 +147,7 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Crispy Forms
+CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap5'
+CRISPY_TEMPLATE_PACK = 'bootstrap5'
