@@ -14,4 +14,5 @@ class OrderAdmin(admin.ModelAdmin):
     list_display = ('id', 'table', 'status', 'created_at')
     list_filter = ('status',)
     search_fields = ('table__table_number',)
+    readonly_fields = ('created_at', 'updated_at')
     inlines = [OrderItemInline]
