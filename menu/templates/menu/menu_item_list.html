@@ -5,7 +5,7 @@
 <span />
 {% block content %}
   <div class="container mt-4">
-    <a class="btn btn-success mb-3" href="{% url 'menu:menu-item-create' %}">Add New Item</a>
+    <a class="btn btn-primary mb-3" href="{% url 'menu:menu-item-create' %}">Add New Item</a>
     <table class="table table-bordered">
       <thead>
         <tr>
@@ -22,7 +22,9 @@
             <td>S/. {{ item.price }}</td>
             <td>{{ item.category }}</td>
             <td>
-              <a class="btn btn-sm btn-primary"
+              <a class="btn btn-sm btn-info"
+                 href="{% url "menu:menu-item-detail" pk=item.id %}">View</a>
+              <a class="btn btn-sm btn-warning"
                  href="{% url 'menu:menu-item-update' pk=item.id %}">Edit</a>
               <a class="btn btn-sm btn-danger"
                  href="{% url 'menu:menu-item-delete' pk=item.id %}">Delete</a>

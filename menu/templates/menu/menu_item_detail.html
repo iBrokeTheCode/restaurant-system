@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}
+    Menu Item Detail
+{% endblock title %}
+{% block content %}
+    <h2>{{ menu_item.name }}</h2>
+    <p>
+        <strong>Price:</strong>S/. {{ menu_item.price }}
+    </p>
+    {% if menu_item.description %}
+        <p>
+            <strong>Description:</strong> {{ menu_item.description }}
+        </p>
+    {% endif %}
+    <p>
+        <strong>Category:</strong> {{ menu_item.category }}
+    </p>
+    <a href="{% url "menu:menu-item-update" pk=menu_item.id %}?next={{ request.path }}"
+       class="btn btn-warning">Edit</a>
+    <a href="{% url "menu:menu-item-delete" pk=menu_item.id %}"
+       class="btn btn-danger">Delete</a>
+    <a href="{% url "menu:menu-item-list" %}" class="btn btn-secondary">Back to list</a>
+{% endblock content %}
