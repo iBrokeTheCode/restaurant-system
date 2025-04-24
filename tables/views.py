@@ -29,6 +29,11 @@ class TableCreateView(CreateView):
     success_url = reverse_lazy('tables:table-list')
     context_object_name = 'table'  # Default: view.object
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['next'] = self.request.GET.get('next', self.success_url)
+        return context
+
 
 class TableUpdateView(UpdateView):
     model = Table
@@ -39,10 +44,12 @@ class TableUpdateView(UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        print(self.success_url)
+        print(self.request.GET.get('next'))
         context['next'] = self.request.GET.get('next', self.success_url)
         return context
 
-    def get_success_url(self) -> str:
+    def get_success_url(self):
         next_url = self.request.GET.get('next')
         return next_url if next_url else str(self.success_url)
 
