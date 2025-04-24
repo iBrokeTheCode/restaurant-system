@@ -1,5 +1,7 @@
 # 🍽️ **Restaurant System – ER Diagram Design (Conceptual)**
 
+![image](./ER-Diagram.svg)
+
 ## 🧾 `MenuItem`
 
 - `id` (PK)

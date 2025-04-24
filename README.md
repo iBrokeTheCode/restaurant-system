@@ -88,6 +88,14 @@
 
 **Goal:** Define your database structure and set up admin panel for management.
 
+```shell
+py manage.py graph_models menu orders tables sales expenses > models.dot
+
+# Then copy output code in https://dreampuf.github.io/GraphvizOnline/?engine=dot
+```
+
+![image](./ER-Diagram.svg)
+
 **Tasks:**
 
 - Design models for:
