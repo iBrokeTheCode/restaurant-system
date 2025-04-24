@@ -5,4 +5,6 @@ from expenses.models import Expense
 
 @admin.register(Expense)
 class ExpenseAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('description', 'amount', 'category', 'date')
+    list_filter = ('category',)
+    search_fields = ('description',)

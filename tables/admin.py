@@ -5,4 +5,6 @@ from tables.models import Table
 
 @admin.register(Table)
 class TableAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('table_number', 'seats', 'status')
+    list_filter = ('status',)
+    search_fields = ('table_number',)
