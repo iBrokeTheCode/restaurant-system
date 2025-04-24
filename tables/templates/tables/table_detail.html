@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+    <h2>Table #{{ table.table_number }}</h2>
+    <p>
+        <strong>Seats:</strong> {{ table.seats }}
+    </p>
+    <p>
+        <strong>Status:</strong> {{ table.get_status_display }}
+    </p>
+    <a href="{% url "tables:table-update" pk=table.id %}"
+       class="btn btn-warning">Edit</a>
+    <a href="{% url "tables:table-delete" pk=table.id %}"
+       class="btn btn-danger">Delete</a>
+    <a href="{% url "tables:table-list" %}" class="btn btn-secondary">Back to list</a>
+{% endblock content %}

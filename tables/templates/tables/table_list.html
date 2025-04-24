@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}
+    Tables
+{% endblock title %}
+{% block content %}
+    <h2>Table List</h2>
+    <a href="{% url "tables:table-create" %}" class="btn btn-primary mb-3">Add New Table</a>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Seats</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for table in object_list %}
+                <tr>
+                    <td>{{ table.table_number }}</td>
+                    <td>{{ table.seats }}</td>
+                    <td>{{ table.get_status_display }}</td>
+                    <td>
+                        <a href="{% url "tables:table-detail" pk=table.id %}"
+                           class="btn btn-sm btn-info">View</a>
+                        <a href="{% url "tables:table-update" pk=table.id %}"
+                           class="btn btn-sm btn-warning">Edit</a>
+                        <a href="{% url "tables:table-delete" pk=table.id %}"
+                           class="btn btn-sm btn-danger">Delete</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock content %}
