@@ -47,6 +47,10 @@ class SaleUpdateView(UpdateView):
         context['next'] = self.request.GET.get('next', self.success_url)
         return context
 
+    def get_success_url(self):
+        next_url = self.request.GET.get('next')
+        return next_url if next_url else super().get_success_url()
+
 
 class SaleDeleteView(DeleteView):
     model = Sale

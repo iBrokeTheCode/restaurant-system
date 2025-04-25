@@ -121,8 +121,6 @@
 - Django Rest Framework JSON (for JSON export)
 - Django Rest Framework Markdown (for Markdown support)
 
-, psycopg2, django-environ, django-extensions
-
 ---
 
 ### Phase 2: Models & Admin Setup
