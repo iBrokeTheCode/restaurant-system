@@ -80,7 +80,46 @@
 - Set up `.env` for config and connect DB.
 - Configure Git with `.gitignore`.
 
-**Tools:** Poetry, Docker, Git, PostgreSQL
+**Tools:**
+
+- Poetry
+- Docker
+- Git
+- PostgreSQL
+
+**Packages:**
+
+- [Django 5](https://www.djangoproject.com/)
+- [django-crispy-forms](https://github.com/django-crispy-forms/django-crispy-forms)
+- [crispy-bootstrap5](https://github.com/django-crispy-forms/crispy-bootstrap5)
+
+**Development Packages**
+
+- [django_extensions](https://django-extensions.readthedocs.io/en/latest/)
+- [debug_toolbar](https://django-debug-toolbar.readthedocs.io/en/latest/installation.html)
+- [djLint](https://www.djlint.com/)
+- [ruff](https://docs.astral.sh/ruff/tutorial/#getting-started) | [VSCode extension](https://marketplace.visualstudio.com/items/?itemName=charliermarsh.ruff)
+
+**Pending Packages:**
+
+- Django REST Framework (DRF)
+- Django CORS Headers
+- Django Filter
+- Django Silk (for profiling)
+- Django Debug Toolbar
+- Django Spectacular (for API docs)
+- Django Celery Beat
+- Redis
+- psycopg2-binary (PostgreSQL adapter)
+- Django Extensions (for graph models)
+- Django Environ (for environment variables)
+- Django Celery Results (for task results)
+- Django Celery Redis (for task queue)
+- Django JWT Auth (for authentication)
+- Django Rest Framework Simple JWT (for JWT auth)
+- Django Rest Framework CSV (for CSV export)
+- Django Rest Framework JSON (for JSON export)
+- Django Rest Framework Markdown (for Markdown support)
 
 ---
 

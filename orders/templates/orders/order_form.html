@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}
+    {% if order %}
+        Update
+    {% else %}
+        Create
+    {% endif %}
+    Order
+{% endblock title %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <h2>{{ order|yesno:"Update Order, Create Order" }}</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <h4>Items</h4>
+        {{ formset.management_form }}
+        {% for form in formset %}<div class="card p-3 mb-2">{{ form|crispy }}</div>{% endfor %}
+        <button type="submit" class="btn btn-primary">Save</button>
+        <a href=" {{ next }} " class="btn btn-outline-secondary">Cancel</a>
+    </form>
+{% endblock content %}

@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}
+    Order Details
+{% endblock title %}
+{% block content %}
+    <h2>Order #{{ order.pk }}</h2>
+    <ul class="list-group mb-3">
+        <li class="list-group-item">
+            <strong>Table:</strong> {{ order.table }}
+        </li>
+        <li class="list-group-item">
+            <strong>Status:</strong> {{ order.get_status_display }}
+        </li>
+        <li class="list-group-item">
+            <strong>Created At:</strong> {{ order.created_at }}
+        </li>
+        <li class="list-group-item">
+            <strong>Total:</strong> ${{ order.total }}
+        </li>
+    </ul>
+    <h4>Items</h4>
+    <ul class="list-group mb-3">
+        {% for item in order.items.all %}
+            <li class="list-group-item d-flex justify-content-between">
+                {{ item.quantity }} × {{ item.menu_item.name }}
+                <span>${{ item.total_price }}</span>
+            </li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'orders:order-update' pk=order.pk %}?next={{ request.path }}"
+       class="btn btn-primary">Edit</a>
+    <a href="{% url "orders:order-delete" pk=order.pk %}?next={{ request.path }}"
+       class="btn btn-danger">Delete</a>
+    <a href="{% url 'orders:order-list' %}"
+       class="btn btn-outline-secondary">Back</a>
+{% endblock content %}
