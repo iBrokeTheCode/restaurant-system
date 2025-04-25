@@ -74,6 +74,10 @@ class OrderUpdateView(UpdateView):
     context_object_name = 'order'
     success_url = reverse_lazy('orders:order-list')
 
+    def get_success_url(self):
+        next_url = self.request.GET.get('next')
+        return next_url if next_url else super().get_success_url()
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['next'] = self.request.GET.get('next', self.success_url)
