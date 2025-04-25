@@ -15,18 +15,8 @@
           crossorigin="anonymous" />
   </head>
   <body>
-    <!-- Messages START -->
-    {% if messages %}
-      <div class="container mt-3">
-        {% for message in messages %}
-          <div class="alert alert-{{ message.tags }} alert-dismissible">
-            {{ message }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-          </div>
-        {% endfor %}
-      </div>
-    {% endif %}
-    <!-- Messages END -->
+    {% include "partials/navbar.html" %}
+    {% include "partials/alert_messages.html" %}
     <!-- Container START -->
     <div class="container mt-4">
       <h1 class="mb-4">Restaurant System</h1>
