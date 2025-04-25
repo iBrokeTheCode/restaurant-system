@@ -8,7 +8,7 @@ from django.views.generic import (
     UpdateView,
 )
 
-from menu.models import MenuItem
+from menu.models import MenuCategory, MenuItem
 
 
 class MenuItemListView(ListView):
@@ -75,6 +75,50 @@ class MenuItemDeleteView(DeleteView):
 
     def delete(self, request, *args, **kwargs):
         messages.success(self.request, 'Menu item deleted successfully!')
+        return super().delete(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        return self.delete(request, *args, **kwargs)
+
+
+class MenuCategoryListView(ListView):
+    model = MenuCategory
+    template_name = 'menu/menu_category_list.html'
+    context_object_name = 'menu_categories'
+
+
+class MenuCategoryCreateView(CreateView):
+    model = MenuCategory
+    fields = ('name',)
+    template_name = 'menu/menu_category_form.html'
+    success_url = reverse_lazy('menu:menu-category-list')
+    context_object_name = 'menu_category'
+
+    def form_valid(self, form):
+        messages.success(self.request, 'Menu category created successfully!')
+        return super().form_valid(form)
+
+
+class MenuCategoryUpdateView(UpdateView):
+    model = MenuCategory
+    fields = ('name',)
+    template_name = 'menu/menu_category_form.html'
+    success_url = reverse_lazy('menu:menu-category-list')
+    context_object_name = 'menu_category'
+
+    def form_valid(self, form):
+        messages.success(self.request, 'Menu category updated successfully!')
+        return super().form_valid(form)
+
+
+class MenuCategoryDeleteView(DeleteView):
+    model = MenuCategory
+    template_name = 'menu/menu_category_confirm_delete.html'
+    success_url = reverse_lazy('menu:menu-category-list')
+    context_object_name = 'menu_category'
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, 'Menu category deleted successfully!')
         return super().delete(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):

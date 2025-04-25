@@ -1,6 +1,10 @@
 from django.urls import path
 
 from menu.views import (
+    MenuCategoryCreateView,
+    MenuCategoryDeleteView,
+    MenuCategoryListView,
+    MenuCategoryUpdateView,
     MenuItemCreateView,
     MenuItemDeleteView,
     MenuItemDetailView,
@@ -16,4 +20,21 @@ urlpatterns = [
     path('create/', MenuItemCreateView.as_view(), name='menu-item-create'),
     path('<int:pk>/update/', MenuItemUpdateView.as_view(), name='menu-item-update'),
     path('<int:pk>/delete/', MenuItemDeleteView.as_view(), name='menu-item-delete'),
+    # Menu Category URLs
+    path('category/', MenuCategoryListView.as_view(), name='menu-category-list'),
+    path(
+        'category/create/',
+        MenuCategoryCreateView.as_view(),
+        name='menu-category-create',
+    ),
+    path(
+        'category/<int:pk>/update/',
+        MenuCategoryUpdateView.as_view(),
+        name='menu-category-update',
+    ),
+    path(
+        'category/<int:pk>/delete/',
+        MenuCategoryDeleteView.as_view(),
+        name='menu-category-delete',
+    ),
 ]
