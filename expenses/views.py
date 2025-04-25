@@ -7,6 +7,7 @@ from django.views.generic import (
     UpdateView,
 )
 
+from expenses.forms import ExpenseForm
 from expenses.models import Expense
 
 
@@ -24,7 +25,7 @@ class ExpenseDetailView(DetailView):
 
 class ExpenseCreateView(CreateView):
     model = Expense
-    fields = ('amount', 'description', 'category', 'date')
+    form_class = ExpenseForm
     template_name = 'expenses/expense_form.html'
     success_url = reverse_lazy('expenses:expense-list')
     context_object_name = 'expense'
@@ -38,7 +39,7 @@ class ExpenseCreateView(CreateView):
 
 class ExpenseUpdateView(UpdateView):
     model = Expense
-    fields = ('amount', 'description', 'category', 'date')
+    form_class = ExpenseForm
     template_name = 'expenses/expense_form.html'
     success_url = reverse_lazy('expenses:expense-list')
     context_object_name = 'expense'
