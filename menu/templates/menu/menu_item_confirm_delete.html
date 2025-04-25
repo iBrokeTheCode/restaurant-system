@@ -9,7 +9,8 @@
     <form method="post">
       {% csrf_token %}
       <button type="submit" class="btn btn-danger">Yes, Delete</button>
-      <a class="btn btn-secondary" href="{% url 'menu:menu-item-list' %}">Cancel</a>
+      <a href="{% url 'menu:menu-item-list' %}"
+         class="btn btn-outline-secondary">Cancel</a>
     </form>
   </div>
 {% endblock content %}

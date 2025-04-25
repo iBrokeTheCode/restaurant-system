@@ -29,5 +29,8 @@
     </ul>
     <a href="{% url 'orders:order-update' pk=order.pk %}?next={{ request.path }}"
        class="btn btn-primary">Edit</a>
-    <a href="{% url 'orders:order-list' %}" class="btn btn-secondary">Back to list</a>
+    <a href="{% url "orders:order-delete" pk=order.pk %}"
+       class="btn btn-danger">Delete</a>
+    <a href="{% url 'orders:order-list' %}"
+       class="btn btn-outline-secondary">Back</a>
 {% endblock content %}

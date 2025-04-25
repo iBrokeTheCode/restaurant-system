@@ -13,8 +13,9 @@
         </li>
     </ul>
     <a href="{% url "tables:table-update" pk=table.pk %}?next={{ request.path }}"
-       class="btn btn-warning">Edit</a>
+       class="btn btn-primary">Edit</a>
     <a href="{% url "tables:table-delete" pk=table.pk %}"
        class="btn btn-danger">Delete</a>
-    <a href="{% url "tables:table-list" %}" class="btn btn-secondary">Back to list</a>
+    <a href="{% url "tables:table-list" %}"
+       class="btn btn-outline-secondary">Back</a>
 {% endblock content %}
