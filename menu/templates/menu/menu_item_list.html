@@ -23,11 +23,11 @@
             <td>{{ item.category }}</td>
             <td>
               <a class="btn btn-sm btn-outline-secondary"
-                 href="{% url "menu:menu-item-detail" pk=item.id %}">View</a>
+                 href="{% url "menu:menu-item-detail" pk=item.pk %}">View</a>
               <a class="btn btn-sm btn-outline-primary"
-                 href="{% url 'menu:menu-item-update' pk=item.id %}">Edit</a>
+                 href="{% url 'menu:menu-item-update' pk=item.pk %}">Edit</a>
               <a class="btn btn-sm btn-outline-danger"
-                 href="{% url 'menu:menu-item-delete' pk=item.id %}">Delete</a>
+                 href="{% url 'menu:menu-item-delete' pk=item.pk %}">Delete</a>
             </td>
           </tr>
         {% empty %}

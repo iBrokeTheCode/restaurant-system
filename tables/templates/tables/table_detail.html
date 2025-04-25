@@ -12,9 +12,9 @@
             <strong>Status:</strong> {{ table.get_status_display }}
         </li>
     </ul>
-    <a href="{% url "tables:table-update" pk=table.id %}?next={{ request.path }}"
+    <a href="{% url "tables:table-update" pk=table.pk %}?next={{ request.path }}"
        class="btn btn-warning">Edit</a>
-    <a href="{% url "tables:table-delete" pk=table.id %}"
+    <a href="{% url "tables:table-delete" pk=table.pk %}"
        class="btn btn-danger">Delete</a>
     <a href="{% url "tables:table-list" %}" class="btn btn-secondary">Back to list</a>
 {% endblock content %}

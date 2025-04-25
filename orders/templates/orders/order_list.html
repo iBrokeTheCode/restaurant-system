@@ -19,16 +19,16 @@
         <tbody>
             {% for order in orders %}
                 <tr>
-                    <td>{{ order.id }}</td>
+                    <td>{{ order.pk }}</td>
                     <td>{{ order.table }}</td>
-                    <td>{{ order.status }}</td>
+                    <td>{{ order.get_status_display }}</td>
                     <td>{{ order.created_at|date:"Y-m-d H:i" }}</td>
                     <td>
-                        <a href="{% url 'orders:order-detail' order.pk %}"
+                        <a href="{% url 'orders:order-detail' pk=order.pk %}"
                            class="btn btn-sm btn-outline-secondary">View</a>
-                        <a href="{% url 'orders:order-update' order.pk %}"
+                        <a href="{% url 'orders:order-update' pk=order.pk %}"
                            class="btn btn-sm btn-outline-primary">Edit</a>
-                        <a href="{% url 'orders:order-delete' order.pk %}"
+                        <a href="{% url 'orders:order-delete' pk=order.pk %}"
                            class="btn btn-sm btn-outline-danger">Delete</a>
                     </td>
                 </tr>

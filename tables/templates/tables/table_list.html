@@ -21,11 +21,11 @@
                     <td>{{ table.seats }}</td>
                     <td>{{ table.get_status_display }}</td>
                     <td>
-                        <a href="{% url "tables:table-detail" pk=table.id %}"
+                        <a href="{% url "tables:table-detail" pk=table.pk %}"
                            class="btn btn-sm btn-outline-secondary">View</a>
-                        <a href="{% url "tables:table-update" pk=table.id %}"
+                        <a href="{% url "tables:table-update" pk=table.pk %}"
                            class="btn btn-sm btn-outline-primary">Edit</a>
-                        <a href="{% url "tables:table-delete" pk=table.id %}"
+                        <a href="{% url "tables:table-delete" pk=table.pk %}"
                            class="btn btn-sm btn-outline-danger">Delete</a>
                     </td>
                 </tr>
