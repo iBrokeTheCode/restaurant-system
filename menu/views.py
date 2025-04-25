@@ -56,3 +56,9 @@ class MenuItemDeleteView(DeleteView):
     model = MenuItem
     template_name = 'menu/menu_item_confirm_delete.html'
     success_url = reverse_lazy('menu:menu-item-list')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['next'] = self.request.GET.get('next', self.success_url)
+
+        return context

@@ -57,3 +57,9 @@ class TableDeleteView(DeleteView):
     template_name = 'tables/table_confirm_delete.html'
     success_url = reverse_lazy('tables:table-list')
     context_object_name = 'table'  # Default: object
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['next'] = self.request.GET.get('next', self.success_url)
+
+        return context

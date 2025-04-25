@@ -19,7 +19,7 @@
     </ul>
     <a href="{% url "menu:menu-item-update" pk=menu_item.pk %}?next={{ request.path }}"
        class="btn btn-primary">Edit</a>
-    <a href="{% url "menu:menu-item-delete" pk=menu_item.pk %}"
+    <a href="{% url "menu:menu-item-delete" pk=menu_item.pk %}?next={{ request.path }}"
        class="btn btn-danger">Delete</a>
     <a href="{% url "menu:menu-item-list" %}"
        class="btn btn-outline-secondary">Back</a>
