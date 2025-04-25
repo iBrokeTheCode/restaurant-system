@@ -1,6 +1,6 @@
-from django.db import models
 from django.core.validators import MinValueValidator
-from django.db.models import Q, CheckConstraint
+from django.db import models
+from django.db.models import CheckConstraint, Q
 
 from orders.models import Order
 
@@ -10,18 +10,26 @@ class Sale(models.Model):
         CASH = ('cash', 'Cash')
         BANK_APP = ('bank app', 'Bank App')
 
-    order = models.OneToOneField(
-        Order, on_delete=models.CASCADE, related_name='sale')
+    order = models.OneToOneField(Order, on_delete=models.CASCADE, related_name='sale')
     payment_method = models.CharField(
-        max_length=10, choices=PaymentMethodChoice, default=PaymentMethodChoice.CASH)
-    amount = models.DecimalField(blank=True, null=True, max_digits=8, decimal_places=2, validators=[
-                                 MinValueValidator(0.00)])
+        max_length=10, choices=PaymentMethodChoice, default=PaymentMethodChoice.CASH
+    )
+    amount = models.DecimalField(
+        blank=True,
+        null=True,
+        max_digits=8,
+        decimal_places=2,
+        validators=[MinValueValidator(0.00)],
+    )
     payment_time = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         constraints = [
-            CheckConstraint(check=Q(amount__gte=0.00), name='sale_amount_gte_0',
-                            violation_error_message='Amount must be greater than or equal to 0'),
+            CheckConstraint(
+                check=Q(amount__gte=0.00),
+                name='sale_amount_gte_0',
+                violation_error_message='Amount must be greater than or equal to 0',
+            ),
         ]
 
     def save(self, *args, **kwargs):
