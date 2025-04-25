@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.forms.models import inlineformset_factory
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
@@ -61,8 +62,11 @@ class OrderCreateView(CreateView):
             formset.instance = self.object
             # Save formset
             formset.save()
+            messages.success(self.request, 'Order created successfully!')
+
             return redirect(self.success_url)
         else:
+            messages.error(self.request, 'Invalid form. Try again!')
             # re-render the form with errors.
             return self.render_to_response(self.get_context_data(form=form))
 
@@ -99,8 +103,11 @@ class OrderUpdateView(UpdateView):
             self.object = form.save()
             formset.instance = self.object
             formset.save()
+            messages.success(self.request, 'Order updated successfully!')
+
             return redirect(self.get_success_url())
         else:
+            messages.error(self.request, 'Invalid form. Try again!')
             return self.render_to_response(self.get_context_data(form=form))
 
 
@@ -114,3 +121,10 @@ class OrderDeleteView(DeleteView):
         context['next'] = self.request.GET.get('next', self.success_url)
 
         return context
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, 'Order deleted successfully!')
+        return super().delete(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        return self.delete(request, *args, **kwargs)

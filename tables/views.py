@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.urls import reverse_lazy
 from django.views.generic import (
     CreateView,
@@ -34,6 +35,10 @@ class TableCreateView(CreateView):
         context['next'] = self.request.GET.get('next', self.success_url)
         return context
 
+    def form_valid(self, form):
+        messages.success(self.request, 'Table created successfully!')
+        return super().form_valid(form)
+
 
 class TableUpdateView(UpdateView):
     model = Table
@@ -51,6 +56,10 @@ class TableUpdateView(UpdateView):
         next_url = self.request.GET.get('next')
         return next_url if next_url else str(self.success_url)
 
+    def form_valid(self, form):
+        messages.success(self.request, 'Table updated successfully!')
+        return super().form_valid(form)
+
 
 class TableDeleteView(DeleteView):
     model = Table
@@ -63,3 +72,10 @@ class TableDeleteView(DeleteView):
         context['next'] = self.request.GET.get('next', self.success_url)
 
         return context
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, 'Table deleted successfully!')
+        return super().delete(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        return self.delete(request, *args, **kwargs)
