@@ -13,7 +13,7 @@ from tables.models import Table
 class TableListView(ListView):
     model = Table
     template_name = 'tables/table_list.html'
-    context_object_name = 'tables'
+    context_object_name = 'tables'  # Default table_list
 
 
 class TableDetailView(DetailView):
