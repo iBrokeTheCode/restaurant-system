@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.urls import reverse_lazy
 from django.views.generic import (
     CreateView,
@@ -36,6 +37,10 @@ class ExpenseCreateView(CreateView):
 
         return context
 
+    def form_valid(self, form):
+        messages.success(self.request, 'Expense created successfully!')
+        return super().form_valid(form)
+
 
 class ExpenseUpdateView(UpdateView):
     model = Expense
@@ -54,9 +59,20 @@ class ExpenseUpdateView(UpdateView):
         next_url = self.request.GET.get('next')
         return next_url if next_url else super().get_success_url()
 
+    def form_valid(self, form):
+        messages.success(self.request, 'Expense updated successfully!')
+        return super().form_valid(form)
+
 
 class ExpenseDeleteView(DeleteView):
     model = Expense
     template_name = 'expenses/expense_confirm_delete.html'
     context_object_name = 'expense'
     success_url = reverse_lazy('expenses:expense-list')
+
+    def post(self, request, *args, **kwargs):
+        return self.delete(request, *args, **kwargs)
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, 'Expense deleted successfully!')
+        return super().delete(request, *args, **kwargs)

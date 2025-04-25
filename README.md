@@ -74,7 +74,7 @@
 **Tasks:**
 
 - [x] Create a Poetry-managed Django project.
-- [] Set up `docker-compose` for Django + PostgreSQL.
+- [ ] Set up `docker-compose` for Django + PostgreSQL.
 - [x] Create apps:
   - `menu`, `orders`, `tables`, `sales`, `expenses`, `users`, `reports`
 - Set up `.env` for config and connect DB.
