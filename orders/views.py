@@ -41,6 +41,7 @@ class OrderCreateView(CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['next'] = self.request.GET.get('next', self.success_url)
 
         if self.request.POST:
             context['formset'] = OrderItemFormSet(self.request.POST)
@@ -75,6 +76,7 @@ class OrderUpdateView(UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['next'] = self.request.GET.get('next', self.success_url)
 
         if self.request.POST:
             context['formset'] = OrderItemFormSet(
@@ -96,9 +98,6 @@ class OrderUpdateView(UpdateView):
             return redirect(self.get_success_url())
         else:
             return self.render_to_response(self.get_context_data(form=form))
-
-
-# TODO: Go back to previous page (use next url param)
 
 
 class OrderDeleteView(DeleteView):

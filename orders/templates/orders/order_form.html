@@ -24,6 +24,6 @@
         {{ formset.management_form }}
         {% for form in formset %}<div class="card p-3 mb-2">{{ form|crispy }}</div>{% endfor %}
         <button type="submit" class="btn btn-success">Save</button>
-        <a href="{% url 'orders:order-list' %}" class="btn btn-secondary">Cancel</a>
+        <a href=" {{ next }} " class="btn btn-secondary">Cancel</a>
     </form>
 {% endblock content %}

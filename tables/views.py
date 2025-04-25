@@ -44,8 +44,6 @@ class TableUpdateView(UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        print(self.success_url)
-        print(self.request.GET.get('next'))
         context['next'] = self.request.GET.get('next', self.success_url)
         return context
 

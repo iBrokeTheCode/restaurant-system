@@ -27,7 +27,7 @@
             </li>
         {% endfor %}
     </ul>
-    <a href="{% url 'orders:order-update' order.pk %}"
+    <a href="{% url 'orders:order-update' pk=order.id %}?next={{ request.path }}"
        class="btn btn-primary">Edit</a>
     <a href="{% url 'orders:order-list' %}" class="btn btn-secondary">Back to list</a>
 {% endblock content %}
