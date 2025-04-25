@@ -9,14 +9,7 @@
 {% endblock title %}
 {% load crispy_forms_tags %}
 {% block content %}
-    <h2>
-        {% if order %}
-            Edit
-        {% else %}
-            Create
-        {% endif %}
-        Order
-    </h2>
+    <h2>{{ order|yesno:"Update Order, Create Order" }}</h2>
     <form method="post">
         {% csrf_token %}
         {{ form|crispy }}

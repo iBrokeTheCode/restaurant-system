@@ -18,7 +18,8 @@
             <strong>Payment Method:</strong> {{ sale.get_payment_method_display }}
         </li>
     </ul>
-    <a href="" class="btn btn-primary">Edit</a>
+    <a href="{% url "sales:sale-update" pk=sale.pk %}?next={{ request.path }}"
+       class="btn btn-primary">Edit</a>
     <a href="{% url "sales:sale-delete" pk=sale.pk %}?next={{ request.path }}"
        class="btn btn-danger">Delete</a>
     <a href="{% url "sales:sale-list" %}" class="btn btn-outline-secondary">Back</a>

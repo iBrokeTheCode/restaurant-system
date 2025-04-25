@@ -24,10 +24,28 @@ class SaleDetailView(DetailView):
 
 class SaleCreateView(CreateView):
     model = Sale
+    fields = ('order', 'payment_method')
+    template_name = 'sales/sale_form.html'
+    context_object_name = 'sale'
+    success_url = reverse_lazy('sales:sale-list')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['next'] = self.request.GET.get('next', self.success_url)
+        return context
 
 
 class SaleUpdateView(UpdateView):
     model = Sale
+    fields = ('order', 'amount', 'payment_method')
+    template_name = 'sales/sale_form.html'
+    context_object_name = 'sale'
+    success_url = reverse_lazy('sales:sale-list')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['next'] = self.request.GET.get('next', self.success_url)
+        return context
 
 
 class SaleDeleteView(DeleteView):
