@@ -5,15 +5,6 @@ from django.contrib.auth.views import LoginView
 from django.shortcuts import redirect, render
 
 
-def home(request):
-    return render(request, 'core/home.html')
-
-
-@login_required()
-def dashboard(request):
-    return render(request, 'core/dashboard.html')
-
-
 class CustomLoginView(LoginView):
     template_name = 'core/login.html'
     redirect_authenticated_user = True
@@ -28,3 +19,20 @@ def logout_view(request):
         logout(request)
         messages.success(request, 'You have been logged out successfully!')
     return redirect('core:home')
+
+
+def home(request):
+    return render(request, 'core/home.html')
+
+
+@login_required()
+def dashboard(request):
+    return render(request, 'core/dashboard.html')
+
+
+def day_menu_view(request):
+    return render(request, 'core/day_menu.html')
+
+
+def tables_status_view(request):
+    return render(request, 'core/tables_status.html')
