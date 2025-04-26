@@ -73,12 +73,12 @@
 
 **Tasks:**
 
-- Create a Poetry-managed Django project.
-- Set up `docker-compose` for Django + PostgreSQL.
-- Create apps:
+- [x] Create a Poetry-managed Django project.
+- [ ] Set up `docker-compose` for Django + PostgreSQL.
+- [x] Create apps:
   - `menu`, `orders`, `tables`, `sales`, `expenses`, `users`, `reports`
 - Set up `.env` for config and connect DB.
-- Configure Git with `.gitignore`.
+- [x] Configure Git with `.gitignore`.
 
 **Tools:**
 
@@ -106,20 +106,9 @@
 - Django CORS Headers
 - Django Filter
 - Django Silk (for profiling)
-- Django Debug Toolbar
 - Django Spectacular (for API docs)
-- Django Celery Beat
-- Redis
 - psycopg2-binary (PostgreSQL adapter)
-- Django Extensions (for graph models)
-- Django Environ (for environment variables)
-- Django Celery Results (for task results)
-- Django Celery Redis (for task queue)
 - Django JWT Auth (for authentication)
-- Django Rest Framework Simple JWT (for JWT auth)
-- Django Rest Framework CSV (for CSV export)
-- Django Rest Framework JSON (for JSON export)
-- Django Rest Framework Markdown (for Markdown support)
 
 ---
 
@@ -137,15 +126,15 @@ py manage.py graph_models menu orders tables sales expenses > models.dot
 
 **Tasks:**
 
-- Design models for:
+- [x] Design models for:
   - Menu Items, Categories
   - Orders and OrderItems
-  - Tables (with status)
-  - Sales & Invoices
-  - Expenses (supplies, salaries)
-- Add `__str__`, model methods (`get_absolute_url`, properties).
-- Admin customization (filters, inlines, read-only fields).
-- Model constraints (e.g., `unique_together`, `CheckConstraint`).
+  - Tables
+  - Sales
+  - Expenses
+- [x] Add `__str__`, model methods (`get_absolute_url`, properties).
+- [x] Admin customization (filters, inlines, read-only fields).
+- [x] Model constraints (e.g., `unique_together`, `CheckConstraint`).
 
 **Concepts Used:**
 
@@ -159,13 +148,13 @@ py manage.py graph_models menu orders tables sales expenses > models.dot
 
 **Tasks:**
 
-- Use Django **Class-Based Views**:
+- [x] Use Django **Class-Based Views**:
   - `ListView`, `DetailView`, `CreateView`, `UpdateView`, `DeleteView`
-- Integrate **ModelForms** and form validation.
-- Build **HTML templates** for each app.
-- Use Django **Messages Framework** for feedback (success/error).
-- Add authentication views (login, logout, user permissions).
-- Apply basic styling (Bootstrap, Tailwind, or minimal CSS).
+- [x] Integrate **ModelForms** and form validation.
+- [x] Build **HTML templates** for each app.
+- [x] Use Django **Messages Framework** for feedback (success/error).
+- [x] Add authentication views (login, logout, user permissions).
+- [x] Apply basic styling (Bootstrap, Tailwind, or minimal CSS).
 
 **Concepts Used:**
 

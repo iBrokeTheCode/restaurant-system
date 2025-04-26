@@ -4,22 +4,10 @@
 {% endblock title %}
 <span />
 {% block content %}
-  <h2>Welcome to the Restaurant Dashboard</h2>
-  <ul class="list-group">
-    <li class="list-group-item">
-      <a href="{% url 'menu:menu-item-list' %}">Menu Items</a>
-    </li>
-    <li class="list-group-item">
-      <a href="{% url 'tables:table-list' %}">Tables</a>
-    </li>
-    <li class="list-group-item">
-      <a href="{% url 'orders:order-list' %}">Orders</a>
-    </li>
-    <li class="list-group-item">
-      <a href="{% url 'expenses:expense-list' %}">Expenses</a>
-    </li>
-    <li class="list-group-item">
-      <a href="{% url 'sales:sale-list' %}">Sales</a>
-    </li>
-  </ul>
+  <h1 class="mb-4">Enjoy your healthy Delicious Food</h1>
+  <p>See our menu</p>
+  <p>Book a table</p>
+  <div>
+    <h2>Our Menu preview</h2>
+  </div>
 {% endblock content %}
