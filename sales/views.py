@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic import (
     CreateView,
@@ -11,19 +12,19 @@ from django.views.generic import (
 from sales.models import Sale
 
 
-class SaleListView(ListView):
+class SaleListView(LoginRequiredMixin, ListView):
     model = Sale
     template_name = 'sales/sale_list.html'
     context_object_name = 'sales'
 
 
-class SaleDetailView(DetailView):
+class SaleDetailView(LoginRequiredMixin, DetailView):
     model = Sale
     template_name = 'sales/sale_detail.html'
     context_object_name = 'sale'
 
 
-class SaleCreateView(CreateView):
+class SaleCreateView(LoginRequiredMixin, CreateView):
     model = Sale
     fields = ('order', 'payment_method')
     template_name = 'sales/sale_form.html'
@@ -40,7 +41,7 @@ class SaleCreateView(CreateView):
         return super().form_valid(form)
 
 
-class SaleUpdateView(UpdateView):
+class SaleUpdateView(LoginRequiredMixin, UpdateView):
     model = Sale
     fields = ('order', 'amount', 'payment_method')
     template_name = 'sales/sale_form.html'
@@ -61,7 +62,7 @@ class SaleUpdateView(UpdateView):
         return super().form_valid(form)
 
 
-class SaleDeleteView(DeleteView):
+class SaleDeleteView(LoginRequiredMixin, DeleteView):
     model = Sale
     template_name = 'sales/sale_confirm_delete.html'
     context_object_name = 'sale'

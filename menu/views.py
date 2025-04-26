@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic import (
     CreateView,
@@ -11,19 +12,19 @@ from django.views.generic import (
 from menu.models import MenuCategory, MenuItem
 
 
-class MenuItemListView(ListView):
+class MenuItemListView(LoginRequiredMixin, ListView):
     model = MenuItem
     template_name = 'menu/menu_item_list.html'
     context_object_name = 'menu_items'  # Default: menuitem_list
 
 
-class MenuItemDetailView(DetailView):
+class MenuItemDetailView(LoginRequiredMixin, DetailView):
     model = MenuItem
     template_name = 'menu/menu_item_detail.html'
     context_object_name = 'menu_item'  # Default: object
 
 
-class MenuItemCreateView(CreateView):
+class MenuItemCreateView(LoginRequiredMixin, CreateView):
     model = MenuItem
     fields = ('name', 'description', 'price', 'category')
     template_name = 'menu/menu_item_form.html'
@@ -40,7 +41,7 @@ class MenuItemCreateView(CreateView):
         return super().form_valid(form)
 
 
-class MenuItemUpdateView(UpdateView):
+class MenuItemUpdateView(LoginRequiredMixin, UpdateView):
     model = MenuItem
     fields = ('name', 'description', 'price', 'category')
     template_name = 'menu/menu_item_form.html'
@@ -61,7 +62,7 @@ class MenuItemUpdateView(UpdateView):
         return super().form_valid(form)
 
 
-class MenuItemDeleteView(DeleteView):
+class MenuItemDeleteView(LoginRequiredMixin, DeleteView):
     model = MenuItem
     template_name = 'menu/menu_item_confirm_delete.html'
     success_url = reverse_lazy('menu:menu-item-list')
@@ -81,13 +82,13 @@ class MenuItemDeleteView(DeleteView):
         return self.delete(request, *args, **kwargs)
 
 
-class MenuCategoryListView(ListView):
+class MenuCategoryListView(LoginRequiredMixin, ListView):
     model = MenuCategory
     template_name = 'menu/menu_category_list.html'
     context_object_name = 'menu_categories'
 
 
-class MenuCategoryCreateView(CreateView):
+class MenuCategoryCreateView(LoginRequiredMixin, CreateView):
     model = MenuCategory
     fields = ('name',)
     template_name = 'menu/menu_category_form.html'
@@ -99,7 +100,7 @@ class MenuCategoryCreateView(CreateView):
         return super().form_valid(form)
 
 
-class MenuCategoryUpdateView(UpdateView):
+class MenuCategoryUpdateView(LoginRequiredMixin, UpdateView):
     model = MenuCategory
     fields = ('name',)
     template_name = 'menu/menu_category_form.html'
@@ -111,7 +112,7 @@ class MenuCategoryUpdateView(UpdateView):
         return super().form_valid(form)
 
 
-class MenuCategoryDeleteView(DeleteView):
+class MenuCategoryDeleteView(LoginRequiredMixin, DeleteView):
     model = MenuCategory
     template_name = 'menu/menu_category_confirm_delete.html'
     success_url = reverse_lazy('menu:menu-category-list')

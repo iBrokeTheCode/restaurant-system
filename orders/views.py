@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.forms.models import inlineformset_factory
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
@@ -21,19 +22,19 @@ OrderItemFormSet = inlineformset_factory(
 )
 
 
-class OrderListView(ListView):
+class OrderListView(LoginRequiredMixin, ListView):
     model = Order
     template_name = 'orders/order_list.html'
     context_object_name = 'orders'
 
 
-class OrderDetailView(DetailView):
+class OrderDetailView(LoginRequiredMixin, DetailView):
     model = Order
     template_name = 'orders/order_detail.html'
     context_object_name = 'order'
 
 
-class OrderCreateView(CreateView):
+class OrderCreateView(LoginRequiredMixin, CreateView):
     model = Order
     fields = ('table', 'status')
     template_name = 'orders/order_form.html'
@@ -71,7 +72,7 @@ class OrderCreateView(CreateView):
             return self.render_to_response(self.get_context_data(form=form))
 
 
-class OrderUpdateView(UpdateView):
+class OrderUpdateView(LoginRequiredMixin, UpdateView):
     model = Order
     fields = ('table', 'status')
     template_name = 'orders/order_form.html'
@@ -111,7 +112,7 @@ class OrderUpdateView(UpdateView):
             return self.render_to_response(self.get_context_data(form=form))
 
 
-class OrderDeleteView(DeleteView):
+class OrderDeleteView(LoginRequiredMixin, DeleteView):
     model = Order
     template_name = 'orders/order_confirm_delete.html'
     success_url = reverse_lazy('orders:order-list')
