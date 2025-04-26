@@ -7,14 +7,13 @@ def home(request):
     return render(request, 'core/home.html')
 
 
+def dashboard(request):
+    return render(request, 'core/dashboard.html')
+
+
 class CustomLoginView(LoginView):
     template_name = 'core/login.html'
-    redirect_authenticated_url = 'core:home'
-
-    def dispatch(self, request, *args, **kwargs):
-        if request.user.is_authenticated:
-            return redirect(self.redirect_authenticated_url)
-        return super().dispatch(request, *args, **kwargs)
+    redirect_authenticated_user = True
 
 
 def logout_view(request):
