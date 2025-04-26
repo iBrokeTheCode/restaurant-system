@@ -152,8 +152,8 @@ py manage.py graph_models menu orders tables sales expenses > models.dot
   - `ListView`, `DetailView`, `CreateView`, `UpdateView`, `DeleteView`
 - [x] Integrate **ModelForms** and form validation.
 - [x] Build **HTML templates** for each app.
-- Use Django **Messages Framework** for feedback (success/error).
-- Add authentication views (login, logout, user permissions).
+- [x] Use Django **Messages Framework** for feedback (success/error).
+- [x] Add authentication views (login, logout, user permissions).
 - [x] Apply basic styling (Bootstrap, Tailwind, or minimal CSS).
 
 **Concepts Used:**
