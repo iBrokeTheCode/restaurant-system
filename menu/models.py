@@ -35,3 +35,16 @@ class MenuItem(models.Model):
 
     def __str__(self) -> str:
         return self.name
+
+
+class DailyMenu(models.Model):
+    date = models.DateField(unique=True)
+    menu_items = models.ManyToManyField(MenuItem, related_name='daily_menus')
+
+    class Meta:
+        verbose_name = 'Daily Menu'
+        verbose_name_plural = 'Daily Menus'
+        ordering = ('-date',)
+
+    def __str__(self) -> str:
+        return f'Menu for {self.date}'

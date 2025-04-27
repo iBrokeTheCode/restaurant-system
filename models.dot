@@ -1,6 +1,6 @@
 digraph model_graph {
   // Dotfile by Django-Extensions graph_models
-  // Created: 2025-04-24 01:54
+  // Created: 2025-04-27 17:18
   // Cli Options: menu orders tables sales expenses
 
   fontname = "Roboto"
@@ -101,6 +101,32 @@ digraph model_graph {
     <FONT FACE="Roboto">price</FONT>
     </TD><TD ALIGN="LEFT">
     <FONT FACE="Roboto">DecimalField</FONT>
+    </TD></TR>
+  
+  
+    </TABLE>
+    >]
+
+  menu_models_DailyMenu [label=<
+    <TABLE BGCOLOR="white" BORDER="1" CELLBORDER="0" CELLSPACING="0">
+    <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#1b563f">
+    <FONT FACE="Roboto" COLOR="white" POINT-SIZE="10"><B>
+    DailyMenu
+    </B></FONT></TD></TR>
+  
+  
+    <TR><TD ALIGN="LEFT" BORDER="0">
+    <FONT FACE="Roboto"><B>id</B></FONT>
+    </TD><TD ALIGN="LEFT">
+    <FONT FACE="Roboto"><B>BigAutoField</B></FONT>
+    </TD></TR>
+  
+  
+  
+    <TR><TD ALIGN="LEFT" BORDER="0">
+    <FONT FACE="Roboto">date</FONT>
+    </TD><TD ALIGN="LEFT">
+    <FONT FACE="Roboto">DateField</FONT>
     </TD></TR>
   
   
@@ -209,9 +235,9 @@ digraph model_graph {
   
   
     <TR><TD ALIGN="LEFT" BORDER="0">
-    <FONT FACE="Roboto">unit_price</FONT>
+    <FONT COLOR="#7B7B7B" FACE="Roboto">unit_price</FONT>
     </TD><TD ALIGN="LEFT">
-    <FONT FACE="Roboto">DecimalField</FONT>
+    <FONT COLOR="#7B7B7B" FACE="Roboto">DecimalField</FONT>
     </TD></TR>
   
   
@@ -291,9 +317,9 @@ digraph model_graph {
   
   
     <TR><TD ALIGN="LEFT" BORDER="0">
-    <FONT FACE="Roboto">amount</FONT>
+    <FONT COLOR="#7B7B7B" FACE="Roboto">amount</FONT>
     </TD><TD ALIGN="LEFT">
-    <FONT FACE="Roboto">DecimalField</FONT>
+    <FONT COLOR="#7B7B7B" FACE="Roboto">DecimalField</FONT>
     </TD></TR>
   
   
@@ -376,6 +402,9 @@ digraph model_graph {
 
   menu_models_MenuItem -> menu_models_MenuCategory
   [label=" category (items)"] [arrowhead=none, arrowtail=dot, dir=both];
+
+  menu_models_DailyMenu -> menu_models_MenuItem
+  [label=" menu_items (daily_menus)"] [arrowhead=dot arrowtail=dot, dir=both];
 
 
   orders_models_Order -> tables_models_Table
