@@ -11,6 +11,22 @@ main {
 }
 
 .navbar.scrolled {
-  background-color: rgba(0, 0, 0, 0.7) !important;
+  background-color: rgba(0, 0, 0, 0.9) !important;
   transition: background-color 0.3s ease-in-out;
+}
+
+.mt-navbar {
+  margin-top: 56px !important;
+}
+
+@media (min-width: 576px) {
+  .mt-navbar {
+    margin-top: 88px !important;
+  }
+}
+
+@media (min-width: 992px) {
+  .mt-navbar {
+    margin-top: 91px !important;
+  }
 }
