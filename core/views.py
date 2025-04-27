@@ -1,8 +1,12 @@
+from datetime import date
+
 from django.contrib import messages
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView
 from django.shortcuts import redirect, render
+
+from menu.models import DailyMenu
 
 
 class CustomLoginView(LoginView):
@@ -25,14 +29,23 @@ def home(request):
     return render(request, 'core/home.html')
 
 
-@login_required()
-def dashboard(request):
-    return render(request, 'core/dashboard.html')
-
-
 def day_menu_view(request):
-    return render(request, 'core/day_menu.html')
+    today = date.today()
+    daily_menu = DailyMenu.objects.filter(date=today).first()
+    menu_items = daily_menu.menu_items.all() if daily_menu else None
+
+    context = {
+        'daily_menu': daily_menu,
+        'menu_items': menu_items,
+    }
+
+    return render(request, 'core/day_menu.html', context=context)
 
 
 def tables_status_view(request):
     return render(request, 'core/tables_status.html')
+
+
+@login_required()
+def dashboard(request):
+    return render(request, 'core/dashboard.html')

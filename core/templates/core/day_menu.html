@@ -3,10 +3,16 @@
     Menu of the Day
 {% endblock title %}
 {% block content %}
-    <section class="w-100 vh-100 px-0 mx-0 mt-navbar">
-        <div>
+    <section class="w-100 vh-100 mt-navbar">
+        <div class="container py-5 text-center">
             <h1 class="mb-4">Menu of the Day</h1>
-            <p>Our menu of the day by categories</p>
+            {% if menu_items %}
+                <div class="row">
+                    <p>Menu by categories</p>
+                </div>
+            {% else %}
+                <p>No menu available for today.</p>
+            {% endif %}
         </div>
     </section>
 {% endblock content %}
