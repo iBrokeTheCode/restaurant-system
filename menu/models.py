@@ -25,6 +25,8 @@ class MenuItem(models.Model):
     is_available = models.BooleanField(default=True)
 
     class Meta:
+        verbose_name = 'Menu Item'
+        verbose_name_plural = 'Menu Items'
         constraints = [
             CheckConstraint(
                 check=Q(price__gte=0),
