@@ -1,18 +1,59 @@
 {% extends "base.html" %}
+{% load static %}
 {% block title %}
     Menu of the Day
 {% endblock title %}
 {% block content %}
     <section class="w-100 vh-100 mt-navbar">
-        <div class="container py-5 text-center">
-            <h1 class="mb-4">Menu of the Day</h1>
-            {% if menu_items %}
-                <div class="row">
-                    <p>Menu by categories</p>
+        <div class="container py-5  text-center">
+            <div class="container">
+                <h2 class="text-center mb-4 text-primary">Menu</h2>
+                <div class="row justify-content-center mb-4">
+                    <div class="col-md-8 text-center">
+                        <ul class="nav nav-underline justify-content-center gap-5 fw-bold">
+                            <li class="nav-item">
+                                <a class="nav-link {% if active_category == 'Entrees' %}active{% endif %}"
+                                   href="{% url 'core:day-menu' %}?category=Entrees">Entrees</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {% if active_category == 'Soups' %}active{% endif %}"
+                                   href="{% url 'core:day-menu' %}?category=Soups">Soups</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {% if active_category == 'Specials' %}active{% endif %}"
+                                   href="{% url 'core:day-menu' %}?category=Specials">Specials</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-            {% else %}
-                <p>No menu available for today.</p>
-            {% endif %}
+                <div class="row row-cols-1 row-cols-md-3 g-4 mt-3">
+                    {% for item in menu_items %}
+                        <div class="col">
+                            <div class="card h-100 shadow-sm">
+                                {% if item.image %}
+                                    <img src="{% static 'images/default.webp' %}"
+                                         class="card-img-top"
+                                         alt="{{ item.name }} "
+                                         width=""
+                                         height="">
+                                {% else %}
+                                    <img src="{% static "images/default.webp" %}"
+                                         class="card-img-top"
+                                         alt="{{ item.name }}"
+                                         width=""
+                                         height="">
+                                {% endif %}
+                                <div class="card-body">
+                                    <h5 class="card-title text-dark fw-normal">{{ item.name }}</h5>
+                                    <span class="fw-bold fs-5 text-primary">S/.{{ item.price }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    {% empty %}
+                        <p class="fs-5 w-100">No menu items available in this category.</p>
+                    {% endfor %}
+                </div>
+            </div>
         </div>
     </section>
 {% endblock content %}

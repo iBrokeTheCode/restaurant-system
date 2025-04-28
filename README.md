@@ -169,6 +169,9 @@ py manage.py graph_models menu orders tables sales expenses > models.dot
 
 **Tasks:**
 
+- [ ] Add image field for menu_items
+- [ ] Review DB structure
+
 - Write custom queries using:
   - `annotate()`, `aggregate()`, `F`, `Q`, `Case`, `When`
 - Optimize views with:
