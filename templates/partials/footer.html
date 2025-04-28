@@ -5,38 +5,44 @@
                 <h5>Address</h5>
                 <div>
                     <i class="fa-solid fa-location-dot"></i>
-                    Urb. J.L.B. y R.
-                    <br>
-                    Cerro Colorado
+                    {{ business_info.address|default:"Your address"|linebreaksbr }}
                 </div>
             </div>
             <div class="col-md-3">
                 <h5>Contact</h5>
                 <p>
-                    <i class="fa-solid fa-phone"></i> 988142414
+                    <i class="fa-solid fa-phone"></i> {{ business_info.phone|default:"999 999 999" }}
                     <br>
-                    <i class="fa-regular fa-envelope"></i> contact@restaurant.com
+                    {% if business_info.email %}
+                        <i class="fa-regular fa-envelope"></i> {{ business_info.email|default:"email@restaurant.com" }}
+                    {% endif %}
                 </p>
             </div>
             <div class="col-md-3">
                 <h5>Opening Hours</h5>
                 <p>
-                    <i class="fa-regular fa-clock"></i> Mon - Sat
+                    <i class="fa-regular fa-clock"></i> {{ business_info.opening_days|default:"All week" }}
                     <br>
-                    5:30 AM - 10:30 AM
+                    {{ business_info.opening_hours|default:"All day" }}
                 </p>
             </div>
             <div class="col-md-3">
                 <h5>Follow Us</h5>
-                <a href="#" class="fs-4"><i class="fab fa-facebook"></i></a>
-                <a href="#" class="mx-3 fs-4"><i class="fab fa-instagram"></i></a>
-                <a href="#" class="fs-4"><i class="fab fa-tiktok"></i></a>
+                <a href="{{ business_info.facebook_link|default:'https://facebook.com' }}"
+                   target="_blank"
+                   class="fs-4"><i class="fab fa-facebook"></i></a>
+                <a href="{{ business_info.instagram_link|default:'https://instagram.com' }}"
+                   target="_blank"
+                   class="mx-3 fs-4"><i class="fab fa-instagram"></i></a>
+                <a href="{{ business_info.tiktok_link|default:'https://tiktok.com' }}"
+                   target="_blank"
+                   class="fs-4"><i class="fab fa-tiktok"></i></a>
             </div>
         </div>
         <hr class="mb-4">
         <div class="row text-center">
             <p class="fw-bold">
-                Mikuna Wasi with ❤️ in Arequipa - <script>document.write(new Date().getFullYear())</script>
+                <script>document.write(new Date().getFullYear())</script> - With ❤️ {{ business_info.name|default:"The Restaurant"|title }}
             </p>
         </div>
     </div>
