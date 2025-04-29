@@ -31,7 +31,7 @@ def home(request):
 def day_menu_view(request):
     today = timezone.now().date()
     category_name = request.GET.get('category', 'Entrees')
-    menu_items = []
+    day_menu_items = []
     active_category = 'Entrees'
 
     try:
@@ -42,11 +42,13 @@ def day_menu_view(request):
 
     try:
         daily_menu = DailyMenu.objects.get(date=today)
-        menu_items = daily_menu.menu_items.filter(category__name=category_name)
+        day_menu_items = daily_menu.daily_items.filter(  # type: ignore
+            menu_item__category__name=category_name
+        )
     except DailyMenu.DoesNotExist:
         pass
 
-    context = {'menu_items': menu_items, 'active_category': active_category}
+    context = {'menu_items': day_menu_items, 'active_category': active_category}
 
     return render(request, 'core/day_menu.html', context)
 

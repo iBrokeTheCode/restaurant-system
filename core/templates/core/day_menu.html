@@ -31,7 +31,7 @@
                         <div class="col">
                             <div class="card h-100 shadow-sm">
                                 {% if item.image %}
-                                    <img src="{% static 'images/default.webp' %}"
+                                    <img src="{{ item.menu_item.image.url }}"
                                          class="card-img-top"
                                          alt="{{ item.name }} "
                                          width=""
@@ -44,8 +44,15 @@
                                          height="">
                                 {% endif %}
                                 <div class="card-body">
-                                    <h5 class="card-title text-dark fw-normal">{{ item.name }}</h5>
-                                    <span class="fw-bold fs-5 text-primary">S/.{{ item.price }}</span>
+                                    <h5 class="card-title text-dark fw-normal">{{ item.menu_item.name }}</h5>
+                                    <div class="d-flex justify-content-center align-items-center gap-2">
+                                        <span class="fw-bold fs-5 text-primary">S/.{{ item.menu_item.price }}</span>-
+                                        {% if item.remaining_stock > 0 %}
+                                            <span class="badge bg-success">{{ item.remaining_stock }} left</span>
+                                        {% else %}
+                                            <span class="badge bg-danger">Sold out</span>
+                                        {% endif %}
+                                    </div>
                                 </div>
                             </div>
                         </div>
