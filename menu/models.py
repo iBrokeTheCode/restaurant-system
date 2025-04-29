@@ -22,7 +22,7 @@ class MenuItem(models.Model):
     category = models.ForeignKey(
         MenuCategory, on_delete=models.CASCADE, related_name='items'
     )
-    is_available = models.BooleanField(default=True)
+    image = models.ImageField(upload_to='menu/', blank=True, null=True)
 
     class Meta:
         verbose_name = 'Menu Item'
@@ -41,7 +41,9 @@ class MenuItem(models.Model):
 
 class DailyMenu(models.Model):
     date = models.DateField(unique=True)
-    menu_items = models.ManyToManyField(MenuItem, related_name='daily_menus')
+    menu_items = models.ManyToManyField(
+        MenuItem, through='DailyMenuItem', related_name='daily_menus'
+    )
 
     class Meta:
         verbose_name = 'Daily Menu'
@@ -50,3 +52,29 @@ class DailyMenu(models.Model):
 
     def __str__(self) -> str:
         return f'Menu for {self.date}'
+
+
+class DailyMenuItem(models.Model):
+    daily_menu = models.ForeignKey(
+        DailyMenu, on_delete=models.CASCADE, related_name='daily_items'
+    )
+    menu_item = models.ForeignKey(MenuItem, on_delete=models.CASCADE)
+    stock = models.PositiveSmallIntegerField(default=0)
+    is_available = models.BooleanField(default=True)
+
+    @property
+    def sold_quantity(self):
+        return sum(item.quantity for item in self.order_items.all())  # type: ignore
+
+    @property
+    def remaining_stock(self):
+        return self.stock - self.sold_quantity
+
+    class Meta:
+        verbose_name = 'Daily Menu Item'
+        verbose_name_plural = 'Daily Menu Items'
+        unique_together = ('daily_menu', 'menu_item')
+        ordering = ('stock', 'menu_item__name')
+
+    def __str__(self):
+        return f'{self.menu_item.name} for {self.daily_menu.date}'
