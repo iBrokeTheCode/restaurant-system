@@ -6,6 +6,7 @@ from django.shortcuts import redirect, render
 from django.utils import timezone
 
 from menu.models import DailyMenu, MenuCategory
+from tables.models import Table
 
 
 class CustomLoginView(LoginView):
@@ -59,7 +60,11 @@ def day_menu_view(request):
 
 
 def tables_status_view(request):
-    return render(request, 'core/tables_status.html')
+    context = {
+        'tables': Table.objects.all().order_by('table_number'),
+        'last_update': timezone.now(),
+    }
+    return render(request, 'core/tables_status.html', context)
 
 
 @login_required()
