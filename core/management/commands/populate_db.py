@@ -2,6 +2,8 @@ from django.core.management.base import BaseCommand
 from django.utils import timezone
 
 from menu.models import DailyMenu, DailyMenuItem, MenuCategory, MenuItem
+from orders.models import Order
+from sales.models import Sale
 from tables.models import Table
 
 
@@ -15,6 +17,8 @@ class Command(BaseCommand):
         DailyMenu.objects.all().delete()
         DailyMenuItem.objects.all().delete()
         Table.objects.all().delete()
+        Order.objects.all().delete()
+        Sale.objects.all().delete()
 
         # Categories
         categories = ['Entrees', 'Main Course', 'Desserts', 'Drinks']
