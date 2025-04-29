@@ -16,7 +16,7 @@ from orders.models import Order, OrderItem
 OrderItemFormSet = inlineformset_factory(
     parent_model=Order,
     model=OrderItem,
-    fields=('menu_item', 'quantity', 'unit_price', 'note'),
+    fields=('daily_menu_item', 'quantity', 'unit_price', 'note'),
     extra=1,
     can_delete=True,
 )
