@@ -30,6 +30,7 @@ def home(request):
 
 def day_menu_view(request):
     today = timezone.now().date()
+    categories = MenuCategory.objects.all()
     category_name = request.GET.get('category', 'Entrees')
     day_menu_items = []
     active_category = 'Entrees'
@@ -48,7 +49,11 @@ def day_menu_view(request):
     except DailyMenu.DoesNotExist:
         pass
 
-    context = {'menu_items': day_menu_items, 'active_category': active_category}
+    context = {
+        'active_category': active_category,
+        'categories': categories,
+        'menu_items': day_menu_items,
+    }
 
     return render(request, 'core/day_menu.html', context)
 

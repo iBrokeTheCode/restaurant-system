@@ -8,6 +8,7 @@ class MenuCategory(models.Model):
 
     class Meta:
         verbose_name_plural = 'Menu Categories'
+        ordering = ('name',)
 
     def __str__(self) -> str:
         return self.name

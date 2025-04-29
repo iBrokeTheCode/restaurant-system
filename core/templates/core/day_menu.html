@@ -11,18 +11,12 @@
                 <div class="row justify-content-center mb-4">
                     <div class="col-md-8 text-center">
                         <ul class="nav nav-underline justify-content-center gap-5 fw-bold">
-                            <li class="nav-item">
-                                <a class="nav-link {% if active_category == 'Entrees' %}active{% endif %}"
-                                   href="{% url 'core:day-menu' %}?category=Entrees">Entrees</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link {% if active_category == 'Soups' %}active{% endif %}"
-                                   href="{% url 'core:day-menu' %}?category=Soups">Soups</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link {% if active_category == 'Specials' %}active{% endif %}"
-                                   href="{% url 'core:day-menu' %}?category=Specials">Specials</a>
-                            </li>
+                            {% for category in categories %}
+                                <li class="nav-item">
+                                    <a class="nav-link {% if active_category == category.name %}active{% endif %}"
+                                       href="{% url 'core:day-menu' %}?category={{ category.name }}">{{ category.name }}</a>
+                                </li>
+                            {% endfor %}
                         </ul>
                     </div>
                 </div>
