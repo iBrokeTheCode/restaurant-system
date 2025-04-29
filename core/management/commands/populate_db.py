@@ -1,6 +1,7 @@
 from django.core.management.base import BaseCommand
 from django.utils import timezone
 
+from core.models import BusinessInfo
 from menu.models import DailyMenu, DailyMenuItem, MenuCategory, MenuItem
 from orders.models import Order
 from sales.models import Sale
@@ -19,6 +20,19 @@ class Command(BaseCommand):
         Table.objects.all().delete()
         Order.objects.all().delete()
         Sale.objects.all().delete()
+
+        # Restaurant Info
+        BusinessInfo.objects.create(
+            name='Mikuna Wasi',
+            address='Urb. JLByR \n Cerro Colorado',
+            phone='988142414',
+            email='contact@gmail.com',
+            opening_days='Monday - Saturday',
+            opening_hours='5:30AM - 11:00AM',
+            facebook_link='https://facebook.com',
+            instagram_link='https://instagram.com',
+            tiktok_link='https://tiktok.com',
+        )
 
         # Categories
         categories = ['Entrees', 'Main Course', 'Desserts', 'Drinks']
