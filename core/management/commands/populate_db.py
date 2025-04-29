@@ -20,11 +20,12 @@ class Command(BaseCommand):
         Table.objects.all().delete()
         Order.objects.all().delete()
         Sale.objects.all().delete()
+        BusinessInfo.objects.all().delete()
 
         # Restaurant Info
         BusinessInfo.objects.create(
             name='Mikuna Wasi',
-            address='Urb. JLByR \n Cerro Colorado',
+            address='Urb. J.L. Bustamante y Rivero   \n Cerro Colorado',
             phone='988142414',
             email='contact@gmail.com',
             opening_days='Monday - Saturday',
@@ -35,7 +36,7 @@ class Command(BaseCommand):
         )
 
         # Categories
-        categories = ['Entrees', 'Main Course', 'Desserts', 'Drinks']
+        categories = ['Entrees', 'Main Course', 'Soups']
         category_objs = {}
 
         for name in categories:
@@ -49,8 +50,8 @@ class Command(BaseCommand):
             ('Caesar Salad', 'Entrees', 6.49),
             ('Grilled Chicken', 'Main Course', 12.99),
             ('Pasta Alfredo', 'Main Course', 11.99),
-            ('Chocolate Cake', 'Desserts', 4.99),
-            ('Lemonade', 'Drinks', 2.49),
+            ('Grilled Steak', 'Main Course', 15.99),
+            ('Chicken Soup', 'Soups', 4.99),
         ]
         item_objs = []
 
