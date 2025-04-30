@@ -4,26 +4,30 @@
     Sales
 {% endblock title %}
 {% block content %}
-    <h1>Sales</h1>
-    <a href="{% url 'sales:sale-create' %}" class="btn btn-primary mb-3">Create Sale</a>
-    <ul class="list-group">
-        {% for sale in sales %}
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-                <div>
-                    <strong>Order:</strong> {{ sale.order }} |
-                    <strong>Amount:</strong> S/.{{ sale.amount }}
-                </div>
-                <div>
-                    <a href="{% url "sales:sale-detail" pk=sale.pk %}"
-                       class="btn btn-outline-secondary btn-sm">Detail</a>
-                    <a href="{% url "sales:sale-update" pk=sale.pk %}?next={{ request.path }}"
-                       class="btn btn-outline-primary btn-sm">Edit</a>
-                    <a href="{% url "sales:sale-delete" pk=sale.pk %}?next={{ request.path }}"
-                       class="btn btn-outline-danger btn-sm">Delete</a>
-                </div>
-            </li>
-        {% empty %}
-            <li class="list-group-item">No sales recorded yet.</li>
-        {% endfor %}
-    </ul>
+    <section class="w-100 min-vh-100 mt-navbar">
+        <div class="container py-5 text-center">
+            <h1>Sales</h1>
+            <a href="{% url 'sales:sale-create' %}" class="btn btn-primary mb-3">Create Sale</a>
+            <ul class="list-group">
+                {% for sale in sales %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <div>
+                            <strong>Order:</strong> {{ sale.order }} |
+                            <strong>Amount:</strong> S/.{{ sale.amount }}
+                        </div>
+                        <div>
+                            <a href="{% url "sales:sale-detail" pk=sale.pk %}"
+                               class="btn btn-outline-secondary btn-sm">Detail</a>
+                            <a href="{% url "sales:sale-update" pk=sale.pk %}?next={{ request.path }}"
+                               class="btn btn-outline-primary btn-sm">Edit</a>
+                            <a href="{% url "sales:sale-delete" pk=sale.pk %}?next={{ request.path }}"
+                               class="btn btn-outline-danger btn-sm">Delete</a>
+                        </div>
+                    </li>
+                {% empty %}
+                    <li class="list-group-item">No sales recorded yet.</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </section>
 {% endblock content %}

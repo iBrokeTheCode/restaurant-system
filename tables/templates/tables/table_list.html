@@ -3,33 +3,37 @@
     Tables
 {% endblock title %}
 {% block content %}
-    <h2>Table List</h2>
-    <a href="{% url "tables:table-create" %}" class="btn btn-primary mb-3">Add New Table</a>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>#</th>
-                <th>Seats</th>
-                <th>Status</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for table in object_list %}
-                <tr>
-                    <td>{{ table.table_number }}</td>
-                    <td>{{ table.seats }}</td>
-                    <td>{{ table.get_status_display }}</td>
-                    <td>
-                        <a href="{% url "tables:table-detail" pk=table.pk %}"
-                           class="btn btn-sm btn-outline-secondary">View</a>
-                        <a href="{% url "tables:table-update" pk=table.pk %}"
-                           class="btn btn-sm btn-outline-primary">Edit</a>
-                        <a href="{% url "tables:table-delete" pk=table.pk %}"
-                           class="btn btn-sm btn-outline-danger">Delete</a>
-                    </td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <section class="w-100 min-vh-100 mt-navbar">
+        <div class="container py-5 text-center">
+            <h2>Table List</h2>
+            <a href="{% url "tables:table-create" %}" class="btn btn-primary mb-3">Add New Table</a>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Seats</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for table in object_list %}
+                        <tr>
+                            <td>{{ table.table_number }}</td>
+                            <td>{{ table.seats }}</td>
+                            <td>{{ table.get_status_display }}</td>
+                            <td>
+                                <a href="{% url "tables:table-detail" pk=table.pk %}"
+                                   class="btn btn-sm btn-outline-secondary">View</a>
+                                <a href="{% url "tables:table-update" pk=table.pk %}"
+                                   class="btn btn-sm btn-outline-primary">Edit</a>
+                                <a href="{% url "tables:table-delete" pk=table.pk %}"
+                                   class="btn btn-sm btn-outline-danger">Delete</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
 {% endblock content %}

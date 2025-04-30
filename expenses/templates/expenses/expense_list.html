@@ -3,16 +3,20 @@
     Expenses
 {% endblock title %}
 {% block content %}
-    <h1 class="text-xl font-bold mb-4">Expenses</h1>
-    <a href="{% url "expenses:expense-create" %}"
-       class="btn btn-primary mb-4">Add Expense</a>
-    <ul>
-        {% for expense in expenses %}
-            <li class="mb-2">
-                <a href="{% url "expenses:expense-detail" pk=expense.pk %}">{{ expense.description }} - ${{ expense.amount }}</a>
-            </li>
-        {% empty %}
-            <li>No expenses yet.</li>
-        {% endfor %}
-    </ul>
+    <section class="w-100 min-vh-100 mt-navbar">
+        <div class="container py-5 text-center">
+            <h1 class="text-xl font-bold mb-4">Expenses</h1>
+            <a href="{% url "expenses:expense-create" %}"
+               class="btn btn-primary mb-4">Add Expense</a>
+            <ul>
+                {% for expense in expenses %}
+                    <li class="mb-2">
+                        <a href="{% url "expenses:expense-detail" pk=expense.pk %}">{{ expense.description }} - ${{ expense.amount }}</a>
+                    </li>
+                {% empty %}
+                    <p>No expenses yet.</p>
+                {% endfor %}
+            </ul>
+        </div>
+    </section>
 {% endblock content %}
