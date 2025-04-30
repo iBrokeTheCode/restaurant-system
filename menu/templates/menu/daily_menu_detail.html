@@ -16,6 +16,8 @@
                         <br>
                         <strong>Sold: &nbsp;</strong>{{ item.sold_quantity }} of {{ item.stock }}
                     </li>
+                {% empty %}
+                    <p>No Daily Menu Items added yet!</p>
                 {% endfor %}
             </ul>
             <a href="?next={{ request.path }}" class="btn btn-primary">Edit</a>

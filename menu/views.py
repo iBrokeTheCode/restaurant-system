@@ -9,6 +9,7 @@ from django.views.generic import (
     UpdateView,
 )
 
+from menu.forms import DailyMenuForm
 from menu.models import DailyMenu, MenuCategory, MenuItem
 
 # ================================================================
@@ -150,6 +151,20 @@ class DailyMenuDetailView(LoginRequiredMixin, DetailView):
     model = DailyMenu
     template_name = 'menu/daily_menu_detail.html'
     context_object_name = 'daily_menu'
+
+
+class DailyMenuCreateView(LoginRequiredMixin, CreateView):
+    model = DailyMenu
+    form_class = DailyMenuForm
+    template_name = 'menu/daily_menu_form.html'
+    context_object_name = 'daily_menu'
+    success_url = reverse_lazy('menu:daily-menu-list')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['next'] = self.request.GET.get('next', self.success_url)
+
+        return context
 
 
 class DailyMenuDeleteView(LoginRequiredMixin, DeleteView):

@@ -1,6 +1,7 @@
 from django.urls import path
 
 from menu.views import (
+    DailyMenuCreateView,
     DailyMenuDeleteView,
     DailyMenuDetailView,
     DailyMenuListView,
@@ -45,6 +46,7 @@ urlpatterns = [
     path(
         'daily-menu/<int:pk>/', DailyMenuDetailView.as_view(), name='daily-menu-detail'
     ),
+    path('daily-menu/create/', DailyMenuCreateView.as_view(), name='daily-menu-create'),
     path(
         'daily-menu/<int:pk>/delete',
         DailyMenuDeleteView.as_view(),

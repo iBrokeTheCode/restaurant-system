@@ -10,7 +10,8 @@
             {% include "partials/alert_messages.html" %}
             <!-- Alert Messages END -->
             <h1 class="mb-4">Menu</h1>
-            <a class="btn btn-primary mb-3" href="">Add New Daily Menu</a>
+            <a class="btn btn-primary mb-3"
+               href="{% url "menu:daily-menu-create" %}">Add New Daily Menu</a>
             <table class="table table-bordered">
                 <thead>
                     <tr>
