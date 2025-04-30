@@ -26,7 +26,7 @@ class MenuItemDetailView(LoginRequiredMixin, DetailView):
 
 class MenuItemCreateView(LoginRequiredMixin, CreateView):
     model = MenuItem
-    fields = ('name', 'description', 'price', 'category')
+    fields = ('name', 'description', 'price', 'category', 'image')
     template_name = 'menu/menu_item_form.html'
     success_url = reverse_lazy('menu:menu-item-list')
     context_object_name = 'menu_item'  # Default: view.object
@@ -43,7 +43,7 @@ class MenuItemCreateView(LoginRequiredMixin, CreateView):
 
 class MenuItemUpdateView(LoginRequiredMixin, UpdateView):
     model = MenuItem
-    fields = ('name', 'description', 'price', 'category')
+    fields = ('name', 'description', 'price', 'category', 'image')
     template_name = 'menu/menu_item_form.html'
     success_url = reverse_lazy('menu:menu-item-list')
     context_object_name = 'menu_item'  # Default: view.object
