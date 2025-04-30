@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.forms.models import inlineformset_factory
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import (
     CreateView,
@@ -179,6 +180,21 @@ class DailyMenuCreateView(LoginRequiredMixin, CreateView):
             context['formset'] = DailyMenuItemFormSet()
 
         return context
+
+    def form_valid(self, form):
+        context = self.get_context_data()
+        formset = context['formset']
+
+        if formset.is_valid():
+            self.object = form.save()
+            formset.instance = self.object
+            formset.save()
+            messages.success(self.request, 'Daily Menu created successfully!')
+
+            return redirect(self.success_url)
+        else:
+            messages.error(self.request, 'Invalid form. Try again!')
+            return self.render_to_response(self.get_context_data(form=form))
 
 
 class DailyMenuDeleteView(LoginRequiredMixin, DeleteView):
