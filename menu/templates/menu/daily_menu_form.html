@@ -15,6 +15,9 @@
       <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form|crispy }}
+        <h4>Items</h4>
+        {{ formset.management_form }}
+        {% for form in formset %}<div class="card p-3 mb-2">{{ form|crispy }}</div>{% endfor %}
         <button type="submit" class="btn btn-primary">Save</button>
         <a class="btn btn-outline-secondary" href="{{ next }}">Cancel</a>
       </form>

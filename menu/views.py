@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.forms.models import inlineformset_factory
 from django.urls import reverse_lazy
 from django.views.generic import (
     CreateView,
@@ -10,7 +11,7 @@ from django.views.generic import (
 )
 
 from menu.forms import DailyMenuForm
-from menu.models import DailyMenu, MenuCategory, MenuItem
+from menu.models import DailyMenu, DailyMenuItem, MenuCategory, MenuItem
 
 # ================================================================
 #                           MENU ITEM
@@ -140,6 +141,14 @@ class MenuCategoryDeleteView(LoginRequiredMixin, DeleteView):
 #                           DAILY MENU
 # ================================================================
 
+DailyMenuItemFormSet = inlineformset_factory(
+    parent_model=DailyMenu,
+    model=DailyMenuItem,
+    fields=('menu_item', 'stock', 'is_available'),
+    extra=1,
+    can_delete=True,
+)
+
 
 class DailyMenuListView(LoginRequiredMixin, ListView):
     model = DailyMenu
@@ -163,6 +172,11 @@ class DailyMenuCreateView(LoginRequiredMixin, CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['next'] = self.request.GET.get('next', self.success_url)
+
+        if self.request.POST:
+            context['formset'] = DailyMenuItemFormSet(self.request.POST)
+        else:
+            context['formset'] = DailyMenuItemFormSet()
 
         return context
 
