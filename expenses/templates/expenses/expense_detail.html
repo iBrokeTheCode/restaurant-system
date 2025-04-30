@@ -10,11 +10,6 @@
             <!-- Alert Messages END -->
             <h1 class="text-xl font-bold mb-2">{{ expense.description }}</h1>
             <ul class="list-group mb-3">
-                {% if expense.description %}
-                    <li class="list-group-item">
-                        <strong>Description:</strong> {{ expense.description }}
-                    </li>
-                {% endif %}
                 <li class="list-group-item">
                     <strong>Amount:</strong> S/.{{ expense.amount }}
                 </li>
