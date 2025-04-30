@@ -18,7 +18,8 @@
                 </li>
             </ul>
             <a href="?next={{ request.path }}" class="btn btn-primary">Edit</a>
-            <a href="?next={{ request.path }}" class="btn btn-danger">Delete</a>
+            <a href="{% url "menu:daily-menu-item-delete" pk=daily_menu_item.pk %}?next={{ request.path }}"
+               class="btn btn-danger">Delete</a>
             <a href="{% url "menu:daily-menu-item-list" %}"
                class="btn btn-outline-secondary">Back</a>
         </div>
