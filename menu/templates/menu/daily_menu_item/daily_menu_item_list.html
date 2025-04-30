@@ -27,7 +27,8 @@
                             <td>S/. {{ item.menu_item }}</td>
                             <td>{{ item.stock }}</td>
                             <td>
-                                <a class="btn btn-sm btn-outline-secondary" href="">View</a>
+                                <a class="btn btn-sm btn-outline-secondary"
+                                   href="{% url "menu:daily-menu-item-detail" pk=item.pk %}">View</a>
                                 <a class="btn btn-sm btn-outline-primary" href="">Edit</a>
                                 <a class="btn btn-sm btn-outline-danger" href="">Delete</a>
                             </td>

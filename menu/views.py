@@ -263,7 +263,25 @@ class DailyMenuDeleteView(LoginRequiredMixin, DeleteView):
 # ================================================================
 
 
-class DailyMenuItemListView(ListView):
+class DailyMenuItemListView(LoginRequiredMixin, ListView):
     model = DailyMenuItem
     template_name = 'menu/daily_menu_item/daily_menu_item_list.html'
     context_object_name = 'daily_menu_items'
+
+
+class DailyMenuItemDetailView(LoginRequiredMixin, DetailView):
+    model = DailyMenuItem
+    template_name = 'menu/daily_menu_item/daily_menu_item_detail.html'
+    context_object_name = 'daily_menu_item'
+
+
+class DailyMenuItemCreateView(LoginRequiredMixin, CreateView):
+    pass
+
+
+class DailyMenuItemUpdateView(LoginRequiredMixin, UpdateView):
+    pass
+
+
+class DailyMenuItemDeleteView(LoginRequiredMixin, DeleteView):
+    pass

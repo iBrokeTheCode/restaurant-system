@@ -4,7 +4,11 @@ from menu.views import (
     DailyMenuCreateView,
     DailyMenuDeleteView,
     DailyMenuDetailView,
+    DailyMenuItemCreateView,
+    DailyMenuItemDeleteView,
+    DailyMenuItemDetailView,
     DailyMenuItemListView,
+    DailyMenuItemUpdateView,
     DailyMenuListView,
     DailyMenuUpdateView,
     MenuCategoryCreateView,
@@ -63,5 +67,25 @@ urlpatterns = [
     # Daily Menu Item URLs
     path(
         'daily-menu-item/', DailyMenuItemListView.as_view(), name='daily-menu-item-list'
+    ),
+    path(
+        'daily-menu-item/<int:pk>/',
+        DailyMenuItemDetailView.as_view(),
+        name='daily-menu-item-detail',
+    ),
+    path(
+        'daily-menu-item/create/',
+        DailyMenuItemCreateView.as_view(),
+        name='daily-menu-item-create',
+    ),
+    path(
+        'daily-menu-item/<int:pk>/update/',
+        DailyMenuItemUpdateView.as_view(),
+        name='daily-menu-item-update',
+    ),
+    path(
+        'daily-menu-item/<int:pk>/delete',
+        DailyMenuItemDeleteView.as_view(),
+        name='daily-menu-item-delete',
     ),
 ]
