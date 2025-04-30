@@ -6,6 +6,9 @@
 {% block content %}
     <section class="w-100 min-vh-100 mt-navbar">
         <div class="container py-5">
+            <!-- Alert Messages START -->
+            {% include "partials/alert_messages.html" %}
+            <!-- Alert Messages END -->
             <h1>Sales</h1>
             <a href="{% url 'sales:sale-create' %}" class="btn btn-primary mb-3">Create Sale</a>
             <ul class="list-group">

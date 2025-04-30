@@ -5,6 +5,9 @@
 {% block content %}
     <section class="w-100 min-vh-100 mt-navbar">
         <div class="container py-5">
+            <!-- Alert Messages START -->
+            {% include "partials/alert_messages.html" %}
+            <!-- Alert Messages END -->
             <h2>Table #{{ table.table_number }}</h2>
             <ul class="list-group mb-3">
                 <li class="list-group-item">
