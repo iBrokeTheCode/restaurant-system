@@ -21,20 +21,20 @@ from menu.models import DailyMenu, DailyMenuItem, MenuCategory, MenuItem
 
 class MenuItemListView(LoginRequiredMixin, ListView):
     model = MenuItem
-    template_name = 'menu/menu_item_list.html'
+    template_name = 'menu/menu_item/menu_item_list.html'
     context_object_name = 'menu_items'  # Default: menuitem_list
 
 
 class MenuItemDetailView(LoginRequiredMixin, DetailView):
     model = MenuItem
-    template_name = 'menu/menu_item_detail.html'
+    template_name = 'menu/menu_item/menu_item_detail.html'
     context_object_name = 'menu_item'  # Default: object
 
 
 class MenuItemCreateView(LoginRequiredMixin, CreateView):
     model = MenuItem
     fields = ('name', 'description', 'price', 'category', 'image')
-    template_name = 'menu/menu_item_form.html'
+    template_name = 'menu/menu_item/menu_item_form.html'
     success_url = reverse_lazy('menu:menu-item-list')
     context_object_name = 'menu_item'  # Default: view.object
 
@@ -51,7 +51,7 @@ class MenuItemCreateView(LoginRequiredMixin, CreateView):
 class MenuItemUpdateView(LoginRequiredMixin, UpdateView):
     model = MenuItem
     fields = ('name', 'description', 'price', 'category', 'image')
-    template_name = 'menu/menu_item_form.html'
+    template_name = 'menu/menu_item/menu_item_form.html'
     success_url = reverse_lazy('menu:menu-item-list')
     context_object_name = 'menu_item'  # Default: view.object
 
@@ -71,7 +71,7 @@ class MenuItemUpdateView(LoginRequiredMixin, UpdateView):
 
 class MenuItemDeleteView(LoginRequiredMixin, DeleteView):
     model = MenuItem
-    template_name = 'menu/menu_item_confirm_delete.html'
+    template_name = 'menu/menu_item/menu_item_confirm_delete.html'
     success_url = reverse_lazy('menu:menu-item-list')
     context_object_name = 'menu_item'
 
@@ -96,14 +96,14 @@ class MenuItemDeleteView(LoginRequiredMixin, DeleteView):
 
 class MenuCategoryListView(LoginRequiredMixin, ListView):
     model = MenuCategory
-    template_name = 'menu/menu_category_list.html'
+    template_name = 'menu/menu_category/menu_category_list.html'
     context_object_name = 'menu_categories'
 
 
 class MenuCategoryCreateView(LoginRequiredMixin, CreateView):
     model = MenuCategory
     fields = ('name',)
-    template_name = 'menu/menu_category_form.html'
+    template_name = 'menu/menu_category/menu_category_form.html'
     success_url = reverse_lazy('menu:menu-category-list')
     context_object_name = 'menu_category'
 
@@ -115,7 +115,7 @@ class MenuCategoryCreateView(LoginRequiredMixin, CreateView):
 class MenuCategoryUpdateView(LoginRequiredMixin, UpdateView):
     model = MenuCategory
     fields = ('name',)
-    template_name = 'menu/menu_category_form.html'
+    template_name = 'menu/menu_category/menu_category_form.html'
     success_url = reverse_lazy('menu:menu-category-list')
     context_object_name = 'menu_category'
 
@@ -126,7 +126,7 @@ class MenuCategoryUpdateView(LoginRequiredMixin, UpdateView):
 
 class MenuCategoryDeleteView(LoginRequiredMixin, DeleteView):
     model = MenuCategory
-    template_name = 'menu/menu_category_confirm_delete.html'
+    template_name = 'menu/menu_category/menu_category_confirm_delete.html'
     success_url = reverse_lazy('menu:menu-category-list')
     context_object_name = 'menu_category'
 
@@ -153,20 +153,20 @@ DailyMenuItemFormSet = inlineformset_factory(
 
 class DailyMenuListView(LoginRequiredMixin, ListView):
     model = DailyMenu
-    template_name = 'menu/daily_menu_list.html'
+    template_name = 'menu/daily_menu/daily_menu_list.html'
     context_object_name = 'daily_menu'
 
 
 class DailyMenuDetailView(LoginRequiredMixin, DetailView):
     model = DailyMenu
-    template_name = 'menu/daily_menu_detail.html'
+    template_name = 'menu/daily_menu/daily_menu_detail.html'
     context_object_name = 'daily_menu'
 
 
 class DailyMenuCreateView(LoginRequiredMixin, CreateView):
     model = DailyMenu
     form_class = DailyMenuForm
-    template_name = 'menu/daily_menu_form.html'
+    template_name = 'menu/daily_menu/daily_menu_form.html'
     context_object_name = 'daily_menu'
     success_url = reverse_lazy('menu:daily-menu-list')
 
@@ -200,7 +200,7 @@ class DailyMenuCreateView(LoginRequiredMixin, CreateView):
 class DailyMenuUpdateView(LoginRequiredMixin, UpdateView):
     model = DailyMenu
     form_class = DailyMenuForm
-    template_name = 'menu/daily_menu_form.html'
+    template_name = 'menu/daily_menu/daily_menu_form.html'
     context_object_name = 'daily_menu'
     success_url = reverse_lazy('menu:daily-menu-list')
 
@@ -240,7 +240,7 @@ class DailyMenuUpdateView(LoginRequiredMixin, UpdateView):
 
 class DailyMenuDeleteView(LoginRequiredMixin, DeleteView):
     model = DailyMenu
-    template_name = 'menu/daily_menu_confirm_delete.html'
+    template_name = 'menu/daily_menu/daily_menu_confirm_delete.html'
     success_url = reverse_lazy('menu:daily-menu-list')
     context_object_name = 'daily_menu'
 
