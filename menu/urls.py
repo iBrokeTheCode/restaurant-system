@@ -1,6 +1,7 @@
 from django.urls import path
 
 from menu.views import (
+    DailyMenuListView,
     MenuCategoryCreateView,
     MenuCategoryDeleteView,
     MenuCategoryListView,
@@ -37,4 +38,5 @@ urlpatterns = [
         MenuCategoryDeleteView.as_view(),
         name='menu-category-delete',
     ),
+    path('daily-menu/', DailyMenuListView.as_view(), name='daily-menu-list'),
 ]

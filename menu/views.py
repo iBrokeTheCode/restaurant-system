@@ -9,7 +9,11 @@ from django.views.generic import (
     UpdateView,
 )
 
-from menu.models import MenuCategory, MenuItem
+from menu.models import DailyMenu, MenuCategory, MenuItem
+
+# ================================================================
+#                           MENU ITEM
+# ================================================================
 
 
 class MenuItemListView(LoginRequiredMixin, ListView):
@@ -82,6 +86,11 @@ class MenuItemDeleteView(LoginRequiredMixin, DeleteView):
         return self.delete(request, *args, **kwargs)
 
 
+# ================================================================
+#                           CATEGORIES
+# ================================================================
+
+
 class MenuCategoryListView(LoginRequiredMixin, ListView):
     model = MenuCategory
     template_name = 'menu/menu_category_list.html'
@@ -124,3 +133,19 @@ class MenuCategoryDeleteView(LoginRequiredMixin, DeleteView):
 
     def post(self, request, *args, **kwargs):
         return self.delete(request, *args, **kwargs)
+
+
+# ================================================================
+#                           DAILY MENU
+# ================================================================
+
+
+class DailyMenuListView(ListView):
+    model = DailyMenu
+    template_name = 'menu/daily_menu_list.html'
+    context_object_name = 'daily_menu'
+
+
+# ================================================================
+#                       DAILY MENU ITEM
+# ================================================================
