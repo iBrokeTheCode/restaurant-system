@@ -174,6 +174,7 @@ py manage.py graph_models menu orders tables sales expenses > models.dot
 
 - [ ] Unique Menu Item (names)
 - [ ] Unique Daily Menu Items (no repetitive items with same name) ~Seems ok
+- [ ] Check to add "is_available" in DailyMenuItem (Dynamic to stock)
 
 - Write custom queries using:
   - `annotate()`, `aggregate()`, `F`, `Q`, `Case`, `When`

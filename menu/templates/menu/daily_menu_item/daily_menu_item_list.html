@@ -30,7 +30,8 @@
                             <td>
                                 <a class="btn btn-sm btn-outline-secondary"
                                    href="{% url "menu:daily-menu-item-detail" pk=item.pk %}">View</a>
-                                <a class="btn btn-sm btn-outline-primary" href="">Edit</a>
+                                <a class="btn btn-sm btn-outline-primary"
+                                   href="{% url "menu:daily-menu-item-update" pk=item.pk %}">Edit</a>
                                 <a class="btn btn-sm btn-outline-danger"
                                    href="{% url "menu:daily-menu-item-delete" pk=item.pk %}">Delete</a>
                             </td>

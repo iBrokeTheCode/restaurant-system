@@ -17,7 +17,8 @@
                     <strong>Stock:</strong> {{ daily_menu_item.stock }}
                 </li>
             </ul>
-            <a href="?next={{ request.path }}" class="btn btn-primary">Edit</a>
+            <a href="{% url "menu:daily-menu-item-update" pk=daily_menu_item.pk %}?next={{ request.path }}"
+               class="btn btn-primary">Edit</a>
             <a href="{% url "menu:daily-menu-item-delete" pk=daily_menu_item.pk %}?next={{ request.path }}"
                class="btn btn-danger">Delete</a>
             <a href="{% url "menu:daily-menu-item-list" %}"
