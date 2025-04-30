@@ -3,24 +3,28 @@
     Sale Detail
 {% endblock title %}
 {% block content %}
-    <h1>Sale Detail</h1>
-    <ul class="list-group mb-3">
-        <li class="list-group-item">
-            <strong>Order:</strong> {{ sale.order }}
-        </li>
-        <li class="list-group-item">
-            <strong>Date:</strong> {{ sale.payment_time }}
-        </li>
-        <li class="list-group-item">
-            <strong>Amount:</strong> S/.{{ sale.amount }}
-        </li>
-        <li class="list-group-item">
-            <strong>Payment Method:</strong> {{ sale.get_payment_method_display }}
-        </li>
-    </ul>
-    <a href="{% url "sales:sale-update" pk=sale.pk %}?next={{ request.path }}"
-       class="btn btn-primary">Edit</a>
-    <a href="{% url "sales:sale-delete" pk=sale.pk %}?next={{ request.path }}"
-       class="btn btn-danger">Delete</a>
-    <a href="{% url "sales:sale-list" %}" class="btn btn-outline-secondary">Back</a>
+    <section class="w-100 min-vh-100 mt-navbar">
+        <div class="container py-5">
+            <h1>Sale Detail</h1>
+            <ul class="list-group mb-3">
+                <li class="list-group-item">
+                    <strong>Order:</strong> {{ sale.order }}
+                </li>
+                <li class="list-group-item">
+                    <strong>Date:</strong> {{ sale.payment_time }}
+                </li>
+                <li class="list-group-item">
+                    <strong>Amount:</strong> S/.{{ sale.amount }}
+                </li>
+                <li class="list-group-item">
+                    <strong>Payment Method:</strong> {{ sale.get_payment_method_display }}
+                </li>
+            </ul>
+            <a href="{% url "sales:sale-update" pk=sale.pk %}?next={{ request.path }}"
+               class="btn btn-primary">Edit</a>
+            <a href="{% url "sales:sale-delete" pk=sale.pk %}?next={{ request.path }}"
+               class="btn btn-danger">Delete</a>
+            <a href="{% url "sales:sale-list" %}" class="btn btn-outline-secondary">Back</a>
+        </div>
+    </section>
 {% endblock content %}
