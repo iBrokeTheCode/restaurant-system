@@ -21,7 +21,6 @@ class CustomLoginView(LoginView):
 def logout_view(request):
     if request.user.is_authenticated:
         logout(request)
-        messages.success(request, 'You have been logged out successfully!')
     return redirect('core:home')
 
 
