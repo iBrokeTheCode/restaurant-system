@@ -75,7 +75,7 @@ class DailyMenuItem(models.Model):
         verbose_name = 'Daily Menu Item'
         verbose_name_plural = 'Daily Menu Items'
         unique_together = ('daily_menu', 'menu_item')
-        ordering = ('stock', 'menu_item__name')
+        ordering = ('-daily_menu__date', '-stock', 'menu_item__name')
 
     def __str__(self):
         return f'{self.menu_item.name} for {self.daily_menu.date}'
