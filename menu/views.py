@@ -275,7 +275,20 @@ class DailyMenuItemDetailView(LoginRequiredMixin, DetailView):
 
 
 class DailyMenuItemCreateView(LoginRequiredMixin, CreateView):
-    pass
+    model = DailyMenuItem
+    fields = ('daily_menu', 'menu_item', 'stock', 'is_available')
+    template_name = 'menu/daily_menu_item/daily_menu_item_form.html'
+    success_url = reverse_lazy('menu:daily-menu-item-list')
+    context_object_name = 'daily_menu_item'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['next'] = self.request.GET.get('next', self.success_url)
+        return context
+
+    def form_valid(self, form):
+        messages.success(self.request, 'Daily Menu item created successfully!')
+        return super().form_valid(form)
 
 
 class DailyMenuItemUpdateView(LoginRequiredMixin, UpdateView):
