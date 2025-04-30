@@ -3,14 +3,16 @@
   Confirm Delete
 {% endblock title %}
 {% block content %}
-  <div class="container mt-4">
-    <h2>Delete Menu Category</h2>
-    <p>Are you sure you want to delete "{{ menu_category.name }}"?</p>
-    <form method="post">
-      {% csrf_token %}
-      <button type="submit" class="btn btn-danger">Yes, Delete</button>
-      <a href="{% url "menu:menu-category-list" %}"
-         class="btn btn-outline-secondary">Cancel</a>
-    </form>
-  </div>
+  <section class="w-100 min-vh-100 mt-navbar">
+    <div class="container py-5">
+      <h2>Delete Menu Category</h2>
+      <p>Are you sure you want to delete "{{ menu_category.name }}"?</p>
+      <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Yes, Delete</button>
+        <a href="{% url "menu:menu-category-list" %}"
+           class="btn btn-outline-secondary">Cancel</a>
+      </form>
+    </div>
+  </section>
 {% endblock content %}
