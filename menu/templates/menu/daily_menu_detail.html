@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}
+    Daily Menu Detail
+{% endblock title %}
+{% block content %}
+    <section class="w-100 min-vh-100 mt-navbar">
+        <div class="container py-5">
+            <!-- Alert Messages START -->
+            {% include "partials/alert_messages.html" %}
+            <!-- Alert Messages END -->
+            <h2>Menu for {{ daily_menu.date }}</h2>
+            <ul class="list-group mb-3">
+                {% for item in daily_menu.daily_items.all %}
+                    <li class="list-group-item">
+                        <strong>Name:</strong> {{ item.menu_item.name }}
+                        <br>
+                        <strong>Sold: &nbsp;</strong>{{ item.sold_quantity }} of {{ item.stock }}
+                    </li>
+                {% endfor %}
+            </ul>
+            <a href="?next={{ request.path }}" class="btn btn-primary">Edit</a>
+            <a href="?next={{ request.path }}" class="btn btn-danger">Delete</a>
+            <a href="{% url "menu:daily-menu-list" %}"
+               class="btn btn-outline-secondary">Back</a>
+        </div>
+    </section>
+{% endblock content %}

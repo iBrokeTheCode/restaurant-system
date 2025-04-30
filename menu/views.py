@@ -140,9 +140,15 @@ class MenuCategoryDeleteView(LoginRequiredMixin, DeleteView):
 # ================================================================
 
 
-class DailyMenuListView(ListView):
+class DailyMenuListView(LoginRequiredMixin, ListView):
     model = DailyMenu
     template_name = 'menu/daily_menu_list.html'
+    context_object_name = 'daily_menu'
+
+
+class DailyMenuDetailView(LoginRequiredMixin, DetailView):
+    model = DailyMenu
+    template_name = 'menu/daily_menu_detail.html'
     context_object_name = 'daily_menu'
 
 

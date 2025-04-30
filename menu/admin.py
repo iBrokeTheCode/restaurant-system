@@ -22,7 +22,6 @@ class MenuItemAdmin(admin.ModelAdmin):
 
 @admin.register(DailyMenu)
 class DailyMenuAdmin(admin.ModelAdmin):
-    list_display = ('date',)
     list_filter = ('date',)
     search_fields = ('date',)
     inlines = (DailyMenuItemInline,)

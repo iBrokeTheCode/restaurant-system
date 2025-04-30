@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block title %}
-    Menu
+    Daily Menu
 {% endblock title %}
 <span />
 {% block content %}
@@ -23,7 +23,8 @@
                         <tr>
                             <td>{{ menu }}</td>
                             <td>
-                                <a class="btn btn-sm btn-outline-secondary" href="">View</a>
+                                <a class="btn btn-sm btn-outline-secondary"
+                                   href="{% url "menu:daily-menu-detail" pk=menu.pk %}">View</a>
                                 <a class="btn btn-sm btn-outline-primary" href="">Edit</a>
                                 <a class="btn btn-sm btn-outline-danger" href="">Delete</a>
                             </td>
