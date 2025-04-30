@@ -3,29 +3,33 @@
     Expense Detail
 {% endblock title %}
 {% block content %}
-    <h1 class="text-xl font-bold mb-2">{{ expense.description }}</h1>
-    <ul class="list-group mb-3">
-        {% if expense.description %}
-            <li class="list-group-item">
-                <strong>Description:</strong> {{ expense.description }}
-            </li>
-        {% endif %}
-        <li class="list-group-item">
-            <strong>Amount:</strong> S/.{{ expense.amount }}
-        </li>
-        <li class="list-group-item">
-            <strong>Category:</strong> {{ expense.get_category_display }}
-        </li>
-        <li class="list-group-item">
-            <strong>Date:</strong> {{ expense.date }}
-        </li>
-    </ul>
-    <div class="mt-4">
-        <a href="{% url "expenses:expense-update" pk=expense.pk %}?next={{ request.path }}"
-           class="btn btn-primary">Edit</a>
-        <a href="{% url "expenses:expense-delete" pk=expense.pk %}?next={{ request.path }}"
-           class="btn btn-danger">Delete</a>
-        <a href="{% url 'expenses:expense-list' %}"
-           class="btn btn-outline-secondary">Back</a>
-    </div>
+    <section class="w-100 min-vh-100 mt-navbar">
+        <div class="container py-5">
+            <h1 class="text-xl font-bold mb-2">{{ expense.description }}</h1>
+            <ul class="list-group mb-3">
+                {% if expense.description %}
+                    <li class="list-group-item">
+                        <strong>Description:</strong> {{ expense.description }}
+                    </li>
+                {% endif %}
+                <li class="list-group-item">
+                    <strong>Amount:</strong> S/.{{ expense.amount }}
+                </li>
+                <li class="list-group-item">
+                    <strong>Category:</strong> {{ expense.get_category_display }}
+                </li>
+                <li class="list-group-item">
+                    <strong>Date:</strong> {{ expense.date }}
+                </li>
+            </ul>
+            <div class="mt-4">
+                <a href="{% url "expenses:expense-update" pk=expense.pk %}?next={{ request.path }}"
+                   class="btn btn-primary">Edit</a>
+                <a href="{% url "expenses:expense-delete" pk=expense.pk %}?next={{ request.path }}"
+                   class="btn btn-danger">Delete</a>
+                <a href="{% url 'expenses:expense-list' %}"
+                   class="btn btn-outline-secondary">Back</a>
+            </div>
+        </div>
+    </section>
 {% endblock content %}
