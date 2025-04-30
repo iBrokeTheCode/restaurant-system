@@ -20,7 +20,8 @@
                     <p>No Daily Menu Items added yet!</p>
                 {% endfor %}
             </ul>
-            <a href="?next={{ request.path }}" class="btn btn-primary">Edit</a>
+            <a href="{% url "menu:daily-menu-update" pk=daily_menu.pk %}?next={{ request.path }}"
+               class="btn btn-primary">Edit</a>
             <a href="{% url "menu:daily-menu-delete" pk=daily_menu.pk %}?next={{ request.path }}"
                class="btn btn-danger">Delete</a>
             <a href="{% url "menu:daily-menu-list" %}"

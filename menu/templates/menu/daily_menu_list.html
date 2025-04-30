@@ -26,9 +26,10 @@
                             <td>
                                 <a class="btn btn-sm btn-outline-secondary"
                                    href="{% url "menu:daily-menu-detail" pk=menu.pk %}">View</a>
-                                <a class="btn btn-sm btn-outline-primary" href="">Edit</a>
+                                <a class="btn btn-sm btn-outline-primary"
+                                   href="{% url "menu:daily-menu-update" pk=menu.pk %}">Edit</a>
                                 <a class="btn btn-sm btn-outline-danger"
-                                   href="{% url "menu:daily-menu-delete" pk=menu.pk %}?next={{ request.path }}">Delete</a>
+                                   href="{% url "menu:daily-menu-delete" pk=menu.pk %}">Delete</a>
                             </td>
                         </tr>
                     {% empty %}

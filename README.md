@@ -173,7 +173,7 @@ py manage.py graph_models menu orders tables sales expenses > models.dot
 - [x] Review DB structure
 
 - [ ] Unique Menu Item (names)
-- [ ] Unique Daily Menu Items (no repetitive items with same name)
+- [ ] Unique Daily Menu Items (no repetitive items with same name) ~Seems ok
 
 - Write custom queries using:
   - `annotate()`, `aggregate()`, `F`, `Q`, `Case`, `When`

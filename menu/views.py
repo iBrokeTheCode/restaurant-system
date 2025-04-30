@@ -197,6 +197,47 @@ class DailyMenuCreateView(LoginRequiredMixin, CreateView):
             return self.render_to_response(self.get_context_data(form=form))
 
 
+class DailyMenuUpdateView(LoginRequiredMixin, UpdateView):
+    model = DailyMenu
+    form_class = DailyMenuForm
+    template_name = 'menu/daily_menu_form.html'
+    context_object_name = 'daily_menu'
+    success_url = reverse_lazy('menu:daily-menu-list')
+
+    def get_success_url(self):
+        next_url = self.request.GET.get('next')
+
+        return next_url if next_url else super().get_success_url()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['next'] = self.request.GET.get('next', self.success_url)
+
+        if self.request.POST:
+            context['formset'] = DailyMenuItemFormSet(
+                self.request.POST, instance=self.get_object()
+            )
+        else:
+            context['formset'] = DailyMenuItemFormSet(instance=self.get_object())
+
+        return context
+
+    def form_valid(self, form):
+        context = self.get_context_data()
+        formset = context['formset']
+
+        if formset.is_valid():
+            self.object = form.save()
+            formset.instance = self.object
+            formset.save()
+            messages.success(self.request, 'Daily Menu created successfully!')
+
+            return redirect(self.success_url)
+        else:
+            messages.error(self.request, 'Invalid form. Try again!')
+            return self.render_to_response(self.get_context_data(form=form))
+
+
 class DailyMenuDeleteView(LoginRequiredMixin, DeleteView):
     model = DailyMenu
     template_name = 'menu/daily_menu_confirm_delete.html'
