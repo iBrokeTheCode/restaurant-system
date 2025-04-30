@@ -19,7 +19,8 @@
                 {% endfor %}
             </ul>
             <a href="?next={{ request.path }}" class="btn btn-primary">Edit</a>
-            <a href="?next={{ request.path }}" class="btn btn-danger">Delete</a>
+            <a href="{% url "menu:daily-menu-delete" pk=daily_menu.pk %}?next={{ request.path }}"
+               class="btn btn-danger">Delete</a>
             <a href="{% url "menu:daily-menu-list" %}"
                class="btn btn-outline-secondary">Back</a>
         </div>
