@@ -9,7 +9,7 @@
             <!-- Alert Messages START -->
             {% include "partials/alert_messages.html" %}
             <!-- Alert Messages END -->
-            <h1 class="mb-4">Daily Menu Item for</h1>
+            <h1 class="mb-4">Menu for {{ date }}</h1>
             <a class="btn btn-primary mb-3"
                href="{% url "menu:daily-menu-item-create" %}">Add New Item</a>
             <table class="table table-bordered">
@@ -17,15 +17,16 @@
                     <tr>
                         <th>Menu Item</th>
                         <th>Stock</th>
-                        <th>Is Available</th>
+                        <th>Sold</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for item in daily_menu_items %}
                         <tr>
-                            <td>{{ item.daily_menu }}</td>
                             <td>{{ item.menu_item }}</td>
                             <td>{{ item.stock }}</td>
+                            <td>{{ item.sold_quantity }}</td>
                             <td>
                                 <a class="btn btn-sm btn-outline-secondary"
                                    href="{% url "menu:daily-menu-item-detail" pk=item.pk %}">View</a>

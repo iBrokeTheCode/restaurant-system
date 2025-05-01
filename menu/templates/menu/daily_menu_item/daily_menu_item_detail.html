@@ -16,6 +16,9 @@
                 <li class="list-group-item">
                     <strong>Stock:</strong> {{ daily_menu_item.stock }}
                 </li>
+                <li class="list-group-item">
+                    <strong>Sold:</strong> {{ daily_menu_item.sold_quantity }}
+                </li>
             </ul>
             <a href="{% url "menu:daily-menu-item-update" pk=daily_menu_item.pk %}?next={{ request.path }}"
                class="btn btn-primary">Edit</a>
