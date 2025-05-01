@@ -67,7 +67,6 @@ class OrderCreateView(LoginRequiredMixin, CreateView):
 
             return redirect(self.success_url)
         else:
-            messages.error(self.request, 'Invalid form. Try again!')
             # re-render the form with errors.
             return self.render_to_response(self.get_context_data(form=form))
 
@@ -108,7 +107,6 @@ class OrderUpdateView(LoginRequiredMixin, UpdateView):
 
             return redirect(self.get_success_url())
         else:
-            messages.error(self.request, 'Invalid form. Try again!')
             return self.render_to_response(self.get_context_data(form=form))
 
 

@@ -193,7 +193,6 @@ class DailyMenuCreateView(LoginRequiredMixin, CreateView):
 
             return redirect(self.success_url)
         else:
-            messages.error(self.request, 'Invalid form. Try again!')
             return self.render_to_response(self.get_context_data(form=form))
 
 
@@ -234,7 +233,6 @@ class DailyMenuUpdateView(LoginRequiredMixin, UpdateView):
 
             return redirect(self.success_url)
         else:
-            messages.error(self.request, 'Invalid form. Try again!')
             return self.render_to_response(self.get_context_data(form=form))
 
 
