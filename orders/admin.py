@@ -22,3 +22,9 @@ class OrderAdmin(admin.ModelAdmin):
     readonly_fields = ('created_at', 'updated_at')
     inlines = [OrderItemInline]
     actions = [mark_as_served]
+
+
+@admin.register(OrderItem)
+class OrderItemAdmin(admin.ModelAdmin):
+    list_display = ('order', 'daily_menu_item', 'quantity', 'unit_price', 'total_price')
+    search_fields = ('daily_menu_item__menu_item__name',)

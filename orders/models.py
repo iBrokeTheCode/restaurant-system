@@ -33,6 +33,9 @@ class Order(models.Model):
             if item.total_price is not None
         ) or Decimal('0.00')
 
+    class Meta:
+        ordering = ('-created_at', '-updated_at')
+
     def __str__(self) -> str:
         return f'Order #{self.pk} - Table {self.table.table_number if self.table else "N/A"}'
 

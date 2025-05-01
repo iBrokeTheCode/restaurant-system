@@ -176,6 +176,7 @@ py manage.py graph_models menu orders tables sales expenses > models.dot
 - [ ] Unique Daily Menu Items (no repetitive items with same name) ~Seems ok
 - [ ] Check to add "is_available" in DailyMenuItem (Dynamic to stock)
 - [ ] Orders
+- Don't select order items from other dates, Validate Stock (don't add more the stock), display orders for the day
 - [ ] Sales
 
 - Write custom queries using:

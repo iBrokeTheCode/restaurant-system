@@ -27,7 +27,7 @@
             <ul class="list-group mb-3">
                 {% for item in order.items.all %}
                     <li class="list-group-item d-flex justify-content-between">
-                        {{ item.quantity }} × {{ item.menu_item.name }}
+                        {{ item }}
                         <span>${{ item.total_price }}</span>
                     </li>
                 {% endfor %}
