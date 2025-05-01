@@ -8,6 +8,19 @@ class OrderItemForm(forms.ModelForm):
     class Meta:
         model = OrderItem
         fields = ('daily_menu_item', 'quantity', 'unit_price', 'note')
+        widgets = {
+            'note': forms.Textarea(
+                attrs={
+                    'class': 'form-control',
+                    'placeholder': 'Notes about order',
+                    'style': 'resize: none;',
+                    'rows': '3',
+                }
+            ),
+            'unit_price': forms.TextInput(
+                attrs={'placeholder': 'Optional (auto filled with default price)'}
+            ),
+        }
 
     def clean(self):
         cleaned_data = super().clean()

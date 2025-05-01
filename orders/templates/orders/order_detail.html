@@ -38,7 +38,7 @@
             <a href="{% url "orders:order-delete" pk=order.pk %}?next={{ request.path }}"
                class="btn btn-danger">Delete</a>
             <a href="{% url 'orders:order-list' %}"
-               class="btn btn-outline-secondary">Back</a>
+               class="btn btn-outline-secondary">Cancel</a>
         </div>
     </section>
 {% endblock content %}

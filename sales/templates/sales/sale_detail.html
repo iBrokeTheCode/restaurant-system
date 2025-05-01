@@ -33,7 +33,7 @@
                class="btn btn-primary">Edit</a>
             <a href="{% url "sales:sale-delete" pk=sale.pk %}?next={{ request.path }}"
                class="btn btn-danger">Delete</a>
-            <a href="{% url "sales:sale-list" %}" class="btn btn-outline-secondary">Back</a>
+            <a href="{% url "sales:sale-list" %}" class="btn btn-outline-secondary">Cancel</a>
         </div>
     </section>
 {% endblock content %}

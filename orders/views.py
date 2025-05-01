@@ -18,7 +18,7 @@ OrderItemFormSet = inlineformset_factory(
     parent_model=Order,
     model=OrderItem,
     form=OrderItemForm,
-    extra=1,
+    extra=2,
     can_delete=True,
 )
 
