@@ -1,10 +1,12 @@
 from django.contrib import admin
 
+from orders.forms import OrderItemForm
 from orders.models import Order, OrderItem
 
 
 class OrderItemInline(admin.TabularInline):
     model = OrderItem
+    form = OrderItemForm
     extra = 1
     readonly_fields = ('total_price',)
 

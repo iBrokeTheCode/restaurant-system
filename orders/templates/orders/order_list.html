@@ -28,7 +28,11 @@
                             <td>{{ order.get_status_display }}</td>
                             <td>
                                 <ul>
-                                    {% for item in order.items.all %}<li>{{ item }}</li>{% endfor %}
+                                    {% for item in order.items.all %}
+                                        <li>{{ item }}</li>
+                                    {% empty %}
+                                        <li>Pending items...</li>
+                                    {% endfor %}
                                 </ul>
                             </td>
                             <td>{{ order.created_at|date:"Y-m-d H:i" }}</td>

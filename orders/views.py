@@ -11,12 +11,13 @@ from django.views.generic import (
     UpdateView,
 )
 
+from orders.forms import OrderItemForm
 from orders.models import Order, OrderItem
 
 OrderItemFormSet = inlineformset_factory(
     parent_model=Order,
     model=OrderItem,
-    fields=('daily_menu_item', 'quantity', 'unit_price', 'note'),
+    form=OrderItemForm,
     extra=1,
     can_delete=True,
 )
