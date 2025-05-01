@@ -29,5 +29,6 @@ class DailyMenuAdmin(admin.ModelAdmin):
 
 @admin.register(DailyMenuItem)
 class DailyMenuItemAdmin(admin.ModelAdmin):
-    list_display = ('daily_menu', 'menu_item', 'stock', 'is_available')
-    list_filter = ('is_available',)
+    list_display = ('menu_item', 'daily_menu', 'stock', 'is_available')
+    list_filter = ('is_available', 'daily_menu__date')
+    search_fields = ('daily_menu__date',)
