@@ -15,8 +15,7 @@
                 {% for sale in sales %}
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         <div>
-                            <strong>Order:</strong> {{ sale.order }} |
-                            <strong>Amount:</strong> S/.{{ sale.amount }}
+                            <strong>Order:</strong> {{ sale.order }}
                         </div>
                         <div>
                             <a href="{% url "sales:sale-detail" pk=sale.pk %}"

@@ -37,7 +37,7 @@ class Order(models.Model):
         ordering = ('-created_at', '-updated_at')
 
     def __str__(self) -> str:
-        return f'Order #{self.pk} - Table {self.table.table_number if self.table else "N/A"}'
+        return f'Order #{self.pk} - Table {self.table.table_number if self.table else "N/A"} - Total: S/.{self.total} - {self.get_status_display()}'  # type: ignore
 
 
 class OrderItem(models.Model):

@@ -183,6 +183,9 @@ py manage.py graph_models menu orders tables sales expenses > models.dot
   - [x] Display daily menu items
 - [ ] Sales
 
+  - Add more descriptive option by adding orders
+  - Or add a button "sale" to create sales directly from orders
+
 - Write custom queries using:
   - `annotate()`, `aggregate()`, `F`, `Q`, `Case`, `When`
 - Optimize views with:

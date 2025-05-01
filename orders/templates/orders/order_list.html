@@ -14,6 +14,7 @@
             <table class="table table-bordered">
                 <thead>
                     <tr>
+                        <th>#</th>
                         <th>Table</th>
                         <th>Status</th>
                         <th>Order</th>
@@ -24,6 +25,7 @@
                 <tbody>
                     {% for order in orders %}
                         <tr>
+                            <td>{{ order.pk }}</td>
                             <td>{{ order.table }}</td>
                             <td>{{ order.get_status_display }}</td>
                             <td>
