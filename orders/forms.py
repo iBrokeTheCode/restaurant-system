@@ -1,6 +1,8 @@
 # forms.py (create if you don't have it)
 from django import forms
+from django.utils.timezone import now
 
+from menu.models import DailyMenuItem
 from orders.models import OrderItem
 
 
@@ -8,6 +10,7 @@ class OrderItemForm(forms.ModelForm):
     class Meta:
         model = OrderItem
         fields = ('daily_menu_item', 'quantity', 'unit_price', 'note')
+        labels = {'note': 'Notes:'}
         widgets = {
             'note': forms.Textarea(
                 attrs={
@@ -15,12 +18,21 @@ class OrderItemForm(forms.ModelForm):
                     'placeholder': 'Notes about order',
                     'style': 'resize: none;',
                     'rows': '3',
-                }
+                },
             ),
             'unit_price': forms.TextInput(
                 attrs={'placeholder': 'Optional (auto filled with default price)'}
             ),
         }
+
+    def __init__(self, *args, **kwargs):
+        # Filter daily menu items for today
+        super().__init__(*args, **kwargs)
+        today = now().date()
+
+        self.fields['daily_menu_item'].queryset = DailyMenuItem.objects.filter(  # type: ignore
+            daily_menu__date=today
+        )
 
     def clean(self):
         cleaned_data = super().clean()
