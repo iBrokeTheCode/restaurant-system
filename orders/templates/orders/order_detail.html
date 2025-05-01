@@ -19,18 +19,19 @@
                 <li class="list-group-item">
                     <strong>Created At:</strong> {{ order.created_at }}
                 </li>
-                <li class="list-group-item">
-                    <strong>Total:</strong> ${{ order.total }}
-                </li>
             </ul>
             <h4>Items</h4>
             <ul class="list-group mb-3">
                 {% for item in order.items.all %}
                     <li class="list-group-item d-flex justify-content-between">
-                        {{ item }}
-                        <span>${{ item.total_price }}</span>
+                        {{ item }} (S/.{{ item.unit_price }})
+                        <span>S/.{{ item.total_price }}</span>
                     </li>
                 {% endfor %}
+                <li class="list-group-item d-flex justify-content-between">
+                    <strong>Total:</strong>
+                    <span>S/.{{ order.total }}</span>
+                </li>
             </ul>
             <a href="{% url 'orders:order-update' pk=order.pk %}?next={{ request.path }}"
                class="btn btn-primary">Edit</a>

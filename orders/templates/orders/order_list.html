@@ -17,7 +17,7 @@
                         <th>Table</th>
                         <th>Status</th>
                         <th>Order</th>
-                        <th>Created</th>
+                        <th>Total</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -29,13 +29,13 @@
                             <td>
                                 <ul>
                                     {% for item in order.items.all %}
-                                        <li>{{ item }}</li>
+                                        <li>{{ item }} (S/.{{ item.unit_price }})</li>
                                     {% empty %}
                                         <li>Pending items...</li>
                                     {% endfor %}
                                 </ul>
                             </td>
-                            <td>{{ order.created_at|date:"Y-m-d H:i" }}</td>
+                            <td>S/.{{ order.total }}</td>
                             <td>
                                 <a href="{% url 'orders:order-detail' pk=order.pk %}"
                                    class="btn btn-sm btn-outline-secondary">View</a>
