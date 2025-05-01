@@ -31,6 +31,7 @@ class Sale(models.Model):
                 violation_error_message='Amount must be greater than or equal to 0',
             ),
         ]
+        ordering = ('-payment_time',)
 
     def save(self, *args, **kwargs):
         if self.order and self.amount is None:
