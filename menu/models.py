@@ -1,6 +1,6 @@
 from django.core.validators import MinValueValidator
 from django.db import models
-from django.db.models import CheckConstraint, Q
+from django.db.models import CheckConstraint, Q, UniqueConstraint
 
 
 class MenuCategory(models.Model):
@@ -74,8 +74,16 @@ class DailyMenuItem(models.Model):
     class Meta:
         verbose_name = 'Daily Menu Item'
         verbose_name_plural = 'Daily Menu Items'
-        unique_together = ('daily_menu', 'menu_item')
         ordering = ('-daily_menu__date', '-stock', 'menu_item__name')
+
+        constraints = [
+            # Equivalent unique_together = ('daily_menu', 'menu_item')
+            UniqueConstraint(
+                fields=('daily_menu', 'menu_item'),
+                name='unique_daily_menu',
+                violation_error_message='Already add this menu item to the date menu',
+            )
+        ]
 
     def __str__(self):
         return f'{self.menu_item.name} for {self.daily_menu.date}'
