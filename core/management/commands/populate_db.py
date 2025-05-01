@@ -72,7 +72,7 @@ class Command(BaseCommand):
 
         for item in item_objs:
             DailyMenuItem.objects.create(
-                daily_menu=daily_menu, menu_item=item, stock=10, is_available=True
+                daily_menu=daily_menu, menu_item=item, stock=10
             )
             self.stdout.write(f'Added "{item.name}" to daily menu with stock=10')
 

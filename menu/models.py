@@ -31,7 +31,7 @@ class MenuItem(models.Model):
         constraints = [
             CheckConstraint(
                 check=Q(price__gte=0),
-                name='menu_item_price_gte_0)',
+                name='menu_item_price_gte_0',
                 violation_error_message='Price must be greater than or equal to 0',
             ),
         ]
@@ -60,8 +60,7 @@ class DailyMenuItem(models.Model):
         DailyMenu, on_delete=models.CASCADE, related_name='daily_items'
     )
     menu_item = models.ForeignKey(MenuItem, on_delete=models.CASCADE)
-    stock = models.PositiveSmallIntegerField(default=0)
-    is_available = models.BooleanField(default=True)
+    stock = models.PositiveSmallIntegerField(default=1)
 
     @property
     def sold_quantity(self):
@@ -70,6 +69,10 @@ class DailyMenuItem(models.Model):
     @property
     def remaining_stock(self):
         return self.stock - self.sold_quantity
+
+    @property
+    def is_available(self):
+        return self.stock > 0
 
     class Meta:
         verbose_name = 'Daily Menu Item'
@@ -82,7 +85,12 @@ class DailyMenuItem(models.Model):
                 fields=('daily_menu', 'menu_item'),
                 name='unique_daily_menu',
                 violation_error_message='Already add this menu item to the date menu',
-            )
+            ),
+            CheckConstraint(
+                check=Q(stock__gte=0),
+                name='daily_menu_item_stock_gte_0',
+                violation_error_message='Stock must be greater than or equal to 0',
+            ),
         ]
 
     def __str__(self):

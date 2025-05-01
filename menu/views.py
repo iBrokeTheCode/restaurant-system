@@ -146,7 +146,7 @@ class MenuCategoryDeleteView(LoginRequiredMixin, DeleteView):
 DailyMenuItemFormSet = inlineformset_factory(
     parent_model=DailyMenu,
     model=DailyMenuItem,
-    fields=('menu_item', 'stock', 'is_available'),
+    fields=('menu_item', 'stock'),
     extra=1,
     can_delete=True,
 )
@@ -284,7 +284,7 @@ class DailyMenuItemDetailView(LoginRequiredMixin, DetailView):
 
 class DailyMenuItemCreateView(LoginRequiredMixin, CreateView):
     model = DailyMenuItem
-    fields = ('daily_menu', 'menu_item', 'stock', 'is_available')
+    fields = ('daily_menu', 'menu_item', 'stock')
     template_name = 'menu/daily_menu_item/daily_menu_item_form.html'
     success_url = reverse_lazy('menu:daily-menu-item-list')
     context_object_name = 'daily_menu_item'
@@ -301,7 +301,7 @@ class DailyMenuItemCreateView(LoginRequiredMixin, CreateView):
 
 class DailyMenuItemUpdateView(LoginRequiredMixin, UpdateView):
     model = DailyMenuItem
-    fields = ('daily_menu', 'menu_item', 'stock', 'is_available')
+    fields = ('daily_menu', 'menu_item', 'stock')
     template_name = 'menu/daily_menu_item/daily_menu_item_form.html'
     success_url = reverse_lazy('menu:daily-menu-item-list')
     context_object_name = 'daily_menu_item'
