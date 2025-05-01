@@ -172,7 +172,7 @@ py manage.py graph_models menu orders tables sales expenses > models.dot
 - [x] Add image field for menu_items
 - [x] Review DB structure
 
-- [ ] Unique Menu Item (names)
+- [x] Unique Menu Item (names)
 - [ ] Unique Daily Menu Items (no repetitive items with same name) ~Seems ok
 - [ ] Check to add "is_available" in DailyMenuItem (Dynamic to stock)
 - [ ] Orders
