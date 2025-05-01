@@ -3,6 +3,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.forms.models import inlineformset_factory
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
+from django.utils.timezone import now
 from django.views.generic import (
     CreateView,
     DeleteView,
@@ -264,6 +265,10 @@ class DailyMenuItemListView(LoginRequiredMixin, ListView):
     model = DailyMenuItem
     template_name = 'menu/daily_menu_item/daily_menu_item_list.html'
     context_object_name = 'daily_menu_items'
+
+    def get_queryset(self):
+        today = now().date()
+        return DailyMenuItem.objects.filter(daily_menu__date=today)
 
 
 class DailyMenuItemDetailView(LoginRequiredMixin, DetailView):
