@@ -15,10 +15,17 @@ class OrderItemForm(forms.ModelForm):
         quantity = cleaned_data.get('quantity')
 
         if item and quantity:
-            # Check remaining stock
-            if quantity > item.remaining_stock:
+            # Existing quantity if updating
+            existing_quantity = 0
+            if self.instance.pk and self.instance.daily_menu_item == item:
+                existing_quantity = self.instance.quantity
+
+            # Remaining stock adjusted for this item
+            available_stock = item.remaining_stock + existing_quantity
+
+            if quantity > available_stock:
                 raise forms.ValidationError(
-                    f"Only {item.remaining_stock} available for '{item.menu_item.name}'."
+                    f"Only {available_stock} available for '{item.menu_item.name}'."
                 )
 
         return cleaned_data
