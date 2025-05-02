@@ -9,6 +9,7 @@ from django.views.generic import (
     UpdateView,
 )
 
+from orders.models import Order
 from sales.models import Sale
 
 
@@ -39,6 +40,13 @@ class SaleCreateView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         messages.success(self.request, 'Sale created successfully!')
         return super().form_valid(form)
+
+    def get_initial(self):
+        initial = super().get_initial()
+        order_id = self.request.GET.get('order_id')
+        if order_id:
+            initial['order'] = Order.objects.filter(pk=order_id).first()
+        return initial
 
 
 class SaleUpdateView(LoginRequiredMixin, UpdateView):
