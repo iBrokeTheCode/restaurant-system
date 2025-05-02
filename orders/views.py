@@ -13,6 +13,7 @@ from django.views.generic import (
 
 from orders.forms import OrderItemForm
 from orders.models import Order, OrderItem
+from tables.models import TableStatusChoices
 
 OrderItemFormSet = inlineformset_factory(
     parent_model=Order,
@@ -64,6 +65,12 @@ class OrderCreateView(LoginRequiredMixin, CreateView):
             formset.instance = self.object
             # Save formset
             formset.save()
+
+            # Update table status to 'occupied'
+            if self.object.table:
+                self.object.table.status = TableStatusChoices.OCCUPIED
+                self.object.table.save(update_fields=['status'])
+
             messages.success(self.request, 'Order created successfully!')
 
             return redirect(self.success_url)
