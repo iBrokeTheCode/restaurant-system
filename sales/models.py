@@ -39,4 +39,4 @@ class Sale(models.Model):
         super().save(*args, **kwargs)
 
     def __str__(self) -> str:
-        return f'Sale #{self.pk} - Order #{self.order.pk} - {self.payment_method}'
+        return f'Sale #{self.pk} - Order #{self.order.pk} - {self.get_payment_method_display()}'  # type: ignore

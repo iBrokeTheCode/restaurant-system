@@ -4,14 +4,18 @@
 {% endblock title %}
 {% block content %}
     <section class="w-100 min-vh-100 mt-navbar">
-        <div class="container py-5">
-            <h1 class="text-xl font-bold">Confirm Delete</h1>
-            <p>Are you sure you want to delete this expense: "{{ expense.description }}"?</p>
+        <div class="container py-5 text-center max-width-container">
+            <h2 class="mb-5">Delete Expense</h2>
+            <p>
+                Are you sure you want to delete <strong>"{{ expense.description }}"</strong>?
+            </p>
             <form method="post">
                 {% csrf_token %}
-                <button type="submit" class="btn btn-danger">Yes, delete</button>
-                <a href="{% url 'expenses:expense-detail' expense.pk %}"
-                   class="btn btn-outline-secondary">Cancel</a>
+                <div class="mt-5 d-flex justify-content-center align-items-center gap-2">
+                    <button type="submit" class="btn btn-danger">Yes, delete</button>
+                    <a href="{% url 'expenses:expense-detail' expense.pk %}"
+                       class="btn btn-outline-secondary">Cancel</a>
+                </div>
             </form>
         </div>
     </section>
