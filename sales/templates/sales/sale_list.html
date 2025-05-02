@@ -9,27 +9,39 @@
             <!-- Alert Messages START -->
             {% include "partials/alert_messages.html" %}
             <!-- Alert Messages END -->
-            <h1>Sales</h1>
-            <a href="{% url 'sales:sale-create' %}" class="btn btn-primary mb-3">Create Sale</a>
-            <ul class="list-group">
-                {% for sale in sales %}
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <div>
-                            <strong>Order:</strong> {{ sale.order }}
-                        </div>
-                        <div>
-                            <a href="{% url "sales:sale-detail" pk=sale.pk %}"
-                               class="btn btn-outline-secondary btn-sm">Detail</a>
-                            <a href="{% url "sales:sale-update" pk=sale.pk %}?next={{ request.path }}"
-                               class="btn btn-outline-primary btn-sm">Edit</a>
-                            <a href="{% url "sales:sale-delete" pk=sale.pk %}?next={{ request.path }}"
-                               class="btn btn-outline-danger btn-sm">Delete</a>
-                        </div>
-                    </li>
-                {% empty %}
-                    <li class="list-group-item">No sales recorded yet.</li>
-                {% endfor %}
-            </ul>
+            <div class="d-flex justify-content-between align-item-center mb-5">
+                <h2 class="mb-0">Sales</h2>
+                <a class="btn btn-primary"
+                   href="{% url "sales:sale-create" %}"
+                   title="Add new category"><i class="fa-solid fa-plus"></i> Add</a>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-hover table-responsive">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Order</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for sale in sales %}
+                            <tr>
+                                <td>
+                                    <strong>Order:</strong> {{ sale.order }}
+                                </td>
+                                <td>
+                                    <a href="{% url "sales:sale-detail" pk=sale.pk %}"
+                                       class="btn btn-outline-primary btn-sm"><i class="fa-solid fa-eye"></i></a>
+                                </td>
+                            </tr>
+                        {% empty %}
+                            <tr>
+                                <td colspan="4">No sales recorded yet.</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         </div>
     </section>
 {% endblock content %}

@@ -8,35 +8,37 @@
             <!-- Alert Messages START -->
             {% include "partials/alert_messages.html" %}
             <!-- Alert Messages END -->
-            <h2>Table List</h2>
-            <a href="{% url "tables:table-create" %}" class="btn btn-primary mb-3">Add New Table</a>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Seats</th>
-                        <th>Status</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for table in object_list %}
+            <div class="d-flex justify-content-between align-item-center mb-5">
+                <h2 class="mb-0">Tables</h2>
+                <a class="btn btn-primary"
+                   href="{% url "tables:table-create" %}"
+                   title="Add new category"><i class="fa-solid fa-plus"></i> Add</a>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead class="table-light">
                         <tr>
-                            <td>{{ table.table_number }}</td>
-                            <td>{{ table.seats }}</td>
-                            <td>{{ table.get_status_display }}</td>
-                            <td>
-                                <a href="{% url "tables:table-detail" pk=table.pk %}"
-                                   class="btn btn-sm btn-outline-secondary">View</a>
-                                <a href="{% url "tables:table-update" pk=table.pk %}"
-                                   class="btn btn-sm btn-outline-primary">Edit</a>
-                                <a href="{% url "tables:table-delete" pk=table.pk %}"
-                                   class="btn btn-sm btn-outline-danger">Delete</a>
-                            </td>
+                            <th>#</th>
+                            <th>Seats</th>
+                            <th>Status</th>
+                            <th>Actions</th>
                         </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {% for table in object_list %}
+                            <tr>
+                                <td>{{ table.table_number }}</td>
+                                <td>{{ table.seats }}</td>
+                                <td>{{ table.get_status_display }}</td>
+                                <td>
+                                    <a href="{% url "tables:table-detail" pk=table.pk %}"
+                                       class="btn btn-sm btn-outline-primary"><i class="fa-solid fa-eye"></i></a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         </div>
     </section>
 {% endblock content %}
