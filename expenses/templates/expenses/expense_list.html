@@ -20,6 +20,8 @@
                         <tr>
                             <th>Description</th>
                             <th>Amount</th>
+                            <th>Category</th>
+                            <th>Date</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -28,6 +30,8 @@
                             <tr>
                                 <td class="mb-2">{{ expense.description }}</td>
                                 <td>S/.{{ expense.amount }}</td>
+                                <td>{{ expense.get_category_display }}</td>
+                                <td>{{ expense.date }}</td>
                                 <td>
                                     <a class="btn btn-sm btn-outline-primary"
                                        href="{% url "expenses:expense-detail" pk=expense.pk %}"
@@ -36,7 +40,7 @@
                             </tr>
                         {% empty %}
                             <tr>
-                                <td colspan="4">No items found.</td>
+                                <td colspan="4" class="text-center">No expenses added yet.</td>
                             </tr>
                         {% endfor %}
                     </tbody>
