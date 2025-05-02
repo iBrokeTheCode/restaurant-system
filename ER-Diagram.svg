@@ -99,54 +99,48 @@
 <!-- menu_models_DailyMenuItem -->
 <g id="node4" class="node">
 <title>menu_models_DailyMenuItem</title>
-<polygon fill="white" stroke="none" points="122.21,-268 122.21,-360 287.77,-360 287.77,-268 122.21,-268"/>
-<polygon fill="#1b563f" stroke="none" points="123.21,-337 123.21,-359 286.77,-359 286.77,-337 123.21,-337"/>
-<text text-anchor="start" x="157.11" y="-346" font-family="Roboto" font-size="8.00">    </text>
-<text text-anchor="start" x="165.11" y="-346" font-family="Roboto" font-weight="bold" font-size="10.00" fill="white">    DailyMenuItem    </text>
-<text text-anchor="start" x="125.21" y="-328.8" font-family="Roboto" font-size="8.00">    </text>
-<text text-anchor="start" x="133.21" y="-328.8" font-family="Roboto" font-weight="bold" font-size="8.00">id</text>
-<text text-anchor="start" x="139.88" y="-328.8" font-family="Roboto" font-size="8.00">    </text>
-<text text-anchor="start" x="185.22" y="-328.8" font-family="Roboto" font-size="8.00">    </text>
-<text text-anchor="start" x="193.22" y="-328.8" font-family="Roboto" font-weight="bold" font-size="8.00">BigAutoField</text>
-<text text-anchor="start" x="239" y="-328.8" font-family="Roboto" font-size="8.00">    </text>
-<text text-anchor="start" x="125.21" y="-315.2" font-family="Roboto" font-size="8.00">    </text>
-<text text-anchor="start" x="133.21" y="-315.2" font-family="Roboto" font-weight="bold" font-size="8.00">daily_menu</text>
-<text text-anchor="start" x="173.22" y="-315.2" font-family="Roboto" font-size="8.00">    </text>
-<text text-anchor="start" x="185.22" y="-315.2" font-family="Roboto" font-size="8.00">    </text>
-<text text-anchor="start" x="193.22" y="-315.2" font-family="Roboto" font-weight="bold" font-size="8.00">ForeignKey (id)</text>
-<text text-anchor="start" x="247.65" y="-315.2" font-family="Roboto" font-size="8.00">    </text>
-<text text-anchor="start" x="125.21" y="-301.6" font-family="Roboto" font-size="8.00">    </text>
-<text text-anchor="start" x="133.21" y="-301.6" font-family="Roboto" font-weight="bold" font-size="8.00">menu_item</text>
-<text text-anchor="start" x="171.43" y="-301.6" font-family="Roboto" font-size="8.00">    </text>
-<text text-anchor="start" x="185.22" y="-301.6" font-family="Roboto" font-size="8.00">    </text>
-<text text-anchor="start" x="193.22" y="-301.6" font-family="Roboto" font-weight="bold" font-size="8.00">ForeignKey (id)</text>
-<text text-anchor="start" x="247.65" y="-301.6" font-family="Roboto" font-size="8.00">    </text>
-<text text-anchor="start" x="125.21" y="-288" font-family="Roboto" font-size="8.00">    </text>
-<text text-anchor="start" x="133.21" y="-288" font-family="Roboto" font-size="8.00">is_available</text>
-<text text-anchor="start" x="171.42" y="-288" font-family="Roboto" font-size="8.00">    </text>
-<text text-anchor="start" x="185.22" y="-288" font-family="Roboto" font-size="8.00">    </text>
-<text text-anchor="start" x="193.22" y="-288" font-family="Roboto" font-size="8.00">BooleanField</text>
-<text text-anchor="start" x="236.33" y="-288" font-family="Roboto" font-size="8.00">    </text>
-<text text-anchor="start" x="125.21" y="-274.4" font-family="Roboto" font-size="8.00">    </text>
-<text text-anchor="start" x="133.21" y="-274.4" font-family="Roboto" font-size="8.00">stock</text>
-<text text-anchor="start" x="150.1" y="-274.4" font-family="Roboto" font-size="8.00">    </text>
-<text text-anchor="start" x="185.22" y="-274.4" font-family="Roboto" font-size="8.00">    </text>
-<text text-anchor="start" x="193.22" y="-274.4" font-family="Roboto" font-size="8.00">PositiveSmallIntegerField</text>
-<text text-anchor="start" x="276.77" y="-274.4" font-family="Roboto" font-size="8.00">    </text>
-<polygon fill="none" stroke="black" points="122.21,-268 122.21,-360 287.77,-360 287.77,-268 122.21,-268"/>
+<polygon fill="white" stroke="none" points="122.21,-274.8 122.21,-353.2 287.77,-353.2 287.77,-274.8 122.21,-274.8"/>
+<polygon fill="#1b563f" stroke="none" points="123.21,-330.2 123.21,-352.2 286.77,-352.2 286.77,-330.2 123.21,-330.2"/>
+<text text-anchor="start" x="157.11" y="-339.2" font-family="Roboto" font-size="8.00">    </text>
+<text text-anchor="start" x="165.11" y="-339.2" font-family="Roboto" font-weight="bold" font-size="10.00" fill="white">    DailyMenuItem    </text>
+<text text-anchor="start" x="125.21" y="-322" font-family="Roboto" font-size="8.00">    </text>
+<text text-anchor="start" x="133.21" y="-322" font-family="Roboto" font-weight="bold" font-size="8.00">id</text>
+<text text-anchor="start" x="139.88" y="-322" font-family="Roboto" font-size="8.00">    </text>
+<text text-anchor="start" x="185.22" y="-322" font-family="Roboto" font-size="8.00">    </text>
+<text text-anchor="start" x="193.22" y="-322" font-family="Roboto" font-weight="bold" font-size="8.00">BigAutoField</text>
+<text text-anchor="start" x="239" y="-322" font-family="Roboto" font-size="8.00">    </text>
+<text text-anchor="start" x="125.21" y="-308.4" font-family="Roboto" font-size="8.00">    </text>
+<text text-anchor="start" x="133.21" y="-308.4" font-family="Roboto" font-weight="bold" font-size="8.00">daily_menu</text>
+<text text-anchor="start" x="173.22" y="-308.4" font-family="Roboto" font-size="8.00">    </text>
+<text text-anchor="start" x="185.22" y="-308.4" font-family="Roboto" font-size="8.00">    </text>
+<text text-anchor="start" x="193.22" y="-308.4" font-family="Roboto" font-weight="bold" font-size="8.00">ForeignKey (id)</text>
+<text text-anchor="start" x="247.65" y="-308.4" font-family="Roboto" font-size="8.00">    </text>
+<text text-anchor="start" x="125.21" y="-294.8" font-family="Roboto" font-size="8.00">    </text>
+<text text-anchor="start" x="133.21" y="-294.8" font-family="Roboto" font-weight="bold" font-size="8.00">menu_item</text>
+<text text-anchor="start" x="171.43" y="-294.8" font-family="Roboto" font-size="8.00">    </text>
+<text text-anchor="start" x="185.22" y="-294.8" font-family="Roboto" font-size="8.00">    </text>
+<text text-anchor="start" x="193.22" y="-294.8" font-family="Roboto" font-weight="bold" font-size="8.00">ForeignKey (id)</text>
+<text text-anchor="start" x="247.65" y="-294.8" font-family="Roboto" font-size="8.00">    </text>
+<text text-anchor="start" x="125.21" y="-281.2" font-family="Roboto" font-size="8.00">    </text>
+<text text-anchor="start" x="133.21" y="-281.2" font-family="Roboto" font-size="8.00">stock</text>
+<text text-anchor="start" x="150.1" y="-281.2" font-family="Roboto" font-size="8.00">    </text>
+<text text-anchor="start" x="185.22" y="-281.2" font-family="Roboto" font-size="8.00">    </text>
+<text text-anchor="start" x="193.22" y="-281.2" font-family="Roboto" font-size="8.00">PositiveSmallIntegerField</text>
+<text text-anchor="start" x="276.77" y="-281.2" font-family="Roboto" font-size="8.00">    </text>
+<polygon fill="none" stroke="black" points="122.21,-274.8 122.21,-353.2 287.77,-353.2 287.77,-274.8 122.21,-274.8"/>
 </g>
 <!-- menu_models_DailyMenuItem&#45;&gt;menu_models_MenuItem -->
 <g id="edge3" class="edge">
 <title>menu_models_DailyMenuItem-&gt;menu_models_MenuItem</title>
-<path fill="none" stroke="black" d="M127.95,-258.15C123.96,-254.22 120.17,-250.16 116.68,-246 109.68,-237.65 103.42,-227.95 97.99,-218.19"/>
-<ellipse fill="black" stroke="black" cx="131.09" cy="-261.12" rx="4" ry="4"/>
+<path fill="none" stroke="black" d="M135.24,-265.01C128.58,-259.01 122.24,-252.64 116.68,-246 109.68,-237.65 103.42,-227.95 97.99,-218.19"/>
+<ellipse fill="black" stroke="black" cx="138.6" cy="-267.93" rx="4" ry="4"/>
 <text text-anchor="middle" x="163.34" y="-238.8" font-family="Roboto" font-size="8.00"> menu_item (dailymenuitem)</text>
 </g>
 <!-- menu_models_DailyMenuItem&#45;&gt;menu_models_DailyMenu -->
 <g id="edge2" class="edge">
 <title>menu_models_DailyMenuItem-&gt;menu_models_DailyMenu</title>
-<path fill="none" stroke="black" d="M212.63,-255.51C215.57,-233.44 218.79,-209.21 221.21,-191.03"/>
-<ellipse fill="black" stroke="black" cx="212.08" cy="-259.71" rx="4" ry="4"/>
+<path fill="none" stroke="black" d="M211.75,-262.2C214.91,-238.43 218.55,-211.01 221.22,-190.96"/>
+<ellipse fill="black" stroke="black" cx="211.15" cy="-266.64" rx="4" ry="4"/>
 <text text-anchor="middle" x="257.2" y="-238.8" font-family="Roboto" font-size="8.00"> daily_menu (daily_items)</text>
 </g>
 <!-- orders_models_Order -->
@@ -276,7 +270,7 @@
 <!-- orders_models_OrderItem&#45;&gt;menu_models_DailyMenuItem -->
 <g id="edge6" class="edge">
 <title>orders_models_OrderItem-&gt;menu_models_DailyMenuItem</title>
-<path fill="none" stroke="black" d="M204.99,-400.89C204.99,-388.5 204.99,-375.71 204.99,-363.91"/>
+<path fill="none" stroke="black" d="M204.99,-401.15C204.99,-386.28 204.99,-370.83 204.99,-357.18"/>
 <ellipse fill="black" stroke="black" cx="204.99" cy="-405.32" rx="4" ry="4"/>
 <text text-anchor="middle" x="256.75" y="-384.4" font-family="Roboto" font-size="8.00"> daily_menu_item (order_items)</text>
 </g>

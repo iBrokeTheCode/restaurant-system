@@ -169,19 +169,10 @@ py manage.py graph_models menu orders tables sales expenses > models.dot
 
 **Tasks:**
 
-- [x] Add image field for menu_items
-- [x] Review DB structure
+- Orders
 
-- [x] Unique Menu Item (names)
-- [x] Unique Daily Menu Items (no repetitive items with same name) ~Seems ok
-- [x] Check to add "is_available" in DailyMenuItem (Dynamic to stock)
-- [ ] Orders
-  - [x] Don't select order items from other dates / Dynamic number of items
-  - [x] Validate Stock (don't add more the stock)
-  - [x] Optional unit price (only for updates)
-  - [x] Display orders for the day
-  - [x] Display daily menu items
-- [ ] Sales
+  - [ ] Manage all from orders (Create, pay, cancel)
+        “A table is occupied if and only if there’s at least one active order (not paid or cancelled) for it.”
 
 - Add more descriptive option by adding orders
 - Or add a button "sale" to create sales directly from orders
