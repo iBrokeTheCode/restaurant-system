@@ -22,9 +22,9 @@
             </div>
             <div class="mt-5 d-flex justify-content-center align-items-center gap-2">
                 <a href="{% url "expenses:expense-update" pk=expense.pk %}?next={{ request.path }}"
-                   class="btn btn-primary">Edit</a>
+                   class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
                 <a href="{% url "expenses:expense-delete" pk=expense.pk %}?next={{ request.path }}"
-                   class="btn btn-danger">Delete</a>
+                   class="btn btn-danger"><i class="fa-solid fa-trash"></i> Delete</a>
                 <a href="{% url 'expenses:expense-list' %}"
                    class="btn btn-outline-secondary">Cancel</a>
             </div>
