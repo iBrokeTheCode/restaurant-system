@@ -9,14 +9,16 @@
       <!-- Alert Messages START -->
       {% include "partials/alert_messages.html" %}
       <!-- Alert Messages END -->
-      <h1 class="mb-4">Categories</h1>
-      <a class="btn btn-primary mb-4"
-         href="{% url 'menu:menu-category-create' %}"
-         title="Add new category"><i class="fa-solid fa-plus"></i>Add</a>
-      <table class="table table-bordered">
-        <thead>
+      <div class="d-flex justify-content-between align-item-center mb-5">
+        <h2 class="mb-0">Categories</h2>
+        <a class="btn btn-primary"
+           href="{% url 'menu:menu-category-create' %}"
+           title="Add new category"><i class="fa-solid fa-plus"></i> Add</a>
+      </div>
+      <table class="table table-hover table-responsive">
+        <thead class="table-light">
           <tr>
-            <th>Name</th>
+            <th>Category</th>
             <th>Actions</th>
           </tr>
         </thead>
