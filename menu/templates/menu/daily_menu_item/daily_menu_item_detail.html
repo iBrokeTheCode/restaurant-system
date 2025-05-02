@@ -4,28 +4,30 @@
 {% endblock title %}
 {% block content %}
     <section class="w-100 min-vh-100 mt-navbar">
-        <div class="container py-5">
+        <div class="container py-5 max-width-container">
             <!-- Alert Messages START -->
             {% include "partials/alert_messages.html" %}
             <!-- Alert Messages END -->
-            <h2>{{ daily_menu_item.daily_menu }}</h2>
-            <ul class="list-group mb-3">
-                <li class="list-group-item">
-                    <strong>Menu Item:</strong> {{ daily_menu_item.menu_item }}
-                </li>
-                <li class="list-group-item">
+            <h2 class="mb-5 text-center">{{ daily_menu_item.menu_item }}</h2>
+            <div>
+                <p>
+                    <strong>Date:</strong> {{ daily_menu_item.daily_menu }}
+                </p>
+                <p>
                     <strong>Stock:</strong> {{ daily_menu_item.stock }}
-                </li>
-                <li class="list-group-item">
+                </p>
+                <p>
                     <strong>Sold:</strong> {{ daily_menu_item.sold_quantity }}
-                </li>
-            </ul>
-            <a href="{% url "menu:daily-menu-item-update" pk=daily_menu_item.pk %}?next={{ request.path }}"
-               class="btn btn-primary">Edit</a>
-            <a href="{% url "menu:daily-menu-item-delete" pk=daily_menu_item.pk %}?next={{ request.path }}"
-               class="btn btn-danger">Delete</a>
-            <a href="{% url "menu:daily-menu-item-list" %}"
-               class="btn btn-outline-secondary">Cancel</a>
+                </p>
+            </div>
+            <div class="mt-5 d-flex justify-content-center align-items-center gap-2">
+                <a href="{% url "menu:daily-menu-item-update" pk=daily_menu_item.pk %}?next={{ request.path }}"
+                   class="btn btn-primary">Edit</a>
+                <a href="{% url "menu:daily-menu-item-delete" pk=daily_menu_item.pk %}?next={{ request.path }}"
+                   class="btn btn-danger">Delete</a>
+                <a href="{% url "menu:daily-menu-item-list" %}"
+                   class="btn btn-outline-secondary">Cancel</a>
+            </div>
         </div>
     </section>
 {% endblock content %}

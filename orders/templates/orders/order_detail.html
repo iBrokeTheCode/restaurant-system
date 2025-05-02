@@ -4,43 +4,51 @@
 {% endblock title %}
 {% block content %}
     <section class="w-100 min-vh-100 mt-navbar">
-        <div class="container py-5">
+        <div class="container py-5 max-width-container">
             <!-- Alert Messages START -->
             {% include "partials/alert_messages.html" %}
             <!-- Alert Messages END -->
-            <h2>Order #{{ order.pk }}</h2>
-            <ul class="list-group mb-3">
-                <li class="list-group-item">
+            <h2 class="mb-5 text-center">Order #{{ order.pk }}</h2>
+            <div class="mb-5">
+                <p>
                     <strong>Table:</strong> {{ order.table }}
-                </li>
-                <li class="list-group-item">
+                </p>
+                <p>
                     <strong>Status:</strong> {{ order.get_status_display }}
-                </li>
-                <li class="list-group-item">
+                </p>
+                <p>
                     <strong>Created At:</strong> {{ order.created_at }}
-                </li>
-            </ul>
-            <h4>Items</h4>
-            <ul class="list-group mb-3">
-                {% for item in order.items.all %}
-                    <li class="list-group-item d-flex justify-content-between">
-                        {{ item }} (S/.{{ item.unit_price }})
-                        <span>S/.{{ item.total_price }}</span>
-                    </li>
-                {% endfor %}
-                <li class="list-group-item d-flex justify-content-between">
-                    <strong>Total:</strong>
-                    <span>S/.{{ order.total }}</span>
-                </li>
-            </ul>
-            <a href="{% url 'orders:order-update' pk=order.pk %}?next={{ request.path }}"
-               class="btn btn-primary">Edit</a>
-            <a href="{% url "orders:order-delete" pk=order.pk %}?next={{ request.path }}"
-               class="btn btn-danger">Delete</a>
-            <a href="{% url "sales:sale-create" %}?order_id={{ order.pk }}&next={{ request.path }}"
-               class="btn btn-info">Sale</a>
-            <a href="{% url 'orders:order-list' %}"
-               class="btn btn-outline-secondary">Cancel</a>
+                </p>
+            </div>
+            <div>
+                <h3 class="mb-4">Items</h3>
+                <ul>
+                    {% for item in order.items.all %}
+                        <li>
+                            <p class="d-flex justify-content-between">
+                                {{ item }} (S/.{{ item.unit_price }})
+                                <span>S/.{{ item.total_price }}</span>
+                            </p>
+                        </li>
+                    {% empty %}
+                        <p>No Menu items added</p>
+                    {% endfor %}
+                    <p class="d-flex justify-content-between">
+                        <strong>Total:</strong>
+                        <span>S/.{{ order.total }}</span>
+                    </p>
+                </ul>
+            </div>
+            <div class="mt-5 d-flex justify-content-center align-items-center gap-2">
+                <a href="{% url 'orders:order-update' pk=order.pk %}?next={{ request.path }}"
+                   class="btn btn-primary">Edit</a>
+                <a href="{% url "orders:order-delete" pk=order.pk %}?next={{ request.path }}"
+                   class="btn btn-danger">Delete</a>
+                <a href="{% url "sales:sale-create" %}?order_id={{ order.pk }}&next={{ request.path }}"
+                   class="btn btn-info">Sale</a>
+                <a href="{% url 'orders:order-list' %}"
+                   class="btn btn-outline-secondary">Cancel</a>
+            </div>
         </div>
     </section>
 {% endblock content %}

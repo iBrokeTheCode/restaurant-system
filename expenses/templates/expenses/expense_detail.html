@@ -4,23 +4,23 @@
 {% endblock title %}
 {% block content %}
     <section class="w-100 min-vh-100 mt-navbar">
-        <div class="container py-5">
+        <div class="container py-5 max-width-container">
             <!-- Alert Messages START -->
             {% include "partials/alert_messages.html" %}
             <!-- Alert Messages END -->
-            <h1 class="text-xl font-bold mb-2">{{ expense.description }}</h1>
-            <ul class="list-group mb-3">
-                <li class="list-group-item">
+            <h2 class="mb-5 text-center">{{ expense.description }}</h2>
+            <div>
+                <p>
                     <strong>Amount:</strong> S/.{{ expense.amount }}
-                </li>
-                <li class="list-group-item">
+                </p>
+                <p>
                     <strong>Category:</strong> {{ expense.get_category_display }}
-                </li>
-                <li class="list-group-item">
+                </p>
+                <p>
                     <strong>Date:</strong> {{ expense.date }}
-                </li>
-            </ul>
-            <div class="mt-4">
+                </p>
+            </div>
+            <div class="mt-5 d-flex justify-content-center align-items-center gap-2">
                 <a href="{% url "expenses:expense-update" pk=expense.pk %}?next={{ request.path }}"
                    class="btn btn-primary">Edit</a>
                 <a href="{% url "expenses:expense-delete" pk=expense.pk %}?next={{ request.path }}"

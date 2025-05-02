@@ -4,25 +4,27 @@
 {% endblock title %}
 {% block content %}
     <section class="w-100 min-vh-100 mt-navbar">
-        <div class="container py-5">
+        <div class="container py-5 max-width-container">
             <!-- Alert Messages START -->
             {% include "partials/alert_messages.html" %}
             <!-- Alert Messages END -->
-            <h2>Table #{{ table.table_number }}</h2>
-            <ul class="list-group mb-3">
-                <li class="list-group-item">
+            <h2 class="mb-5 text-center">Table #{{ table.table_number }}</h2>
+            <div>
+                <p>
                     <strong>Seats:</strong> {{ table.seats }}
-                </li>
-                <li class="list-group-item">
+                </p>
+                <p>
                     <strong>Status:</strong> {{ table.get_status_display }}
-                </li>
-            </ul>
-            <a href="{% url "tables:table-update" pk=table.pk %}?next={{ request.path }}"
-               class="btn btn-primary">Edit</a>
-            <a href="{% url "tables:table-delete" pk=table.pk %}?next={{ request.path }}"
-               class="btn btn-danger">Delete</a>
-            <a href="{% url "tables:table-list" %}"
-               class="btn btn-outline-secondary">Cancel</a>
+                </p>
+            </div>
+            <div class="mt-5 d-flex justify-content-center align-items-center gap-2">
+                <a href="{% url "tables:table-update" pk=table.pk %}?next={{ request.path }}"
+                   class="btn btn-primary">Edit</a>
+                <a href="{% url "tables:table-delete" pk=table.pk %}?next={{ request.path }}"
+                   class="btn btn-danger">Delete</a>
+                <a href="{% url "tables:table-list" %}"
+                   class="btn btn-outline-secondary">Cancel</a>
+            </div>
         </div>
     </section>
 {% endblock content %}
