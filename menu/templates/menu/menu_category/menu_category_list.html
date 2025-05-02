@@ -9,9 +9,10 @@
       <!-- Alert Messages START -->
       {% include "partials/alert_messages.html" %}
       <!-- Alert Messages END -->
-      <h1 class="mb-4">Menu</h1>
-      <a class="btn btn-primary mb-3"
-         href="{% url 'menu:menu-category-create' %}">Add New Category</a>
+      <h1 class="mb-4">Categories</h1>
+      <a class="btn btn-primary mb-4"
+         href="{% url 'menu:menu-category-create' %}"
+         title="Add new category"><i class="fa-solid fa-plus"></i>Add</a>
       <table class="table table-bordered">
         <thead>
           <tr>
@@ -25,9 +26,11 @@
               <td>{{ category.name }}</td>
               <td>
                 <a class="btn btn-sm btn-outline-primary"
-                   href="{% url 'menu:menu-category-update' pk=category.pk %}">Edit</a>
+                   href="{% url 'menu:menu-category-update' pk=category.pk %}"
+                   title="Edit"><i class="fa-solid fa-pen-to-square"></i></a>
                 <a class="btn btn-sm btn-outline-danger"
-                   href="{% url 'menu:menu-category-delete' pk=category.pk %}">Delete</a>
+                   href="{% url 'menu:menu-category-delete' pk=category.pk %}"
+                   title="Delete"><i class="fa-solid fa-trash"></i></a>
               </td>
             </tr>
           {% empty %}
