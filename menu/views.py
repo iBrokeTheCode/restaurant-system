@@ -12,7 +12,7 @@ from django.views.generic import (
     UpdateView,
 )
 
-from menu.forms import DailyMenuForm
+from menu.forms import DailyMenuForm, MenuItemForm
 from menu.models import DailyMenu, DailyMenuItem, MenuCategory, MenuItem
 
 # ================================================================
@@ -34,7 +34,7 @@ class MenuItemDetailView(LoginRequiredMixin, DetailView):
 
 class MenuItemCreateView(LoginRequiredMixin, CreateView):
     model = MenuItem
-    fields = ('name', 'description', 'price', 'category', 'image')
+    form_class = MenuItemForm
     template_name = 'menu/menu_item/menu_item_form.html'
     success_url = reverse_lazy('menu:menu-item-list')
     context_object_name = 'menu_item'  # Default: view.object
@@ -51,7 +51,7 @@ class MenuItemCreateView(LoginRequiredMixin, CreateView):
 
 class MenuItemUpdateView(LoginRequiredMixin, UpdateView):
     model = MenuItem
-    fields = ('name', 'description', 'price', 'category', 'image')
+    form_class = MenuItemForm
     template_name = 'menu/menu_item/menu_item_form.html'
     success_url = reverse_lazy('menu:menu-item-list')
     context_object_name = 'menu_item'  # Default: view.object
