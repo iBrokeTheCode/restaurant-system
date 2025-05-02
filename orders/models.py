@@ -10,7 +10,6 @@ from tables.models import Table
 
 class Order(models.Model):
     class OrderStatusChoices(models.TextChoices):
-        PENDING = ('pending', 'Pending')
         IN_PROGRESS = ('in progress', 'In Progress')
         SERVED = ('served', 'Served')
         PAID = ('paid', 'Paid')
@@ -22,7 +21,9 @@ class Order(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     status = models.CharField(
-        max_length=15, choices=OrderStatusChoices, default=OrderStatusChoices.PENDING
+        max_length=15,
+        choices=OrderStatusChoices,
+        default=OrderStatusChoices.IN_PROGRESS,
     )
 
     @property

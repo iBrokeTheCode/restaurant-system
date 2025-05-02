@@ -6,7 +6,6 @@ from django.db.models import CheckConstraint, Q
 class TableStatusChoices(models.TextChoices):
     AVAILABLE = ('available', 'Available')
     OCCUPIED = ('occupied', 'Occupied')
-    RESERVED = ('reserved', 'Reserved')
 
 
 class Table(models.Model):
