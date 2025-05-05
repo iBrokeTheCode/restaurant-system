@@ -16,6 +16,10 @@ class OrderForm(forms.ModelForm):
     def clean_table(self):
         """Verify that the table is AVAILABLE to create order."""
         table = self.cleaned_data.get('table')
+
+        if self.instance.pk and self.instance.table == table:
+            return table
+
         if table and table.status == TableStatusChoices.OCCUPIED:
             raise ValidationError(f'Table {table.table_number} is currently occupied.')
         return table
