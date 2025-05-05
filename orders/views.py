@@ -124,6 +124,7 @@ class OrderUpdateView(LoginRequiredMixin, UpdateView):
                 self.object.table.status = TableStatusChoices.AVAILABLE
                 self.object.table.save()
 
+            # TODO: Case when change from CANCELLED to other status
             messages.success(self.request, 'Order updated successfully!')
             return redirect(self.get_success_url())
         else:
