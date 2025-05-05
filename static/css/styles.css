@@ -31,12 +31,6 @@ main {
   }
 }
 
-.hover-scale:hover {
-  transform: scale(1.02);
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-  transition: transform 0.2s ease-in-out;
-}
-
 .max-width-container {
   max-width: 40rem !important;
 }

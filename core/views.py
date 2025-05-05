@@ -1,4 +1,3 @@
-from django.contrib import messages
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView
@@ -12,10 +11,6 @@ from tables.models import Table
 class CustomLoginView(LoginView):
     template_name = 'core/login.html'
     redirect_authenticated_user = True
-
-    def form_valid(self, form):
-        messages.success(self.request, 'You have successfully logged in!')
-        return super().form_valid(form)
 
 
 def logout_view(request):
