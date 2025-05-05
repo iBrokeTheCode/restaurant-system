@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block title %}
+    Menu
+{% endblock title %}
+<span />
+{% block content %}
+    <section class="w-100 min-vh-100 mt-navbar">
+        <div class="container py-5">
+            <!-- Alert Messages START -->
+            {% include "partials/alert_messages.html" %}
+            <!-- Alert Messages END -->
+            <div class="d-flex justify-content-between align-item-center mb-5">
+                <h2 class="mb-0">Menu for {{ date }}</h2>
+                <a class="btn btn-primary"
+                   href="{% url "menu:daily-menu-item-create" %}"
+                   title="Add new category"><i class="fa-solid fa-plus"></i> Add</a>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Menu Item</th>
+                            <th>Stock</th>
+                            <th>Sold</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in daily_menu_items %}
+                            <tr>
+                                <td>{{ item.menu_item }}</td>
+                                <td>{{ item.stock }}</td>
+                                <td>{{ item.sold_quantity }}</td>
+                                <td>
+                                    <a class="btn btn-sm btn-outline-primary"
+                                       href="{% url "menu:daily-menu-item-detail" pk=item.pk %}"><i class="fa-solid fa-eye"></i></a>
+                                </td>
+                            </tr>
+                        {% empty %}
+                            <tr>
+                                <td colspan="4" class="text-center">There are no daily dishes added yet.</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+{% endblock content %}

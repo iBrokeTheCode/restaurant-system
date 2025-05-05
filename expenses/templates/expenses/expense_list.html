@@ -3,16 +3,49 @@
     Expenses
 {% endblock title %}
 {% block content %}
-    <h1 class="text-xl font-bold mb-4">Expenses</h1>
-    <a href="{% url "expenses:expense-create" %}"
-       class="btn btn-primary mb-4">Add Expense</a>
-    <ul>
-        {% for expense in expenses %}
-            <li class="mb-2">
-                <a href="{% url "expenses:expense-detail" pk=expense.pk %}">{{ expense.description }} - ${{ expense.amount }}</a>
-            </li>
-        {% empty %}
-            <li>No expenses yet.</li>
-        {% endfor %}
-    </ul>
+    <section class="w-100 min-vh-100 mt-navbar">
+        <div class="container py-5">
+            <!-- Alert Messages START -->
+            {% include "partials/alert_messages.html" %}
+            <!-- Alert Messages END -->
+            <div class="d-flex justify-content-between align-item-center mb-5">
+                <h2 class="mb-0">Expenses</h2>
+                <a class="btn btn-primary"
+                   href="{% url "expenses:expense-create" %}"
+                   title="Add new category"><i class="fa-solid fa-plus"></i> Add</a>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Description</th>
+                            <th>Amount</th>
+                            <th>Category</th>
+                            <th>Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for expense in expenses %}
+                            <tr>
+                                <td class="mb-2">{{ expense.description }}</td>
+                                <td>S/.{{ expense.amount }}</td>
+                                <td>{{ expense.get_category_display }}</td>
+                                <td>{{ expense.date }}</td>
+                                <td>
+                                    <a class="btn btn-sm btn-outline-primary"
+                                       href="{% url "expenses:expense-detail" pk=expense.pk %}"
+                                       title="Details"><i class="fa-solid fa-eye"></i></a>
+                                </td>
+                            </tr>
+                        {% empty %}
+                            <tr>
+                                <td colspan="5" class="text-center">There are no expenses added yet.</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
 {% endblock content %}

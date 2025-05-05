@@ -3,6 +3,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.forms.models import inlineformset_factory
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
+from django.utils.timezone import now
 from django.views.generic import (
     CreateView,
     DeleteView,
@@ -11,13 +12,15 @@ from django.views.generic import (
     UpdateView,
 )
 
+from orders.forms import OrderForm, OrderItemForm
 from orders.models import Order, OrderItem
+from tables.models import TableStatusChoices
 
 OrderItemFormSet = inlineformset_factory(
     parent_model=Order,
     model=OrderItem,
-    fields=('menu_item', 'quantity', 'unit_price', 'note'),
-    extra=1,
+    form=OrderItemForm,
+    extra=2,
     can_delete=True,
 )
 
@@ -26,6 +29,10 @@ class OrderListView(LoginRequiredMixin, ListView):
     model = Order
     template_name = 'orders/order_list.html'
     context_object_name = 'orders'
+
+    def get_queryset(self):
+        today = now().date()
+        return Order.objects.filter(created_at__date=today)
 
 
 class OrderDetailView(LoginRequiredMixin, DetailView):
@@ -36,7 +43,7 @@ class OrderDetailView(LoginRequiredMixin, DetailView):
 
 class OrderCreateView(LoginRequiredMixin, CreateView):
     model = Order
-    fields = ('table', 'status')
+    form_class = OrderForm
     template_name = 'orders/order_form.html'
     context_object_name = 'order'
     success_url = reverse_lazy('orders:order-list')
@@ -63,18 +70,23 @@ class OrderCreateView(LoginRequiredMixin, CreateView):
             formset.instance = self.object
             # Save formset
             formset.save()
+
+            # Update table status to 'occupied'
+            if self.object.table:
+                self.object.table.status = TableStatusChoices.OCCUPIED
+                self.object.table.save(update_fields=['status'])
+
             messages.success(self.request, 'Order created successfully!')
 
             return redirect(self.success_url)
         else:
-            messages.error(self.request, 'Invalid form. Try again!')
             # re-render the form with errors.
             return self.render_to_response(self.get_context_data(form=form))
 
 
 class OrderUpdateView(LoginRequiredMixin, UpdateView):
     model = Order
-    fields = ('table', 'status')
+    form_class = OrderForm
     template_name = 'orders/order_form.html'
     context_object_name = 'order'
     success_url = reverse_lazy('orders:order-list')
@@ -100,15 +112,21 @@ class OrderUpdateView(LoginRequiredMixin, UpdateView):
         context = self.get_context_data()
         formset = context['formset']
 
-        if formset.is_valid():
-            self.object = form.save()
-            formset.instance = self.object
-            formset.save()
-            messages.success(self.request, 'Order updated successfully!')
+        self.object = form.save(commit=False)
 
+        if formset.is_valid():
+            formset.instance = self.object
+            self.object.save()
+            formset.save()
+
+            # If status changed to 'cancelled', free the table
+            if self.object.status == 'cancelled' and self.object.table:
+                self.object.table.status = TableStatusChoices.AVAILABLE
+                self.object.table.save()
+
+            messages.success(self.request, 'Order updated successfully!')
             return redirect(self.get_success_url())
         else:
-            messages.error(self.request, 'Invalid form. Try again!')
             return self.render_to_response(self.get_context_data(form=form))
 
 

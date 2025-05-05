@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}
+    Daily Menu Detail
+{% endblock title %}
+{% block content %}
+    <section class="w-100 min-vh-100 mt-navbar">
+        <div class="container py-5 max-width-container">
+            <!-- Alert Messages START -->
+            {% include "partials/alert_messages.html" %}
+            <!-- Alert Messages END -->
+            <h2 class="mb-5 text-center">Menu for {{ daily_menu.date }}</h2>
+            <ul>
+                {% for item in daily_menu.daily_items.all %}
+                    <li class="mb-3">
+                        <p class="mb-1">
+                            <strong>{{ item.menu_item.name|upper }}</strong>
+                        </p>
+                        Price: S/.{{ item.menu_item.price }}
+                        <br>
+                        Sold: {{ item.sold_quantity }} of {{ item.stock }}
+                    </li>
+                {% empty %}
+                    <p>No Daily Menu Items added yet!</p>
+                {% endfor %}
+            </ul>
+            <div class="mt-5 d-flex justify-content-center align-items-center gap-2">
+                <a href="{% url "menu:daily-menu-update" pk=daily_menu.pk %}?next={{ request.path }}"
+                   class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
+                <a href="{% url "menu:daily-menu-delete" pk=daily_menu.pk %}?next={{ request.path }}"
+                   class="btn btn-danger"><i class="fa-solid fa-trash"></i> Delete</a>
+                <a href="{% url "menu:daily-menu-list" %}"
+                   class="btn btn-outline-secondary">Cancel</a>
+            </div>
+        </div>
+    </section>
+{% endblock content %}

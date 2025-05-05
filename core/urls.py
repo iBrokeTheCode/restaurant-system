@@ -15,7 +15,7 @@ urlpatterns = [
     path('', home, name='home'),
     path('dashboard/', dashboard, name='dashboard'),
     path('day-menu/', day_menu_view, name='day-menu'),
-    path('tables-status', tables_status_view, name='tables-status'),
+    path('tables-status/', tables_status_view, name='tables-status'),
     path(
         'login/',
         CustomLoginView.as_view(),

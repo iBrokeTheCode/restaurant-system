@@ -1,13 +1,22 @@
 {% extends "base.html" %}
+{% load static %}
 {% block title %}
   Home
 {% endblock title %}
 <span />
 {% block content %}
-  <h1 class="mb-4">Enjoy your healthy Delicious Food</h1>
-  <p>See our menu</p>
-  <p>Book a table</p>
-  <div>
-    <h2>Our Menu preview</h2>
-  </div>
+  <section class="w-100 vh-100 d-flex align-items-center justify-content-center px-0 mx-0"
+           style="background: url('{% static 'images/hero.webp' %}') no-repeat center top fixed;
+                  background-size: cover;
+                  box-shadow: inset 0 0 0 2000px rgba(0, 0, 0, 0.6)">
+    <div class="container text-center text-white">
+      <h1 class="display-3 fw-bold mb-4">Come hungry. Leave satisfied</h1>
+      <p class="mb-5 fs-4">Your perfect ally to start your day with the best energy.</p>
+      <p>
+        <a href="{% url 'core:day-menu' %}" class="btn btn-primary btn-lg me-3">Our Menu</a>
+        <a href="{% url 'core:tables-status' %}"
+           class="btn btn-outline-light btn-lg">Book a Table</a>
+      </p>
+    </div>
+  </section>
 {% endblock content %}

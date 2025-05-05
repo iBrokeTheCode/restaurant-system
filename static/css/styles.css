@@ -1,0 +1,42 @@
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+main {
+  flex-grow: 1;
+}
+.footer {
+  margin-top: auto;
+}
+
+.scrolled {
+  background-color: rgba(235, 104, 100, 0.95) !important;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.mt-navbar {
+  margin-top: 56px !important;
+}
+
+@media (min-width: 576px) {
+  .mt-navbar {
+    margin-top: 88px !important;
+  }
+}
+
+@media (min-width: 992px) {
+  .mt-navbar {
+    margin-top: 91px !important;
+  }
+}
+
+.hover-scale:hover {
+  transform: scale(1.02);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  transition: transform 0.2s ease-in-out;
+}
+
+.max-width-container {
+  max-width: 40rem !important;
+}

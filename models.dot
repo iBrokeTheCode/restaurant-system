@@ -1,6 +1,6 @@
 digraph model_graph {
   // Dotfile by Django-Extensions graph_models
-  // Created: 2025-04-24 01:54
+  // Created: 2025-05-02 15:56
   // Cli Options: menu orders tables sales expenses
 
   fontname = "Roboto"
@@ -82,9 +82,9 @@ digraph model_graph {
   
   
     <TR><TD ALIGN="LEFT" BORDER="0">
-    <FONT FACE="Roboto">is_available</FONT>
+    <FONT COLOR="#7B7B7B" FACE="Roboto">image</FONT>
     </TD><TD ALIGN="LEFT">
-    <FONT FACE="Roboto">BooleanField</FONT>
+    <FONT COLOR="#7B7B7B" FACE="Roboto">ImageField</FONT>
     </TD></TR>
   
   
@@ -101,6 +101,74 @@ digraph model_graph {
     <FONT FACE="Roboto">price</FONT>
     </TD><TD ALIGN="LEFT">
     <FONT FACE="Roboto">DecimalField</FONT>
+    </TD></TR>
+  
+  
+    </TABLE>
+    >]
+
+  menu_models_DailyMenu [label=<
+    <TABLE BGCOLOR="white" BORDER="1" CELLBORDER="0" CELLSPACING="0">
+    <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#1b563f">
+    <FONT FACE="Roboto" COLOR="white" POINT-SIZE="10"><B>
+    DailyMenu
+    </B></FONT></TD></TR>
+  
+  
+    <TR><TD ALIGN="LEFT" BORDER="0">
+    <FONT FACE="Roboto"><B>id</B></FONT>
+    </TD><TD ALIGN="LEFT">
+    <FONT FACE="Roboto"><B>BigAutoField</B></FONT>
+    </TD></TR>
+  
+  
+  
+    <TR><TD ALIGN="LEFT" BORDER="0">
+    <FONT FACE="Roboto">date</FONT>
+    </TD><TD ALIGN="LEFT">
+    <FONT FACE="Roboto">DateField</FONT>
+    </TD></TR>
+  
+  
+    </TABLE>
+    >]
+
+  menu_models_DailyMenuItem [label=<
+    <TABLE BGCOLOR="white" BORDER="1" CELLBORDER="0" CELLSPACING="0">
+    <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#1b563f">
+    <FONT FACE="Roboto" COLOR="white" POINT-SIZE="10"><B>
+    DailyMenuItem
+    </B></FONT></TD></TR>
+  
+  
+    <TR><TD ALIGN="LEFT" BORDER="0">
+    <FONT FACE="Roboto"><B>id</B></FONT>
+    </TD><TD ALIGN="LEFT">
+    <FONT FACE="Roboto"><B>BigAutoField</B></FONT>
+    </TD></TR>
+  
+  
+  
+    <TR><TD ALIGN="LEFT" BORDER="0">
+    <FONT FACE="Roboto"><B>daily_menu</B></FONT>
+    </TD><TD ALIGN="LEFT">
+    <FONT FACE="Roboto"><B>ForeignKey (id)</B></FONT>
+    </TD></TR>
+  
+  
+  
+    <TR><TD ALIGN="LEFT" BORDER="0">
+    <FONT FACE="Roboto"><B>menu_item</B></FONT>
+    </TD><TD ALIGN="LEFT">
+    <FONT FACE="Roboto"><B>ForeignKey (id)</B></FONT>
+    </TD></TR>
+  
+  
+  
+    <TR><TD ALIGN="LEFT" BORDER="0">
+    <FONT FACE="Roboto">stock</FONT>
+    </TD><TD ALIGN="LEFT">
+    <FONT FACE="Roboto">PositiveSmallIntegerField</FONT>
     </TD></TR>
   
   
@@ -177,7 +245,7 @@ digraph model_graph {
   
   
     <TR><TD ALIGN="LEFT" BORDER="0">
-    <FONT FACE="Roboto"><B>menu_item</B></FONT>
+    <FONT FACE="Roboto"><B>daily_menu_item</B></FONT>
     </TD><TD ALIGN="LEFT">
     <FONT FACE="Roboto"><B>ForeignKey (id)</B></FONT>
     </TD></TR>
@@ -209,9 +277,9 @@ digraph model_graph {
   
   
     <TR><TD ALIGN="LEFT" BORDER="0">
-    <FONT FACE="Roboto">unit_price</FONT>
+    <FONT COLOR="#7B7B7B" FACE="Roboto">unit_price</FONT>
     </TD><TD ALIGN="LEFT">
-    <FONT FACE="Roboto">DecimalField</FONT>
+    <FONT COLOR="#7B7B7B" FACE="Roboto">DecimalField</FONT>
     </TD></TR>
   
   
@@ -291,9 +359,9 @@ digraph model_graph {
   
   
     <TR><TD ALIGN="LEFT" BORDER="0">
-    <FONT FACE="Roboto">amount</FONT>
+    <FONT COLOR="#7B7B7B" FACE="Roboto">amount</FONT>
     </TD><TD ALIGN="LEFT">
-    <FONT FACE="Roboto">DecimalField</FONT>
+    <FONT COLOR="#7B7B7B" FACE="Roboto">DecimalField</FONT>
     </TD></TR>
   
   
@@ -377,6 +445,12 @@ digraph model_graph {
   menu_models_MenuItem -> menu_models_MenuCategory
   [label=" category (items)"] [arrowhead=none, arrowtail=dot, dir=both];
 
+  menu_models_DailyMenuItem -> menu_models_DailyMenu
+  [label=" daily_menu (daily_items)"] [arrowhead=none, arrowtail=dot, dir=both];
+
+  menu_models_DailyMenuItem -> menu_models_MenuItem
+  [label=" menu_item (dailymenuitem)"] [arrowhead=none, arrowtail=dot, dir=both];
+
 
   orders_models_Order -> tables_models_Table
   [label=" table (orders)"] [arrowhead=none, arrowtail=dot, dir=both];
@@ -384,8 +458,8 @@ digraph model_graph {
   orders_models_OrderItem -> orders_models_Order
   [label=" order (items)"] [arrowhead=none, arrowtail=dot, dir=both];
 
-  orders_models_OrderItem -> menu_models_MenuItem
-  [label=" menu_item (orderitem)"] [arrowhead=none, arrowtail=dot, dir=both];
+  orders_models_OrderItem -> menu_models_DailyMenuItem
+  [label=" daily_menu_item (order_items)"] [arrowhead=none, arrowtail=dot, dir=both];
 
 
 

@@ -1,43 +1,43 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="{% url "core:home" %}">Restaurant</a>
+<nav id="mainNav"
+     class="navbar navbar-expand-lg bg-transparent py-sm-4 fixed-top"
+     data-bs-theme="dark">
+    <div class="container">
+        <a class="navbar-brand" href="{% url "core:home" %}">{{ business_info.name|default:"The Restaurant" }}</a>
         <button class="navbar-toggler"
                 type="button"
                 data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent"
+                data-bs-target="#navbarColor01"
+                aria-controls="navbarColor01"
                 aria-expanded="false"
                 aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <div class="collapse navbar-collapse" id="navbarColor01">
+            <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    <a class="nav-link active"
-                       aria-current="page"
-                       href="{% url "core:home" %}">Home</a>
+                    <a class="nav-link {% if request.path == '/' %}active{% endif %}"
+                       href="{% url "core:home" %}">Home
+                        <span class="visually-hidden">(current)</span>
+                    </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active"
-                       aria-current="page"
+                    <a class="nav-link {% if request.path == '/day-menu/' %}active{% endif %}"
                        href="{% url "core:day-menu" %}">Menu</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active"
-                       aria-current="page"
+                    <a class="nav-link {% if request.path == '/tables-status/' %}active{% endif %}"
                        href="{% url "core:tables-status" %}">Tables</a>
                 </li>
-            </ul>
-            <div class="d-flex">
                 {% if user.is_authenticated %}
-                    <div class="d-flex align-items-center gap-2">
-                        <span>{{ user|upper }}</span>
-                        <a class="btn btn-outline-danger" href="{% url "core:logout" %}">Logout</a>
-                    </div>
-                {% else %}
-                    <a class="btn btn-outline-primary" href="{% url 'core:login' %}">Login</a>
-                {% endif %}
-            </div>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.path == '/dashboard/' %}active{% endif %}"
+                           href="{% url "core:dashboard" %}">Dashboard</a>
+                    </li>
+                </ul>
+                <a class="btn {% if request.path != '/' %}btn-dark {% else %} btn-outline-secondary {% endif %} "
+                   href="{% url "core:logout" %}"
+                   title="Logout">Logout <i class="fa-solid fa-right-from-bracket"></i></a>
+            {% endif %}
         </div>
     </div>
 </nav>

@@ -1,22 +1,46 @@
-# 🍽️ **Restaurant System – ER Diagram Design (Conceptual)**
+# 🍽️ **Restaurant System – ER Diagram Design**
 
 ![image](./ER-Diagram.svg)
 
 ## 🧾 `MenuItem`
 
+Represents general dish info (name, description, price, image, etc.)
+
 - `id` (PK)
 - `name`
 - `description`
 - `price`
+- `image` _(optional, with fallback)_
 - `category` (FK → `MenuCategory`)
-- `is_available`
+- `is_available` _(global availability, not daily)_
 
 ## 📂 `MenuCategory`
+
+Classifies menu items into categories (e.g. "Entrees", "Desserts").
 
 - `id` (PK)
 - `name`
 
+## 📅 `DailyMenu`
+
+Defines the active menu for a specific day.
+
+- `id` (PK)
+- `date` (unique)
+
+## 📋 `DailyMenuItem`
+
+Links a `MenuItem` to a `DailyMenu`, with per-day availability and stock.
+
+- `id` (PK)
+- `daily_menu` (FK → `DailyMenu`)
+- `menu_item` (FK → `MenuItem`)
+- `stock` (initial units available)
+- `is_available` _(for that day)_
+
 ## 🪑 `Table`
+
+Represents a restaurant table.
 
 - `id` (PK)
 - `table_number`
@@ -25,31 +49,38 @@
 
 ## 🛒 `Order`
 
+A customer order linked to a table.
+
 - `id` (PK)
 - `table` (FK → `Table`)
 - `created_at`
 - `updated_at`
 - `status` (`pending`, `in_progress`, `served`, `paid`, `cancelled`)
-- `total` (calculated)
 
 ## 🍽️ `OrderItem`
 
+An item in an order, linked to a specific `DailyMenuItem`.
+
 - `id` (PK)
 - `order` (FK → `Order`)
-- `menu_item` (FK → `MenuItem`)
+- `daily_menu_item` (FK → `DailyMenuItem`)
 - `quantity`
 - `unit_price`
 - `note`
 
 ## 💳 `Sale`
 
+Represents payment info for an order.
+
 - `id` (PK)
-- `order` (FK → `Order`)
+- `order` (OneToOne FK → `Order`)
 - `payment_method` (`cash`, `card`, `pix`)
 - `amount`
 - `payment_time`
 
 ## 💰 `Expense`
+
+Tracks outgoing money.
 
 - `id` (PK)
 - `description`
@@ -59,16 +90,20 @@
 
 ## 📊 `Report`
 
-(Not a model — but views/logic to summarize: total sales, expenses, best sellers, etc.)
+(Not a model — defined via queries/views to summarize data)
 
-## 👤 (Optional) `User`
+- Daily/weekly/monthly sales
+- Best-selling dishes
+- Remaining stock
+- Profit (sales - expenses)
 
-- Extend later with roles (admin, waiter, etc.) if needed
-
-## 🔗 Relationships
+## 🔗 Relationships Summary
 
 - One `MenuCategory` → many `MenuItems`
+- One `DailyMenu` → many `DailyMenuItems`
+- One `MenuItem` → many `DailyMenuItems`
+- One `DailyMenuItem` → many `OrderItems`
 - One `Table` → many `Orders`
 - One `Order` → many `OrderItems`
 - One `Order` → one `Sale`
-- Expenses are standalone, for accounting only
+- Expenses are standalone

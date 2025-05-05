@@ -155,6 +155,7 @@ py manage.py graph_models menu orders tables sales expenses > models.dot
 - [x] Use Django **Messages Framework** for feedback (success/error).
 - [x] Add authentication views (login, logout, user permissions).
 - [x] Apply basic styling (Bootstrap, Tailwind, or minimal CSS).
+- [x] Add DailyMenu model with date and menu_items fields
 
 **Concepts Used:**
 
