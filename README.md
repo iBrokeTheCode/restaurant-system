@@ -169,14 +169,6 @@ py manage.py graph_models menu orders tables sales expenses > models.dot
 
 **Tasks:**
 
-- Orders
-
-  - [ ] Manage all from orders (Create, pay, cancel)
-        “A table is occupied if and only if there’s at least one active order (not paid or cancelled) for it.”
-
-- Add more descriptive option by adding orders
-- Or add a button "sale" to create sales directly from orders
-
 - Write custom queries using:
   - `annotate()`, `aggregate()`, `F`, `Q`, `Case`, `When`
 - Optimize views with:
