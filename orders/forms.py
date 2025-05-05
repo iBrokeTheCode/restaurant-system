@@ -1,9 +1,24 @@
 # forms.py (create if you don't have it)
 from django import forms
+from django.core.exceptions import ValidationError
 from django.utils.timezone import now
 
 from menu.models import DailyMenuItem
-from orders.models import OrderItem
+from orders.models import Order, OrderItem
+from tables.models import TableStatusChoices
+
+
+class OrderForm(forms.ModelForm):
+    class Meta:
+        model = Order
+        fields = ('table', 'status')
+
+    def clean_table(self):
+        """Verify that the table is AVAILABLE to create order."""
+        table = self.cleaned_data.get('table')
+        if table and table.status == TableStatusChoices.OCCUPIED:
+            raise ValidationError(f'Table {table.table_number} is currently occupied.')
+        return table
 
 
 class OrderItemForm(forms.ModelForm):

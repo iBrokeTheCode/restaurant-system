@@ -12,7 +12,7 @@ from django.views.generic import (
     UpdateView,
 )
 
-from orders.forms import OrderItemForm
+from orders.forms import OrderForm, OrderItemForm
 from orders.models import Order, OrderItem
 from tables.models import TableStatusChoices
 
@@ -43,7 +43,7 @@ class OrderDetailView(LoginRequiredMixin, DetailView):
 
 class OrderCreateView(LoginRequiredMixin, CreateView):
     model = Order
-    fields = ('table', 'status')
+    form_class = OrderForm
     template_name = 'orders/order_form.html'
     context_object_name = 'order'
     success_url = reverse_lazy('orders:order-list')
@@ -86,7 +86,7 @@ class OrderCreateView(LoginRequiredMixin, CreateView):
 
 class OrderUpdateView(LoginRequiredMixin, UpdateView):
     model = Order
-    fields = ('table', 'status')
+    form_class = OrderForm
     template_name = 'orders/order_form.html'
     context_object_name = 'order'
     success_url = reverse_lazy('orders:order-list')
