@@ -3,6 +3,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.forms.models import inlineformset_factory
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
+from django.utils.timezone import now
 from django.views.generic import (
     CreateView,
     DeleteView,
@@ -28,6 +29,10 @@ class OrderListView(LoginRequiredMixin, ListView):
     model = Order
     template_name = 'orders/order_list.html'
     context_object_name = 'orders'
+
+    def get_queryset(self):
+        today = now().date()
+        return Order.objects.filter(created_at__date=today)
 
 
 class OrderDetailView(LoginRequiredMixin, DetailView):
