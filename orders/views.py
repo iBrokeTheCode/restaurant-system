@@ -112,12 +112,19 @@ class OrderUpdateView(LoginRequiredMixin, UpdateView):
         context = self.get_context_data()
         formset = context['formset']
 
-        if formset.is_valid():
-            self.object = form.save()
-            formset.instance = self.object
-            formset.save()
-            messages.success(self.request, 'Order updated successfully!')
+        self.object = form.save(commit=False)
 
+        if formset.is_valid():
+            formset.instance = self.object
+            self.object.save()
+            formset.save()
+
+            # If status changed to 'cancelled', free the table
+            if self.object.status == 'cancelled' and self.object.table:
+                self.object.table.status = TableStatusChoices.AVAILABLE
+                self.object.table.save()
+
+            messages.success(self.request, 'Order updated successfully!')
             return redirect(self.get_success_url())
         else:
             return self.render_to_response(self.get_context_data(form=form))

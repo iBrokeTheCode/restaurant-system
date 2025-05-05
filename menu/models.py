@@ -64,7 +64,12 @@ class DailyMenuItem(models.Model):
 
     @property
     def sold_quantity(self):
-        return sum(item.quantity for item in self.order_items.all())  # type: ignore
+        return sum(
+            item.quantity
+            for item in self.order_items.filter(  # type: ignore
+                order__status__in=['paid', 'in progress', 'served']
+            )
+        )
 
     @property
     def remaining_stock(self):
