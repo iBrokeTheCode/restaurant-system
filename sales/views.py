@@ -21,10 +21,16 @@ class SaleListView(LoginRequiredMixin, ListView):
     context_object_name = 'sales'
 
     def get_queryset(self):
+        """Filter sales for the current day."""
         qs = super().get_queryset()
         today = now().date()
-
         return qs.filter(payment_time__date=today)
+
+    def get_context_data(self, **kwargs):
+        """Override method to pass date in the context."""
+        ctx = super().get_context_data(**kwargs)
+        ctx['date'] = now().date()
+        return ctx
 
 
 class SaleDetailView(LoginRequiredMixin, DetailView):

@@ -31,8 +31,15 @@ class OrderListView(LoginRequiredMixin, ListView):
     context_object_name = 'orders'
 
     def get_queryset(self):
+        """Filter order for the current day."""
         today = now().date()
         return Order.objects.filter(created_at__date=today)
+
+    def get_context_data(self, **kwargs):
+        """Override method to pass date in the context."""
+        ctx = super().get_context_data(**kwargs)
+        ctx['date'] = now().date()
+        return ctx
 
 
 class OrderDetailView(LoginRequiredMixin, DetailView):
