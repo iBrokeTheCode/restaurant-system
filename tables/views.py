@@ -9,27 +9,34 @@ from django.views.generic import (
     UpdateView,
 )
 
+from core.mixins import GroupRequiredMixin
 from tables.models import Table
 
 
-class TableListView(LoginRequiredMixin, ListView):
+class TableListView(LoginRequiredMixin, GroupRequiredMixin, ListView):
     model = Table
     template_name = 'tables/table_list.html'
     context_object_name = 'tables'  # Default table_list
+    group_required = ['Owner']
+    raise_exception = True
 
 
 class TableDetailView(LoginRequiredMixin, DetailView):
     model = Table
     template_name = 'tables/table_detail.html'
     context_object_name = 'table'  # Default: object
+    group_required = ['Owner']
+    raise_exception = True
 
 
-class TableCreateView(LoginRequiredMixin, CreateView):
+class TableCreateView(LoginRequiredMixin, GroupRequiredMixin, CreateView):
     model = Table
     fields = ('table_number', 'seats', 'status')
     template_name = 'tables/table_form.html'
     success_url = reverse_lazy('tables:table-list')
     context_object_name = 'table'  # Default: view.object
+    group_required = ['Owner']
+    raise_exception = True
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -41,12 +48,14 @@ class TableCreateView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class TableUpdateView(LoginRequiredMixin, UpdateView):
+class TableUpdateView(LoginRequiredMixin, GroupRequiredMixin, UpdateView):
     model = Table
     fields = ('table_number', 'seats', 'status')
     template_name = 'tables/table_form.html'
     success_url = reverse_lazy('tables:table-list')
     context_object_name = 'table'  # Default: view.object
+    group_required = ['Owner']
+    raise_exception = True
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -62,11 +71,13 @@ class TableUpdateView(LoginRequiredMixin, UpdateView):
         return super().form_valid(form)
 
 
-class TableDeleteView(LoginRequiredMixin, DeleteView):
+class TableDeleteView(LoginRequiredMixin, GroupRequiredMixin, DeleteView):
     model = Table
     template_name = 'tables/table_confirm_delete.html'
     success_url = reverse_lazy('tables:table-list')
     context_object_name = 'table'  # Default: object
+    group_required = ['Owner']
+    raise_exception = True
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

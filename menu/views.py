@@ -14,6 +14,7 @@ from django.views.generic import (
     UpdateView,
 )
 
+from core.mixins import GroupRequiredMixin
 from menu.forms import DailyMenuForm, MenuItemForm
 from menu.models import DailyMenu, DailyMenuItem, MenuCategory, MenuItem
 
@@ -22,24 +23,30 @@ from menu.models import DailyMenu, DailyMenuItem, MenuCategory, MenuItem
 # ================================================================
 
 
-class MenuItemListView(LoginRequiredMixin, ListView):
+class MenuItemListView(LoginRequiredMixin, GroupRequiredMixin, ListView):
     model = MenuItem
     template_name = 'menu/menu_item/menu_item_list.html'
     context_object_name = 'menu_items'  # Default: menuitem_list
+    group_required = ['Owner']
+    raise_exception = True
 
 
-class MenuItemDetailView(LoginRequiredMixin, DetailView):
+class MenuItemDetailView(LoginRequiredMixin, GroupRequiredMixin, DetailView):
     model = MenuItem
     template_name = 'menu/menu_item/menu_item_detail.html'
     context_object_name = 'menu_item'  # Default: object
+    group_required = ['Owner']
+    raise_exception = True
 
 
-class MenuItemCreateView(LoginRequiredMixin, CreateView):
+class MenuItemCreateView(LoginRequiredMixin, GroupRequiredMixin, CreateView):
     model = MenuItem
     form_class = MenuItemForm
     template_name = 'menu/menu_item/menu_item_form.html'
     success_url = reverse_lazy('menu:menu-item-list')
     context_object_name = 'menu_item'  # Default: view.object
+    group_required = ['Owner']
+    raise_exception = True
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -51,12 +58,14 @@ class MenuItemCreateView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class MenuItemUpdateView(LoginRequiredMixin, UpdateView):
+class MenuItemUpdateView(LoginRequiredMixin, GroupRequiredMixin, UpdateView):
     model = MenuItem
     form_class = MenuItemForm
     template_name = 'menu/menu_item/menu_item_form.html'
     success_url = reverse_lazy('menu:menu-item-list')
     context_object_name = 'menu_item'  # Default: view.object
+    group_required = ['Owner']
+    raise_exception = True
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -72,11 +81,13 @@ class MenuItemUpdateView(LoginRequiredMixin, UpdateView):
         return super().form_valid(form)
 
 
-class MenuItemDeleteView(LoginRequiredMixin, DeleteView):
+class MenuItemDeleteView(LoginRequiredMixin, GroupRequiredMixin, DeleteView):
     model = MenuItem
     template_name = 'menu/menu_item/menu_item_confirm_delete.html'
     success_url = reverse_lazy('menu:menu-item-list')
     context_object_name = 'menu_item'
+    group_required = ['Owner']
+    raise_exception = True
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -97,41 +108,49 @@ class MenuItemDeleteView(LoginRequiredMixin, DeleteView):
 # ================================================================
 
 
-class MenuCategoryListView(LoginRequiredMixin, ListView):
+class MenuCategoryListView(LoginRequiredMixin, GroupRequiredMixin, ListView):
     model = MenuCategory
     template_name = 'menu/menu_category/menu_category_list.html'
     context_object_name = 'menu_categories'
+    group_required = ['Owner']
+    raise_exception = True
 
 
-class MenuCategoryCreateView(LoginRequiredMixin, CreateView):
+class MenuCategoryCreateView(LoginRequiredMixin, GroupRequiredMixin, CreateView):
     model = MenuCategory
     fields = ('name',)
     template_name = 'menu/menu_category/menu_category_form.html'
     success_url = reverse_lazy('menu:menu-category-list')
     context_object_name = 'menu_category'
+    group_required = ['Owner']
+    raise_exception = True
 
     def form_valid(self, form):
         messages.success(self.request, 'Menu category created successfully!')
         return super().form_valid(form)
 
 
-class MenuCategoryUpdateView(LoginRequiredMixin, UpdateView):
+class MenuCategoryUpdateView(LoginRequiredMixin, GroupRequiredMixin, UpdateView):
     model = MenuCategory
     fields = ('name',)
     template_name = 'menu/menu_category/menu_category_form.html'
     success_url = reverse_lazy('menu:menu-category-list')
     context_object_name = 'menu_category'
+    group_required = ['Owner']
+    raise_exception = True
 
     def form_valid(self, form):
         messages.success(self.request, 'Menu category updated successfully!')
         return super().form_valid(form)
 
 
-class MenuCategoryDeleteView(LoginRequiredMixin, DeleteView):
+class MenuCategoryDeleteView(LoginRequiredMixin, GroupRequiredMixin, DeleteView):
     model = MenuCategory
     template_name = 'menu/menu_category/menu_category_confirm_delete.html'
     success_url = reverse_lazy('menu:menu-category-list')
     context_object_name = 'menu_category'
+    group_required = ['Owner']
+    raise_exception = True
 
     def delete(self, request, *args, **kwargs):
         messages.success(self.request, 'Menu category deleted successfully!')
@@ -154,10 +173,12 @@ DailyMenuItemFormSet = inlineformset_factory(
 )
 
 
-class DailyMenuListView(LoginRequiredMixin, ListView):
+class DailyMenuListView(LoginRequiredMixin, GroupRequiredMixin, ListView):
     model = DailyMenu
     template_name = 'menu/daily_menu/daily_menu_list.html'
     context_object_name = 'daily_menu'
+    group_required = ['Owner']
+    raise_exception = True
 
     def get_queryset(self):
         """Get Menu for the current month"""
@@ -173,18 +194,22 @@ class DailyMenuListView(LoginRequiredMixin, ListView):
         return ctx
 
 
-class DailyMenuDetailView(LoginRequiredMixin, DetailView):
+class DailyMenuDetailView(LoginRequiredMixin, GroupRequiredMixin, DetailView):
     model = DailyMenu
     template_name = 'menu/daily_menu/daily_menu_detail.html'
     context_object_name = 'daily_menu'
+    group_required = ['Owner']
+    raise_exception = True
 
 
-class DailyMenuCreateView(LoginRequiredMixin, CreateView):
+class DailyMenuCreateView(LoginRequiredMixin, GroupRequiredMixin, CreateView):
     model = DailyMenu
     form_class = DailyMenuForm
     template_name = 'menu/daily_menu/daily_menu_form.html'
     context_object_name = 'daily_menu'
     success_url = reverse_lazy('menu:daily-menu-list')
+    group_required = ['Owner']
+    raise_exception = True
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -212,12 +237,14 @@ class DailyMenuCreateView(LoginRequiredMixin, CreateView):
             return self.render_to_response(self.get_context_data(form=form))
 
 
-class DailyMenuUpdateView(LoginRequiredMixin, UpdateView):
+class DailyMenuUpdateView(LoginRequiredMixin, GroupRequiredMixin, UpdateView):
     model = DailyMenu
     form_class = DailyMenuForm
     template_name = 'menu/daily_menu/daily_menu_form.html'
     context_object_name = 'daily_menu'
     success_url = reverse_lazy('menu:daily-menu-list')
+    group_required = ['Owner']
+    raise_exception = True
 
     def get_success_url(self):
         next_url = self.request.GET.get('next')
@@ -252,11 +279,13 @@ class DailyMenuUpdateView(LoginRequiredMixin, UpdateView):
             return self.render_to_response(self.get_context_data(form=form))
 
 
-class DailyMenuDeleteView(LoginRequiredMixin, DeleteView):
+class DailyMenuDeleteView(LoginRequiredMixin, GroupRequiredMixin, DeleteView):
     model = DailyMenu
     template_name = 'menu/daily_menu/daily_menu_confirm_delete.html'
     success_url = reverse_lazy('menu:daily-menu-list')
     context_object_name = 'daily_menu'
+    group_required = ['Owner']
+    raise_exception = True
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -276,10 +305,12 @@ class DailyMenuDeleteView(LoginRequiredMixin, DeleteView):
 # ================================================================
 
 
-class DailyMenuItemListView(LoginRequiredMixin, ListView):
+class DailyMenuItemListView(LoginRequiredMixin, GroupRequiredMixin, ListView):
     model = DailyMenuItem
     template_name = 'menu/daily_menu_item/daily_menu_item_list.html'
     context_object_name = 'daily_menu_items'
+    group_required = ['Owner']
+    raise_exception = True
 
     def get_queryset(self):
         today = now().date()
@@ -291,18 +322,22 @@ class DailyMenuItemListView(LoginRequiredMixin, ListView):
         return context
 
 
-class DailyMenuItemDetailView(LoginRequiredMixin, DetailView):
+class DailyMenuItemDetailView(LoginRequiredMixin, GroupRequiredMixin, DetailView):
     model = DailyMenuItem
     template_name = 'menu/daily_menu_item/daily_menu_item_detail.html'
     context_object_name = 'daily_menu_item'
+    group_required = ['Owner']
+    raise_exception = True
 
 
-class DailyMenuItemCreateView(LoginRequiredMixin, CreateView):
+class DailyMenuItemCreateView(LoginRequiredMixin, GroupRequiredMixin, CreateView):
     model = DailyMenuItem
     fields = ('daily_menu', 'menu_item', 'stock')
     template_name = 'menu/daily_menu_item/daily_menu_item_form.html'
     success_url = reverse_lazy('menu:daily-menu-item-list')
     context_object_name = 'daily_menu_item'
+    group_required = ['Owner']
+    raise_exception = True
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -314,12 +349,14 @@ class DailyMenuItemCreateView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class DailyMenuItemUpdateView(LoginRequiredMixin, UpdateView):
+class DailyMenuItemUpdateView(LoginRequiredMixin, GroupRequiredMixin, UpdateView):
     model = DailyMenuItem
     fields = ('daily_menu', 'menu_item', 'stock')
     template_name = 'menu/daily_menu_item/daily_menu_item_form.html'
     success_url = reverse_lazy('menu:daily-menu-item-list')
     context_object_name = 'daily_menu_item'
+    group_required = ['Owner']
+    raise_exception = True
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -335,11 +372,13 @@ class DailyMenuItemUpdateView(LoginRequiredMixin, UpdateView):
         return super().form_valid(form)
 
 
-class DailyMenuItemDeleteView(LoginRequiredMixin, DeleteView):
+class DailyMenuItemDeleteView(LoginRequiredMixin, GroupRequiredMixin, DeleteView):
     model = DailyMenuItem
     template_name = 'menu/daily_menu_item/daily_menu_item_confirm_delete.html'
     success_url = reverse_lazy('menu:daily-menu-item-list')
     context_object_name = 'daily_menu_item'
+    group_required = ['Owner']
+    raise_exception = True
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

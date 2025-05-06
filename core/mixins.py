@@ -4,7 +4,7 @@ from django.contrib.auth.mixins import UserPassesTestMixin
 class GroupRequiredMixin(UserPassesTestMixin):
     group_required = []
 
-    def test_func(self):
+    def test_func(self) -> bool:
         user = self.request.user  # type: ignore
         return (
             user.is_authenticated

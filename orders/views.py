@@ -12,6 +12,7 @@ from django.views.generic import (
     UpdateView,
 )
 
+from core.mixins import GroupRequiredMixin
 from orders.forms import OrderForm, OrderItemForm
 from orders.models import Order, OrderItem
 from tables.models import TableStatusChoices
@@ -25,10 +26,12 @@ OrderItemFormSet = inlineformset_factory(
 )
 
 
-class OrderListView(LoginRequiredMixin, ListView):
+class OrderListView(LoginRequiredMixin, GroupRequiredMixin, ListView):
     model = Order
     template_name = 'orders/order_list.html'
     context_object_name = 'orders'
+    group_required = ['Owner', 'Cashier']
+    raise_exception = True
 
     def get_queryset(self):
         """Filter order for the current day."""
@@ -42,18 +45,22 @@ class OrderListView(LoginRequiredMixin, ListView):
         return ctx
 
 
-class OrderDetailView(LoginRequiredMixin, DetailView):
+class OrderDetailView(LoginRequiredMixin, GroupRequiredMixin, DetailView):
     model = Order
     template_name = 'orders/order_detail.html'
     context_object_name = 'order'
+    group_required = ['Owner', 'Cashier']
+    raise_exception = True
 
 
-class OrderCreateView(LoginRequiredMixin, CreateView):
+class OrderCreateView(LoginRequiredMixin, GroupRequiredMixin, CreateView):
     model = Order
     form_class = OrderForm
     template_name = 'orders/order_form.html'
     context_object_name = 'order'
     success_url = reverse_lazy('orders:order-list')
+    group_required = ['Owner', 'Cashier']
+    raise_exception = True
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -91,12 +98,14 @@ class OrderCreateView(LoginRequiredMixin, CreateView):
             return self.render_to_response(self.get_context_data(form=form))
 
 
-class OrderUpdateView(LoginRequiredMixin, UpdateView):
+class OrderUpdateView(LoginRequiredMixin, GroupRequiredMixin, UpdateView):
     model = Order
     form_class = OrderForm
     template_name = 'orders/order_form.html'
     context_object_name = 'order'
     success_url = reverse_lazy('orders:order-list')
+    group_required = ['Owner', 'Cashier']
+    raise_exception = True
 
     def get_success_url(self):
         next_url = self.request.GET.get('next')
@@ -138,10 +147,12 @@ class OrderUpdateView(LoginRequiredMixin, UpdateView):
             return self.render_to_response(self.get_context_data(form=form))
 
 
-class OrderDeleteView(LoginRequiredMixin, DeleteView):
+class OrderDeleteView(LoginRequiredMixin, GroupRequiredMixin, DeleteView):
     model = Order
     template_name = 'orders/order_confirm_delete.html'
     success_url = reverse_lazy('orders:order-list')
+    group_required = ['Owner']
+    raise_exception = True
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
