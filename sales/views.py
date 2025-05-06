@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
+from django.utils.timezone import now
 from django.views.generic import (
     CreateView,
     DeleteView,
@@ -18,6 +19,12 @@ class SaleListView(LoginRequiredMixin, ListView):
     model = Sale
     template_name = 'sales/sale_list.html'
     context_object_name = 'sales'
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+        today = now().date()
+
+        return qs.filter(payment_time__date=today)
 
 
 class SaleDetailView(LoginRequiredMixin, DetailView):
