@@ -10,7 +10,7 @@
             {% include "partials/alert_messages.html" %}
             <!-- Alert Messages END -->
             <div class="d-flex justify-content-between align-item-center mb-5">
-                <h2 class="mb-0">Menu</h2>
+                <h2 class="mb-0">Menu of {{ date|date:"M" }}</h2>
                 <a class="btn btn-primary"
                    href="{% url "menu:daily-menu-create" %}"
                    title="Add new category"><i class="fa-solid fa-plus"></i> Add</a>

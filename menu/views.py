@@ -1,3 +1,5 @@
+from calendar import monthrange
+
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.forms.models import inlineformset_factory
@@ -156,6 +158,19 @@ class DailyMenuListView(LoginRequiredMixin, ListView):
     model = DailyMenu
     template_name = 'menu/daily_menu/daily_menu_list.html'
     context_object_name = 'daily_menu'
+
+    def get_queryset(self):
+        """Get Menu for the current month"""
+        qs = super().get_queryset()
+        today = now().date()
+        first_day = today.replace(day=1)
+        last_day = today.replace(day=monthrange(today.year, today.month)[1])
+        return qs.filter(date__range=(first_day, last_day))
+
+    def get_context_data(self, **kwargs):
+        ctx = super().get_context_data(**kwargs)
+        ctx['date'] = now().date()
+        return ctx
 
 
 class DailyMenuDetailView(LoginRequiredMixin, DetailView):
