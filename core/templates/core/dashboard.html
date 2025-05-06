@@ -68,6 +68,15 @@
                             </div>
                         </a>
                     </div>
+                    <div class="col">
+                        <a href="{% url 'reports:reports-home' %}" class="text-decoration-none">
+                            <div class="card h-100 shadow-sm text-center">
+                                <div class="card-body">
+                                    <h5 class="card-title">📈 Reports</h5>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
                 {% endif %}
                 <!-- CASHIER DASHBOARD -->
                 {% if user|has_group:"Cashier" or user|has_group:"Owner" %}

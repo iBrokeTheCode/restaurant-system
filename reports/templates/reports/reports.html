@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}
+    Expenses
+{% endblock title %}
+{% block content %}
+    <section class="w-100 min-vh-100 mt-navbar">
+        <div class="container py-5">
+            <!-- Alert Messages START -->
+            {% include "partials/alert_messages.html" %}
+            <!-- Alert Messages END -->
+            <div class="d-flex justify-content-between align-item-center mb-5">
+                <h2 class="mb-0">Reports</h2>
+            </div>
+        </div>
+    </section>
+{% endblock content %}

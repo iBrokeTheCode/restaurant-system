@@ -18,6 +18,7 @@ LOCAL_URLS = [
     path('orders/', include('orders.urls', namespace='orders')),
     path('expenses/', include('expenses.urls', namespace='expenses')),
     path('sales/', include('sales.urls', namespace='sales')),
+    path('reports/', include('reports.urls', namespace='reports')),
 ]
 
 urlpatterns = DJANGO_URLS + THIRD_PARTY_URLS + LOCAL_URLS
