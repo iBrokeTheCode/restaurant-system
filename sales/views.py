@@ -10,15 +10,18 @@ from django.views.generic import (
     UpdateView,
 )
 
+from core.mixins import GroupRequiredMixin
 from orders.models import Order
 from sales.models import Sale
 from tables.models import TableStatusChoices
 
 
-class SaleListView(LoginRequiredMixin, ListView):
+class SaleListView(LoginRequiredMixin, GroupRequiredMixin, ListView):
     model = Sale
     template_name = 'sales/sale_list.html'
     context_object_name = 'sales'
+    group_required = ['Owner', 'Cashier']
+    raise_exception = True
 
     def get_queryset(self):
         """Filter sales for the current day."""
@@ -33,18 +36,22 @@ class SaleListView(LoginRequiredMixin, ListView):
         return ctx
 
 
-class SaleDetailView(LoginRequiredMixin, DetailView):
+class SaleDetailView(LoginRequiredMixin, GroupRequiredMixin, DetailView):
     model = Sale
     template_name = 'sales/sale_detail.html'
     context_object_name = 'sale'
+    group_required = ['Owner', 'Cashier']
+    raise_exception = True
 
 
-class SaleCreateView(LoginRequiredMixin, CreateView):
+class SaleCreateView(LoginRequiredMixin, GroupRequiredMixin, CreateView):
     model = Sale
     fields = ('order', 'payment_method')
     template_name = 'sales/sale_form.html'
     context_object_name = 'sale'
     success_url = reverse_lazy('sales:sale-list')
+    group_required = ['Owner', 'Cashier']
+    raise_exception = True
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -79,12 +86,14 @@ class SaleCreateView(LoginRequiredMixin, CreateView):
         return initial
 
 
-class SaleUpdateView(LoginRequiredMixin, UpdateView):
+class SaleUpdateView(LoginRequiredMixin, GroupRequiredMixin, UpdateView):
     model = Sale
     fields = ('order', 'amount', 'payment_method')
     template_name = 'sales/sale_form.html'
     context_object_name = 'sale'
     success_url = reverse_lazy('sales:sale-list')
+    group_required = ['Owner', 'Cashier']
+    raise_exception = True
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -100,11 +109,13 @@ class SaleUpdateView(LoginRequiredMixin, UpdateView):
         return super().form_valid(form)
 
 
-class SaleDeleteView(LoginRequiredMixin, DeleteView):
+class SaleDeleteView(LoginRequiredMixin, GroupRequiredMixin, DeleteView):
     model = Sale
     template_name = 'sales/sale_confirm_delete.html'
     context_object_name = 'sale'
     success_url = reverse_lazy('sales:sale-list')
+    group_required = ['Owner']
+    raise_exception = True
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
