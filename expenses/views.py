@@ -1,6 +1,9 @@
+from calendar import monthrange
+
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
+from django.utils.timezone import now
 from django.views.generic import (
     CreateView,
     DeleteView,
@@ -17,6 +20,20 @@ class ExpenseListView(LoginRequiredMixin, ListView):
     model = Expense
     template_name = 'expenses/expense_list.html'
     context_object_name = 'expenses'
+
+    def get_queryset(self):
+        """Filter expense for the current month."""
+        qs = super().get_queryset()
+        today = now().date()
+        first_day = today.replace(day=1)
+        last_day = today.replace(day=monthrange(today.year, today.month)[1])
+        return qs.filter(date__range=(first_day, last_day))
+
+    def get_context_data(self, **kwargs):
+        """Override method to pass date in the context"""
+        ctx = super().get_context_data(**kwargs)
+        ctx['date'] = now().date()
+        return ctx
 
 
 class ExpenseDetailView(LoginRequiredMixin, DetailView):
