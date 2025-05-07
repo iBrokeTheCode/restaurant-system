@@ -9,7 +9,8 @@
             {% include "partials/alert_messages.html" %}
             <!-- Alert Messages END -->
             <div class="d-flex-col justify-content-between align-item-center mb-5">
-                <h2 class="mb-5 text-center text-primary">Monthly Summary Report</h2>
+                <h2 class="mb-5 text-center text-primary">Report for {{ date }}</h2>
+                <!-- Filter START -->
                 <form method="get" class="row mb-4">
                     <div class="col-md-3 mb-2">
                         <select name="range" class="form-select">
@@ -38,13 +39,14 @@
                         <button type="submit" class="btn btn-primary w-100">Filter</button>
                     </div>
                 </form>
-                <!-- Summary Cards -->
+                <!-- Filter END -->
+                <!-- Summary Cards START -->
                 <div class="row text-center">
                     <div class="col-md-4 mb-3">
                         <div class="card border-primary">
                             <div class="card-body">
                                 <h5 class="card-title text-primary">Total Sales</h5>
-                                <p class="card-text display-6">S/.4,230.00</p>
+                                <p class="card-text display-6">S/{{ total_sales|floatformat:2 }}</p>
                             </div>
                         </div>
                     </div>
@@ -52,7 +54,7 @@
                         <div class="card border-danger">
                             <div class="card-body">
                                 <h5 class="card-title text-danger">Total Expenses</h5>
-                                <p class="card-text display-6">S/.1,760.00</p>
+                                <p class="card-text display-6">S/{{ total_expenses|floatformat:2 }}</p>
                             </div>
                         </div>
                     </div>
@@ -60,39 +62,48 @@
                         <div class="card border-success">
                             <div class="card-body">
                                 <h5 class="card-title text-success">Net Profit</h5>
-                                <p class="card-text display-6">S/.2,470.00</p>
+                                <p class="card-text display-6">S/{{ net_profit|floatformat:2 }}</p>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- Sales by Day -->
+                <!-- Summary Cards END -->
+                <!-- Sales by Day START -->
                 <div class="row mt-5">
                     <div class="col-md-6 mb-4">
-                        <div class="card h-100">
-                            <div class="card-header bg-primary text-white">Sales by Day</div>
+                        <div class="card">
+                            <div class="card-header bg-primary text-white">Top 5 Sales</div>
                             <ul class="list-group list-group-flush">
-                                <li class="list-group-item">May 1: S/.300.00</li>
-                                <li class="list-group-item">May 2: S/.550.00</li>
-                                <li class="list-group-item">May 3: S/.420.00</li>
-                                <li class="list-group-item">May 4: S/.380.00</li>
-                                <li class="list-group-item">May 5: S/.300.00</li>
+                                {% for sale in top_sales %}
+                                    <li class="list-group-item">{{ sale.order }}</li>
+                                {% empty %}
+                                    <li class="list-group-item text-center">No sales yet!</li>
+                                {% endfor %}
+                                <li class="list-group-item">
+                                    <a href="{% url "sales:sale-list" %}"><i class="fa-solid fa-eye"></i><span class="mx-2">See all sales</span></a>
+                                </li>
                             </ul>
                         </div>
                     </div>
+                    <!-- TODO: Conditionally display top 5 sales or Total sales per day in range -->
                     <!-- Top Items -->
                     <div class="col-md-6 mb-4">
-                        <div class="card h-100">
-                            <div class="card-header bg-success text-white">Top 5 Sold Menu Items</div>
+                        <div class="card">
+                            <div class="card-header bg-success text-white">Top 5 Sold Dishes</div>
                             <ul class="list-group list-group-flush">
-                                <li class="list-group-item">Ceviche - 42 sold</li>
-                                <li class="list-group-item">Lomo Saltado - 37 sold</li>
-                                <li class="list-group-item">Ají de Gallina - 35 sold</li>
-                                <li class="list-group-item">Tallarines Verdes - 31 sold</li>
-                                <li class="list-group-item">Chicha Morada - 30 sold</li>
+                                {% for item in top_items %}
+                                    <li class="list-group-item">{{ item.daily_menu_item__menu_item__name }} - {{ item.quantity }} sold</li>
+                                {% empty %}
+                                    <li class="list-group-item text-center">No sold dishes yet!</li>
+                                {% endfor %}
+                                <li class="list-group-item">
+                                    <a href="{% url "orders:order-list" %}"><i class="fa-solid fa-eye mr-2"></i><span class="mx-2">See all orders</span></a>
+                                </li>
                             </ul>
                         </div>
                     </div>
                 </div>
+                <!-- Sales by Day END -->
             </div>
         </div>
     </section>
