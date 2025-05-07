@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block title %}
-    Expenses
+    Reports
 {% endblock title %}
 {% block content %}
     <section class="w-100 min-vh-100 mt-navbar">
@@ -8,8 +8,91 @@
             <!-- Alert Messages START -->
             {% include "partials/alert_messages.html" %}
             <!-- Alert Messages END -->
-            <div class="d-flex justify-content-between align-item-center mb-5">
-                <h2 class="mb-0">Reports</h2>
+            <div class="d-flex-col justify-content-between align-item-center mb-5">
+                <h2 class="mb-5 text-center text-primary">Monthly Summary Report</h2>
+                <form method="get" class="row mb-4">
+                    <div class="col-md-3 mb-2">
+                        <select name="range" class="form-select">
+                            <option value="today"
+                                    {% if request.GET.range == "today" %}selected{% endif %}>Today</option>
+                            <option value="week" {% if request.GET.range == "week" %}selected{% endif %}>This Week</option>
+                            <option value="month"
+                                    {% if request.GET.range == "month" %}selected{% endif %}>This Month</option>
+                            <option value="custom"
+                                    {% if request.GET.range == "custom" %}selected{% endif %}>Custom</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3 mb-2">
+                        <input type="date"
+                               name="start"
+                               class="form-control"
+                               value="{{ request.GET.start }}">
+                    </div>
+                    <div class="col-md-3 mb-2">
+                        <input type="date"
+                               name="end"
+                               class="form-control"
+                               value="{{ request.GET.end }}">
+                    </div>
+                    <div class="col-md-3 mb-2">
+                        <button type="submit" class="btn btn-primary w-100">Filter</button>
+                    </div>
+                </form>
+                <!-- Summary Cards -->
+                <div class="row text-center">
+                    <div class="col-md-4 mb-3">
+                        <div class="card border-primary">
+                            <div class="card-body">
+                                <h5 class="card-title text-primary">Total Sales</h5>
+                                <p class="card-text display-6">S/.4,230.00</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="card border-danger">
+                            <div class="card-body">
+                                <h5 class="card-title text-danger">Total Expenses</h5>
+                                <p class="card-text display-6">S/.1,760.00</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="card border-success">
+                            <div class="card-body">
+                                <h5 class="card-title text-success">Net Profit</h5>
+                                <p class="card-text display-6">S/.2,470.00</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Sales by Day -->
+                <div class="row mt-5">
+                    <div class="col-md-6 mb-4">
+                        <div class="card h-100">
+                            <div class="card-header bg-primary text-white">Sales by Day</div>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">May 1: S/.300.00</li>
+                                <li class="list-group-item">May 2: S/.550.00</li>
+                                <li class="list-group-item">May 3: S/.420.00</li>
+                                <li class="list-group-item">May 4: S/.380.00</li>
+                                <li class="list-group-item">May 5: S/.300.00</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Top Items -->
+                    <div class="col-md-6 mb-4">
+                        <div class="card h-100">
+                            <div class="card-header bg-success text-white">Top 5 Sold Menu Items</div>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">Ceviche - 42 sold</li>
+                                <li class="list-group-item">Lomo Saltado - 37 sold</li>
+                                <li class="list-group-item">Ají de Gallina - 35 sold</li>
+                                <li class="list-group-item">Tallarines Verdes - 31 sold</li>
+                                <li class="list-group-item">Chicha Morada - 30 sold</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
