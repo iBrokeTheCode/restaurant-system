@@ -1,53 +1,27 @@
-from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Sum
-from django.utils.timezone import datetime, localdate, timedelta
 from django.views.generic import TemplateView
 
-from core.mixins import GroupRequiredMixin
+from core.mixins import DateRangeFilterMixin, GroupRequiredMixin
 from expenses.models import Expense
 from orders.models import OrderItem
 from sales.models import Sale
 
 
-class ReportView(LoginRequiredMixin, GroupRequiredMixin, TemplateView):
+class ReportView(
+    LoginRequiredMixin, GroupRequiredMixin, DateRangeFilterMixin, TemplateView
+):
     template_name = 'reports/reports.html'
     group_required = ['Owner']
     raise_exception = True
+    date_field = 'payment_time__date'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        request = self.request
-        range_type = request.GET.get('range', 'today')
-        start_date = request.GET.get('start')
-        end_date = request.GET.get('end')
-        today = localdate()
-
-        start = end = today  # Default fallback
-
-        if range_type == 'week':
-            start = today - timedelta(days=today.weekday())  # Monday
-            end = today
-
-        elif range_type == 'month':
-            start = today.replace(day=1)
-            end = today
-
-        elif range_type == 'custom':
-            try:
-                if start_date and end_date:
-                    start = datetime.strptime(start_date, '%Y-%m-%d').date()
-                    end = datetime.strptime(end_date, '%Y-%m-%d').date()
-                    if start > end:
-                        raise ValueError('Start date is after end date.')
-                else:
-                    raise ValueError('Missing dates.')
-            except ValueError:
-                messages.warning(
-                    request, "Invalid custom date range. Showing today's data."
-                )
-                start = end = today
+        # Get date range from GET params
+        start, end = self.get_date_range()
+        date = start if start == end else f'{start} to {end}'
 
         # Filter and aggregate
         sales = Sale.objects.filter(payment_time__date__range=(start, end))
@@ -67,15 +41,15 @@ class ReportView(LoginRequiredMixin, GroupRequiredMixin, TemplateView):
             .order_by('-quantity')[:5]
         )
 
+        # Update Context
         context.update(
             {
-                'start': start,
-                'end': end,
                 'total_sales': total_sales,
                 'total_expenses': total_expenses,
                 'net_profit': total_sales - total_expenses,
                 'top_items': top_items,
                 'top_sales': top_sales,
+                'date': date,
             }
         )
         return context
