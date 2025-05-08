@@ -48,6 +48,15 @@ class SaleDetailView(LoginRequiredMixin, GroupRequiredMixin, DetailView):
     group_required = ['Owner', 'Cashier']
     raise_exception = True
 
+    def get_context_data(self, **kwargs):
+        """Return to the previous filtered page or the default page."""
+        context = super().get_context_data(**kwargs)
+        context['previous'] = self.request.GET.get(
+            'previous', reverse_lazy('sales:sale-list')
+        )
+
+        return context
+
 
 class SaleCreateView(LoginRequiredMixin, GroupRequiredMixin, CreateView):
     model = Sale

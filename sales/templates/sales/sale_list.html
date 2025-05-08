@@ -33,7 +33,7 @@
                                     <strong>Order:</strong> {{ sale.order }}
                                 </td>
                                 <td>
-                                    <a href="{% url "sales:sale-detail" pk=sale.pk %}"
+                                    <a href="{% url "sales:sale-detail" pk=sale.pk %}?previous={{ request.get_full_path|urlencode }}"
                                        class="btn btn-outline-primary btn-sm"><i class="fa-solid fa-eye"></i></a>
                                 </td>
                             </tr>
