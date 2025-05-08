@@ -1,7 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
-from django.utils.timezone import now
 from django.views.generic import (
     CreateView,
     DeleteView,
@@ -10,30 +9,36 @@ from django.views.generic import (
     UpdateView,
 )
 
-from core.mixins import GroupRequiredMixin
+from core.mixins import DateRangeFilterMixin, GroupRequiredMixin
 from orders.models import Order
 from sales.models import Sale
 from tables.models import TableStatusChoices
 
 
-class SaleListView(LoginRequiredMixin, GroupRequiredMixin, ListView):
+class SaleListView(
+    LoginRequiredMixin, GroupRequiredMixin, DateRangeFilterMixin, ListView
+):
     model = Sale
     template_name = 'sales/sale_list.html'
     context_object_name = 'sales'
     group_required = ['Owner', 'Cashier']
     raise_exception = True
+    date_field = 'payment_time__date'
 
     def get_queryset(self):
         """Filter sales for the current day."""
         qs = super().get_queryset()
-        today = now().date()
-        return qs.filter(payment_time__date=today)
+        return self.filter_queryset_by_date(qs)
 
     def get_context_data(self, **kwargs):
         """Override method to pass date in the context."""
-        ctx = super().get_context_data(**kwargs)
-        ctx['date'] = now().date()
-        return ctx
+        self.object_list = self.get_queryset()
+        context = super().get_context_data(**kwargs)
+        start, end = self.get_date_range()
+        date = start if start == end else f'{start} to {end}'
+
+        context.update({'date': date})
+        return context
 
 
 class SaleDetailView(LoginRequiredMixin, GroupRequiredMixin, DetailView):
