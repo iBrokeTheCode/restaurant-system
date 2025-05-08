@@ -1,3 +1,4 @@
+// Remove alerts after 3 seconds
 let alerts = document.getElementsByClassName("alert");
 
 setTimeout(() => {
@@ -6,6 +7,7 @@ setTimeout(() => {
   }
 }, 3000);
 
+// Add dynamic scrolled class for header styles
 document.addEventListener("DOMContentLoaded", function () {
   const navbar = document.getElementById("mainNav");
   const isHomePage = window.location.pathname === "/";
