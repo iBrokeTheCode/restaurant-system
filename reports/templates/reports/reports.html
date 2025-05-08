@@ -43,20 +43,24 @@
                 <!-- Summary Cards START -->
                 <div class="row text-center">
                     <div class="col-md-4 mb-3">
-                        <div class="card border-primary">
-                            <div class="card-body">
-                                <h5 class="card-title text-primary">Total Sales</h5>
-                                <p class="card-text display-6">S/{{ total_sales|floatformat:2 }}</p>
+                        <a href="{% url "sales:sale-list" %}" class="card-link">
+                            <div class="card border-primary">
+                                <div class="card-body">
+                                    <h5 class="card-title text-primary">Total Sales</h5>
+                                    <p class="card-text display-6">S/{{ total_sales|floatformat:2 }}</p>
+                                </div>
                             </div>
-                        </div>
+                        </a>
                     </div>
                     <div class="col-md-4 mb-3">
-                        <div class="card border-danger">
-                            <div class="card-body">
-                                <h5 class="card-title text-danger">Total Expenses</h5>
-                                <p class="card-text display-6">S/{{ total_expenses|floatformat:2 }}</p>
+                        <a href="{% url "expenses:expense-list" %}" class="card-link">
+                            <div class="card border-danger">
+                                <div class="card-body">
+                                    <h5 class="card-title text-danger">Total Expenses</h5>
+                                    <p class="card-text display-6">S/{{ total_expenses|floatformat:2 }}</p>
+                                </div>
                             </div>
-                        </div>
+                        </a>
                     </div>
                     <div class="col-md-4 mb-3">
                         <div class="card border-success">

@@ -40,3 +40,7 @@ main {
   transform: scale(1.02);
   transition: 0.2s ease-in-out;
 }
+
+.card-link {
+  text-decoration: none;
+}
