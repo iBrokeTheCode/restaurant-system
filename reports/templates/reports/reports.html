@@ -9,7 +9,11 @@
             {% include "partials/alert_messages.html" %}
             <!-- Alert Messages END -->
             <div class="d-flex-col justify-content-between align-item-center mb-5">
-                <h2 class="mb-5 text-center text-primary">Report for {{ date }}</h2>
+                {% if start == end %}
+                    <h2 class="mb-5 text-center text-primary">Report for {{ start|date:"M d, Y" }}</h2>
+                {% else %}
+                    <h2 class="mb-5 text-center text-primary">Report from {{ start|date:"M d, Y" }} to {{ end|date:"M d, Y" }}</h2>
+                {% endif %}
                 <!-- Filter START -->
                 <form method="get" class="row mb-4">
                     <div class="col-md-3 mb-2">
