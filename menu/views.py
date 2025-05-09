@@ -1,5 +1,3 @@
-from calendar import monthrange
-
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.forms.models import inlineformset_factory
@@ -14,7 +12,7 @@ from django.views.generic import (
     UpdateView,
 )
 
-from core.mixins import GroupRequiredMixin
+from core.mixins import DateRangeFilterMixin, GroupRequiredMixin
 from menu.forms import DailyMenuForm, MenuItemForm
 from menu.models import DailyMenu, DailyMenuItem, MenuCategory, MenuItem
 
@@ -173,25 +171,30 @@ DailyMenuItemFormSet = inlineformset_factory(
 )
 
 
-class DailyMenuListView(LoginRequiredMixin, GroupRequiredMixin, ListView):
+class DailyMenuListView(
+    LoginRequiredMixin, GroupRequiredMixin, DateRangeFilterMixin, ListView
+):
     model = DailyMenu
     template_name = 'menu/daily_menu/daily_menu_list.html'
     context_object_name = 'daily_menu'
     group_required = ['Owner']
     raise_exception = True
+    date_field = 'date'
 
     def get_queryset(self):
-        """Get Menu for the current month"""
+        """Filter sales for the selected date range."""
         qs = super().get_queryset()
-        today = now().date()
-        first_day = today.replace(day=1)
-        last_day = today.replace(day=monthrange(today.year, today.month)[1])
-        return qs.filter(date__range=(first_day, last_day))
+        return self.filter_queryset_by_date(qs)
 
     def get_context_data(self, **kwargs):
-        ctx = super().get_context_data(**kwargs)
-        ctx['date'] = now().date()
-        return ctx
+        """Override method to pass date in the context."""
+        self.object_list = self.get_queryset()
+        context = super().get_context_data(**kwargs)
+        start, end = self.get_date_range()
+        date = start if start == end else f'{start} to {end}'
+
+        context.update({'date': date})
+        return context
 
 
 class DailyMenuDetailView(LoginRequiredMixin, GroupRequiredMixin, DetailView):
@@ -200,6 +203,15 @@ class DailyMenuDetailView(LoginRequiredMixin, GroupRequiredMixin, DetailView):
     context_object_name = 'daily_menu'
     group_required = ['Owner']
     raise_exception = True
+
+    def get_context_data(self, **kwargs):
+        """Return to the previous filtered page or the default page."""
+        context = super().get_context_data(**kwargs)
+        context['previous'] = self.request.GET.get(
+            'previous', reverse_lazy('menu:daily-menu-list')
+        )
+
+        return context
 
 
 class DailyMenuCreateView(LoginRequiredMixin, GroupRequiredMixin, CreateView):

@@ -10,11 +10,14 @@
             {% include "partials/alert_messages.html" %}
             <!-- Alert Messages END -->
             <div class="d-flex justify-content-between align-item-center mb-5">
-                <h2 class="mb-0">Menu of {{ date|date:"M" }}</h2>
+                <h2 class="mb-0">Menu of {{ date }}</h2>
                 <a class="btn btn-primary"
-                   href="{% url "menu:daily-menu-create" %}"
+                   href="{% url "menu:daily-menu-create" %}?next={{ request.get_full_path|urlencode }}"
                    title="Add new category"><i class="fa-solid fa-plus"></i> Add</a>
             </div>
+            <!-- Filter START -->
+            {% include "core/partials/date_filter_form.html" %}
+            <!-- Filter END -->
             <div class="table-responsive">
                 <table class="table table-hover">
                     <thead class="table-light">
@@ -29,7 +32,7 @@
                                 <td>{{ menu }}</td>
                                 <td>
                                     <a class="btn btn-sm btn-outline-primary"
-                                       href="{% url "menu:daily-menu-detail" pk=menu.pk %}"> <i class="fa-solid fa-eye"></i>  </a>
+                                       href="{% url "menu:daily-menu-detail" pk=menu.pk %}?previous={{ request.get_full_path|urlencode }}"> <i class="fa-solid fa-eye"></i>  </a>
                                 </td>
                             </tr>
                         {% empty %}
