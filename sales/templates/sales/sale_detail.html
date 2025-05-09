@@ -30,11 +30,11 @@
                 </p>
             </div>
             <div class="mt-5 d-flex justify-content-center align-items-center gap-2">
-                <a href="{% url "sales:sale-update" pk=sale.pk %}?next={{ request.path }}"
+                <a href="{% url "sales:sale-update" pk=sale.pk %}?next={{ request.get_full_path|urlencode }}"
                    class="btn btn-primary">
                     <i class="fa-solid fa-pen-to-square"></i>
                 Edit</a>
-                <a href="{% url "sales:sale-delete" pk=sale.pk %}?next={{ request.path }}"
+                <a href="{% url "sales:sale-delete" pk=sale.pk %}?next={{ request.get_full_path|urlencode }}"
                    class="btn btn-danger">
                     <i class="fa-solid fa-trash"></i>
                 Delete</a>

@@ -12,7 +12,7 @@
             <div class="d-flex justify-content-between align-item-center mb-5">
                 <h2 class="mb-0">Sales for {{ date }}</h2>
                 <a class="btn btn-primary"
-                   href="{% url "sales:sale-create" %}"
+                   href="{% url "sales:sale-create" %}?next={{ request.get_full_path|urlencode }}"
                    title="Add new category"><i class="fa-solid fa-plus"></i> Add</a>
             </div>
             <!-- Filter START -->
