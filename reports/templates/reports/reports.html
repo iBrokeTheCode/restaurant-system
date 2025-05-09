@@ -16,7 +16,8 @@
                 <!-- Summary Cards START -->
                 <div class="row text-center">
                     <div class="col-md-4 mb-3">
-                        <a href="{% url "sales:sale-list" %}" class="card-link">
+                        <a href="{% url "sales:sale-list" %}?{{ request.GET.urlencode }}"
+                           class="card-link">
                             <div class="card border-primary">
                                 <div class="card-body">
                                     <h5 class="card-title text-primary">Total Sales</h5>
@@ -26,7 +27,8 @@
                         </a>
                     </div>
                     <div class="col-md-4 mb-3">
-                        <a href="{% url "expenses:expense-list" %}" class="card-link">
+                        <a href="{% url "expenses:expense-list" %}?{{ request.GET.urlencode }}"
+                           class="card-link">
                             <div class="card border-danger">
                                 <div class="card-body">
                                     <h5 class="card-title text-danger">Total Expenses</h5>
@@ -57,7 +59,7 @@
                                     <li class="list-group-item text-center">No sales yet!</li>
                                 {% endfor %}
                                 <li class="list-group-item">
-                                    <a href="{% url "sales:sale-list" %}"><i class="fa-solid fa-eye"></i><span class="mx-2">See all sales</span></a>
+                                    <a href="{% url "sales:sale-list" %}?{{ request.GET.urlencode }}"><i class="fa-solid fa-eye"></i><span class="mx-2">See all sales</span></a>
                                 </li>
                             </ul>
                         </div>
@@ -74,7 +76,7 @@
                                     <li class="list-group-item text-center">No sold dishes yet!</li>
                                 {% endfor %}
                                 <li class="list-group-item">
-                                    <a href="{% url "orders:order-list" %}"><i class="fa-solid fa-eye mr-2"></i><span class="mx-2">See all orders</span></a>
+                                    <a href="{% url "orders:order-list" %}?{{ request.GET.urlencode }}"><i class="fa-solid fa-eye mr-2"></i><span class="mx-2">See all orders</span></a>
                                 </li>
                             </ul>
                         </div>
