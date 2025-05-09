@@ -2,9 +2,9 @@
 let alerts = document.getElementsByClassName("alert");
 
 setTimeout(() => {
-  for (alert of alerts) {
+  Array.from(alerts).forEach((alert) => {
     alert.remove();
-  }
+  });
 }, 3000);
 
 // Add dynamic scrolled class for header styles
