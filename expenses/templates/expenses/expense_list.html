@@ -9,11 +9,14 @@
             {% include "partials/alert_messages.html" %}
             <!-- Alert Messages END -->
             <div class="d-flex justify-content-between align-item-center mb-5">
-                <h2 class="mb-0">Expenses for {{ date|date:"M" }}</h2>
+                <h2 class="mb-0">Expenses for {{ date }}</h2>
                 <a class="btn btn-primary"
-                   href="{% url "expenses:expense-create" %}"
+                   href="{% url "expenses:expense-create" %}?next={{ request.get_full_path|urlencode }}"
                    title="Add new category"><i class="fa-solid fa-plus"></i> Add</a>
             </div>
+            <!-- Filter START -->
+            {% include "core/partials/date_filter_form.html" %}
+            <!-- Filter END -->
             <div class="table-responsive">
                 <table class="table table-hover">
                     <thead class="table-light">
@@ -34,7 +37,7 @@
                                 <td>{{ expense.date }}</td>
                                 <td>
                                     <a class="btn btn-sm btn-outline-primary"
-                                       href="{% url "expenses:expense-detail" pk=expense.pk %}"
+                                       href="{% url "expenses:expense-detail" pk=expense.pk %}?previous={{ request.get_full_path|urlencode }}"
                                        title="Details"><i class="fa-solid fa-eye"></i></a>
                                 </td>
                             </tr>
