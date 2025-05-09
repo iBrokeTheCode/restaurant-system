@@ -20,6 +20,9 @@ class DateRangeFilterMixin(TemplateView):
 
     def get_date_range(self):
         """Returns a tuple: (start_date, end_date) based on request.GET"""
+        if hasattr(self, '_cached_date_range'):
+            return self._cached_date_range
+
         today = now().date()
         range_type = self.request.GET.get('range', 'today')
         start = end = today
@@ -43,13 +46,12 @@ class DateRangeFilterMixin(TemplateView):
                         raise ValueError('Start date cannot be after end date.')
                 else:
                     raise ValueError('Missing start or end date.')
-            except ValueError:
-                messages.warning(
-                    self.request, "Invalid custom date range. Showing today's data."
-                )
+            except ValueError as e:
+                messages.warning(self.request, f'{e}')
                 start = end = today
 
-        return start, end
+        self._cached_date_range = (start, end)
+        return self._cached_date_range
 
     def filter_queryset_by_date(self, queryset):
         """Filters the queryset using the date range and the specified field."""
