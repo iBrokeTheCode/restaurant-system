@@ -40,19 +40,20 @@
                 </ul>
             </div>
             <div class="mt-5 d-flex justify-content-center align-items-center gap-2">
-                <a href="{% url 'orders:order-update' pk=order.pk %}?next={{ request.path }}"
+                <a href="{% url 'orders:order-update' pk=order.pk %}?next={{ request.get_full_path|urlencode }}"
                    class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
-                <a href="{% url "orders:order-delete" pk=order.pk %}?next={{ request.path }}"
+                <a href="{% url "orders:order-delete" pk=order.pk %}?next={{ request.get_full_path|urlencode }}"
                    class="btn btn-danger"><i class="fa-solid fa-trash"></i> Delete</a>
+                <!-- Pay or Check START -->
                 {% if order.sale and order.status != 'cancelled' %}
-                    <a href="{% url "sales:sale-update" pk=order.sale.pk %}?next={{ request.path }}"
+                    <a href="{% url "sales:sale-update" pk=order.sale.pk %}?next={{ request.get_full_path|urlencode }}"
                        class="btn btn-info"><i class="fa-solid fa-money-bill-1-wave"></i> Check</a>
                 {% elif order.status != 'cancelled' %}
-                    <a href="{% url "sales:sale-create" %}?order_id={{ order.pk }}&next={{ request.path }}"
+                    <a href="{% url "sales:sale-create" %}?order_id={{ order.pk }}&next={{ request.get_full_path|urlencode }}"
                        class="btn btn-info"><i class="fa-solid fa-money-bill-1-wave"></i> Pay</a>
                 {% endif %}
-                <a href="{% url 'orders:order-list' %}"
-                   class="btn btn-outline-secondary">Cancel</a>
+                <!-- Pay or Check END -->
+                <a href="{{ previous }}" class="btn btn-outline-secondary">Cancel</a>
             </div>
         </div>
     </section>

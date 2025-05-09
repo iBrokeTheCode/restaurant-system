@@ -3,7 +3,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.forms.models import inlineformset_factory
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
-from django.utils.timezone import now
 from django.views.generic import (
     CreateView,
     DeleteView,
@@ -12,7 +11,7 @@ from django.views.generic import (
     UpdateView,
 )
 
-from core.mixins import GroupRequiredMixin
+from core.mixins import DateRangeFilterMixin, GroupRequiredMixin
 from orders.forms import OrderForm, OrderItemForm
 from orders.models import Order, OrderItem
 from tables.models import TableStatusChoices
@@ -26,23 +25,30 @@ OrderItemFormSet = inlineformset_factory(
 )
 
 
-class OrderListView(LoginRequiredMixin, GroupRequiredMixin, ListView):
+class OrderListView(
+    LoginRequiredMixin, GroupRequiredMixin, DateRangeFilterMixin, ListView
+):
     model = Order
     template_name = 'orders/order_list.html'
     context_object_name = 'orders'
     group_required = ['Owner', 'Cashier']
     raise_exception = True
+    date_field = 'created_at__date'
 
     def get_queryset(self):
-        """Filter order for the current day."""
-        today = now().date()
-        return Order.objects.filter(created_at__date=today)
+        """Filter sales for the selected date range."""
+        qs = super().get_queryset()
+        return self.filter_queryset_by_date(qs)
 
     def get_context_data(self, **kwargs):
         """Override method to pass date in the context."""
-        ctx = super().get_context_data(**kwargs)
-        ctx['date'] = now().date()
-        return ctx
+        self.object_list = self.get_queryset()
+        context = super().get_context_data(**kwargs)
+        start, end = self.get_date_range()
+        date = start if start == end else f'{start} to {end}'
+
+        context.update({'date': date})
+        return context
 
 
 class OrderDetailView(LoginRequiredMixin, GroupRequiredMixin, DetailView):
@@ -51,6 +57,15 @@ class OrderDetailView(LoginRequiredMixin, GroupRequiredMixin, DetailView):
     context_object_name = 'order'
     group_required = ['Owner', 'Cashier']
     raise_exception = True
+
+    def get_context_data(self, **kwargs):
+        """Return to the previous filtered page or the default page."""
+        context = super().get_context_data(**kwargs)
+        context['previous'] = self.request.GET.get(
+            'previous', reverse_lazy('orders:order-list')
+        )
+
+        return context
 
 
 class OrderCreateView(LoginRequiredMixin, GroupRequiredMixin, CreateView):

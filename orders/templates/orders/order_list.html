@@ -12,9 +12,12 @@
             <div class="d-flex justify-content-between align-item-center mb-5">
                 <h2 class="mb-0">Orders for {{ date }}</h2>
                 <a class="btn btn-primary"
-                   href="{% url "orders:order-create" %}"
+                   href="{% url "orders:order-create" %}?next={{ request.get_full_path|urlencode }}"
                    title="Add new category"><i class="fa-solid fa-plus"></i> Add</a>
             </div>
+            <!-- Filter START -->
+            {% include "core/partials/date_filter_form.html" %}
+            <!-- Filter END -->
             <div class="table-responsive">
                 <table class="table table-hover">
                     <thead class="table-light">
@@ -44,7 +47,7 @@
                                 </td>
                                 <td>S/.{{ order.total }}</td>
                                 <td>
-                                    <a href="{% url 'orders:order-detail' pk=order.pk %}"
+                                    <a href="{% url 'orders:order-detail' pk=order.pk %}?previous={{ request.get_full_path|urlencode }}"
                                        class="btn btn-sm btn-outline-primary"><i class="fa-solid fa-eye"></i></a>
                                 </td>
                             </tr>

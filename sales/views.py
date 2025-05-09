@@ -26,7 +26,7 @@ class SaleListView(
     date_field = 'payment_time__date'
 
     def get_queryset(self):
-        """Filter sales for the current day."""
+        """Filter sales for the selected date range."""
         qs = super().get_queryset()
         return self.filter_queryset_by_date(qs)
 
