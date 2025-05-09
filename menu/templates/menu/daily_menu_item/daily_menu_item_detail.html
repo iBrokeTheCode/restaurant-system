@@ -21,12 +21,11 @@
                 </p>
             </div>
             <div class="mt-5 d-flex justify-content-center align-items-center gap-2">
-                <a href="{% url "menu:daily-menu-item-update" pk=daily_menu_item.pk %}?next={{ request.path }}"
+                <a href="{% url "menu:daily-menu-item-update" pk=daily_menu_item.pk %}?next={{ request.get_full_path|urlencode }}"
                    class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
-                <a href="{% url "menu:daily-menu-item-delete" pk=daily_menu_item.pk %}?next={{ request.path }}"
+                <a href="{% url "menu:daily-menu-item-delete" pk=daily_menu_item.pk %}?next={{ request.get_full_path|urlencode }}"
                    class="btn btn-danger"><i class="fa-solid fa-trash"></i> Delete</a>
-                <a href="{% url "menu:daily-menu-item-list" %}"
-                   class="btn btn-outline-secondary">Cancel</a>
+                <a href="{{ previous }}" class="btn btn-outline-secondary">Cancel</a>
             </div>
         </div>
     </section>
