@@ -33,3 +33,37 @@ This project is a Restaurant Management System developed to streamline daily ope
 - [ruff](https://docs.astral.sh/ruff/)
 
 ## Screenshots
+
+### Home
+
+![image](https://github.com/user-attachments/assets/73b87863-0dfd-4506-82b2-64de94542831)
+
+### Menu
+
+![image](https://github.com/user-attachments/assets/c43c8e48-3d98-4ac5-9c20-17e8406c20e9)
+
+### Tables
+
+![image](https://github.com/user-attachments/assets/cf620b6e-d33c-42a3-9e32-31cebb6acaab)
+
+---
+
+### Cashier Dashboard
+
+![image](https://github.com/user-attachments/assets/d744a196-4a52-4904-a236-2cf4e88a100e)
+
+### Owner Dashboard
+
+![image](https://github.com/user-attachments/assets/bc1ec2df-e571-45ca-831d-555da775b36b)
+
+### Order CRUD
+
+![image](https://github.com/user-attachments/assets/5e2a0892-af76-43bb-8179-ec52f2fb3f70)
+
+- Includes CRUD operations for owner role. Also pagination and filtering.
+- Cashier role can only read and register/update orders and sales.
+- (*) Same interface for other modules/models.
+
+### Reports
+
+![image](https://github.com/user-attachments/assets/1fbdaee2-597c-42a4-b9af-415d4175b5ee)
