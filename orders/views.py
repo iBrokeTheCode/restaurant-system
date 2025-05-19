@@ -34,6 +34,7 @@ class OrderListView(
     group_required = ['Owner', 'Cashier']
     raise_exception = True
     date_field = 'created_at__date'
+    paginate_by = 5
 
     def get_queryset(self):
         """Filter sales for the selected date range."""

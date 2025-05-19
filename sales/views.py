@@ -21,6 +21,7 @@ class SaleListView(
     model = Sale
     template_name = 'sales/sale_list.html'
     context_object_name = 'sales'
+    paginate_by = 5
     group_required = ['Owner', 'Cashier']
     raise_exception = True
     date_field = 'payment_time__date'
