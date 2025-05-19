@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+    Tables Status
+{% endblock title %}
+{% block content %}
+    <section class="w-100 min-vh-100 mt-navbar">
+        <div class="container py-5 text-center">
+            <h2 class="mb-4 text-primary">Table Status</h2>
+            <p class="text-end text-muted">Last update: {{ last_update }}</p>
+            {% if tables %}
+                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                    {% for table in tables %}
+                        <div class="col">
+                            <div class="card rounded h-100 transition">
+                                <div class="card-body">
+                                    <h5 class="card-title">Table #{{ table.table_number }}</h5>
+                                    <p class="card-text">
+                                        <strong>Seats:</strong> {{ table.seats }}
+                                    </p>
+                                    <span class="badge {% if table.status == 'available' %} bg-success {% elif table.status == 'occupied' %} bg-danger {% elif table.status == 'reserved' %} bg-warning text-dark {% else %} bg-secondary {% endif %} ">
+                                        {{ table.status|capfirst }}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p class="text-muted">No tables found.</p>
+            {% endif %}
+        </div>
+    </section>
+{% endblock content %}

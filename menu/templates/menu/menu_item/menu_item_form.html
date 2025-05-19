@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block title %}
+  {% if menu_item %}
+    Update
+  {% else %}
+    Create
+  {% endif %}
+  Menu Item
+{% endblock title %}
+{% block content %}
+  <section class="w-100 min-vh-100 mt-navbar">
+    <div class="container py-5 max-width-container">
+      <h2 class="mb-5 text-center">{{ menu_item.pk|yesno:"Update Menu Item,Create Menu Item" }}</h2>
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <div class="mt-5 d-flex justify-content-center align-items-center gap-2">
+          <button type="submit" class="btn btn-primary">
+            <i class="fa-solid fa-floppy-disk"></i> Save
+          </button>
+          <a class="btn btn-outline-secondary" href="{{ next }}">Cancel</a>
+        </div>
+      </form>
+    </div>
+  </section>
+{% endblock content %}

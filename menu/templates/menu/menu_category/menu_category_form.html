@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block title %}
+  {% if menu_category %}
+    Update
+  {% else %}
+    Create
+  {% endif %}
+  Menu Category
+{% endblock title %}
+{% block content %}
+  <section class="w-100 min-vh-100 mt-navbar">
+    <div class="container py-5 max-width-container">
+      <h2 class="mb-5 text-center">{{ menu_category.pk|yesno:"Update Menu Category,Create Menu Category" }}</h2>
+      <form method="post">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <div class="mt-5 d-flex justify-content-center align-items-center gap-2">
+          <button type="submit" class="btn btn-primary">
+            <i class="fa-solid fa-floppy-disk"></i> Save
+          </button>
+          <a class="btn btn-outline-secondary"
+             href="{% url "menu:menu-category-list" %}">Cancel</a>
+        </div>
+      </form>
+    </div>
+  </section>
+{% endblock content %}

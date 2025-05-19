@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% block title %}
+    Reports
+{% endblock title %}
+{% block content %}
+    <section class="w-100 min-vh-100 mt-navbar">
+        <div class="container py-5">
+            <!-- Alert Messages START -->
+            {% include "partials/alert_messages.html" %}
+            <!-- Alert Messages END -->
+            <div class="d-flex-col justify-content-between align-item-center mb-5">
+                <h2 class="mb-5 text-center text-primary">Report for {{ date }}</h2>
+                <!-- Filter START -->
+                {% include "core/partials/date_filter_form.html" %}
+                <!-- Filter END -->
+                <!-- Summary Cards START -->
+                <div class="row text-center">
+                    <div class="col-md-4 mb-3">
+                        <a href="{% url "sales:sale-list" %}?{{ request.GET.urlencode }}"
+                           class="card-link">
+                            <div class="card border-primary">
+                                <div class="card-body">
+                                    <h5 class="card-title text-primary">Total Sales</h5>
+                                    <p class="card-text display-6">S/{{ total_sales|floatformat:2 }}</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <a href="{% url "expenses:expense-list" %}?{{ request.GET.urlencode }}"
+                           class="card-link">
+                            <div class="card border-danger">
+                                <div class="card-body">
+                                    <h5 class="card-title text-danger">Total Expenses</h5>
+                                    <p class="card-text display-6">S/{{ total_expenses|floatformat:2 }}</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="card border-success">
+                            <div class="card-body">
+                                <h5 class="card-title text-success">Net Profit</h5>
+                                <p class="card-text display-6">S/{{ net_profit|floatformat:2 }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Summary Cards END -->
+                <!-- Sales by Day START -->
+                <div class="row mt-5">
+                    <div class="col-md-6 mb-4">
+                        <div class="card">
+                            <div class="card-header bg-primary text-white">Top 5 Sales</div>
+                            <ul class="list-group list-group-flush">
+                                {% for sale in top_sales %}
+                                    <li class="list-group-item">{{ sale.order }}</li>
+                                {% empty %}
+                                    <li class="list-group-item text-center">No sales yet!</li>
+                                {% endfor %}
+                                <li class="list-group-item">
+                                    <a href="{% url "sales:sale-list" %}?{{ request.GET.urlencode }}"><i class="fa-solid fa-eye"></i><span class="mx-2">See all sales</span></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- TODO: Conditionally display top 5 sales or Total sales per day in range -->
+                    <!-- Top Items -->
+                    <div class="col-md-6 mb-4">
+                        <div class="card">
+                            <div class="card-header bg-success text-white">Top 5 Sold Dishes</div>
+                            <ul class="list-group list-group-flush">
+                                {% for item in top_items %}
+                                    <li class="list-group-item">{{ item.daily_menu_item__menu_item__name }} - {{ item.quantity }} sold</li>
+                                {% empty %}
+                                    <li class="list-group-item text-center">No sold dishes yet!</li>
+                                {% endfor %}
+                                <li class="list-group-item">
+                                    <a href="{% url "orders:order-list" %}?{{ request.GET.urlencode }}"><i class="fa-solid fa-eye mr-2"></i><span class="mx-2">See all orders</span></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- Sales by Day END -->
+            </div>
+        </div>
+    </section>
+{% endblock content %}

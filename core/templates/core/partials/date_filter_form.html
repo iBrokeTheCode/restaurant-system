@@ -1,0 +1,28 @@
+<form method="get" class="row mb-4">
+    <div class="col-md-3 mb-2">
+        <select name="range" class="form-select">
+            <option value="today"
+                    {% if request.GET.range == "today" %}selected{% endif %}>Today</option>
+            <option value="week" {% if request.GET.range == "week" %}selected{% endif %}>This Week</option>
+            <option value="month"
+                    {% if request.GET.range == "month" %}selected{% endif %}>This Month</option>
+            <option value="custom"
+                    {% if request.GET.range == "custom" %}selected{% endif %}>Custom</option>
+        </select>
+    </div>
+    <div class="col-md-3 mb-2">
+        <input type="date"
+               name="start"
+               class="form-control"
+               value="{{ request.GET.start }}">
+    </div>
+    <div class="col-md-3 mb-2">
+        <input type="date"
+               name="end"
+               class="form-control"
+               value="{{ request.GET.end }}">
+    </div>
+    <div class="col-md-3 mb-2">
+        <button type="submit" class="btn btn-primary w-100">Filter</button>
+    </div>
+</form>

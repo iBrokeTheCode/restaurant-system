@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block title %}
+    Order Details
+{% endblock title %}
+{% block content %}
+    <section class="w-100 min-vh-100 mt-navbar">
+        <div class="container py-5 max-width-container">
+            <!-- Alert Messages START -->
+            {% include "partials/alert_messages.html" %}
+            <!-- Alert Messages END -->
+            <h2 class="mb-5 text-center">Order #{{ order.pk }}</h2>
+            <div class="mb-5">
+                <p>
+                    <strong>Table:</strong> {{ order.table }}
+                </p>
+                <p>
+                    <strong>Status:</strong> {{ order.get_status_display }}
+                </p>
+                <p>
+                    <strong>Created At:</strong> {{ order.created_at }}
+                </p>
+            </div>
+            <div>
+                <h3 class="mb-4">Items</h3>
+                <ul>
+                    {% for item in order.items.all %}
+                        <li>
+                            <p class="d-flex justify-content-between">
+                                {{ item }} (S/.{{ item.unit_price }})
+                                <span>S/.{{ item.total_price }}</span>
+                            </p>
+                        </li>
+                    {% empty %}
+                        <p>No Menu items added</p>
+                    {% endfor %}
+                    <p class="d-flex justify-content-between">
+                        <strong>Total:</strong>
+                        <span>S/.{{ order.total }}</span>
+                    </p>
+                </ul>
+            </div>
+            <div class="mt-5 d-flex justify-content-center align-items-center gap-2">
+                <a href="{% url 'orders:order-update' pk=order.pk %}?next={{ request.get_full_path|urlencode }}"
+                   class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
+                <a href="{% url "orders:order-delete" pk=order.pk %}?next={{ request.get_full_path|urlencode }}"
+                   class="btn btn-danger"><i class="fa-solid fa-trash"></i> Delete</a>
+                <!-- Pay or Check START -->
+                {% if order.sale and order.status != 'cancelled' %}
+                    <a href="{% url "sales:sale-update" pk=order.sale.pk %}?next={{ request.get_full_path|urlencode }}"
+                       class="btn btn-info"><i class="fa-solid fa-money-bill-1-wave"></i> Check</a>
+                {% elif order.status != 'cancelled' %}
+                    <a href="{% url "sales:sale-create" %}?order_id={{ order.pk }}&next={{ request.get_full_path|urlencode }}"
+                       class="btn btn-info"><i class="fa-solid fa-money-bill-1-wave"></i> Pay</a>
+                {% endif %}
+                <!-- Pay or Check END -->
+                <a href="{{ previous }}" class="btn btn-outline-secondary">Cancel</a>
+            </div>
+        </div>
+    </section>
+{% endblock content %}

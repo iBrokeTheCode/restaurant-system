@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}
+    Sale Detail
+{% endblock title %}
+{% block content %}
+    <section class="w-100 min-vh-100 mt-navbar">
+        <div class="container py-5 max-width-container">
+            <!-- Alert Messages START -->
+            {% include "partials/alert_messages.html" %}
+            <!-- Alert Messages END -->
+            <h2 class="mb-5 text-center">Sale Detail</h2>
+            <div>
+                <p>
+                    <strong>Order:</strong> {{ sale.order }}
+                </p>
+                <p>
+                    <strong>Items:</strong>
+                    <ul>
+                        {% for item in sale.order.items.all %}<li>{{ item }} (S/.{{ item.unit_price }})</li>{% endfor %}
+                    </ul>
+                </p>
+                <p>
+                    <strong>Date:</strong> {{ sale.payment_time }}
+                </p>
+                <p>
+                    <strong>Amount:</strong> S/.{{ sale.amount }}
+                </p>
+                <p>
+                    <strong>Payment Method:</strong> {{ sale.get_payment_method_display }}
+                </p>
+            </div>
+            <div class="mt-5 d-flex justify-content-center align-items-center gap-2">
+                <a href="{% url "sales:sale-update" pk=sale.pk %}?next={{ request.get_full_path|urlencode }}"
+                   class="btn btn-primary">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                Edit</a>
+                <a href="{% url "sales:sale-delete" pk=sale.pk %}?next={{ request.get_full_path|urlencode }}"
+                   class="btn btn-danger">
+                    <i class="fa-solid fa-trash"></i>
+                Delete</a>
+                <a href="{{ previous }}" class="btn btn-outline-secondary">Cancel</a>
+            </div>
+        </div>
+    </section>
+{% endblock content %}

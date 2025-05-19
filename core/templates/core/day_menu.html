@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+    Menu of the Day
+{% endblock title %}
+{% block content %}
+    <section class="w-100 min-vh-100 mt-navbar">
+        <div class="container py-5  text-center">
+            <div class="container">
+                <h2 class="text-center mb-4 text-primary">Menu</h2>
+                <div class="row justify-content-center mb-4">
+                    <div class="col-md-8 text-center">
+                        <ul class="nav nav-underline justify-content-center gap-5 fw-bold">
+                            {% for category in categories %}
+                                <li class="nav-item">
+                                    <a class="nav-link {% if active_category == category.name %}active{% endif %}"
+                                       href="{% url 'core:day-menu' %}?category={{ category.name }}">{{ category.name }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                <div class="row row-cols-1 row-cols-md-3 g-4 mt-3">
+                    {% for item in menu_items %}
+                        <div class="col">
+                            <div class="card h-100 shadow-sm">
+                                {% if item.menu_item.image %}
+                                    <img src="{{ item.menu_item.image.url }}"
+                                         class="card-img-top"
+                                         alt="{{ item.name }} "
+                                         width=""
+                                         height="">
+                                {% else %}
+                                    <img src="{% static "images/default.webp" %}"
+                                         class="card-img-top"
+                                         alt="{{ item.name }}"
+                                         width=""
+                                         height="">
+                                {% endif %}
+                                <div class="card-body">
+                                    <h5 class="card-title text-dark fw-normal">{{ item.menu_item.name }}</h5>
+                                    <div class="d-flex justify-content-center align-items-center gap-2">
+                                        <span class="fw-bold fs-5 text-primary">S/.{{ item.menu_item.price }}</span>-
+                                        {% if item.remaining_stock > 0 %}
+                                            <span class="badge bg-success">{{ item.remaining_stock }} left</span>
+                                        {% else %}
+                                            <span class="badge bg-danger">Sold out</span>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% empty %}
+                        <p class="fs-5 w-100">No menu items available in this category.</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock content %}

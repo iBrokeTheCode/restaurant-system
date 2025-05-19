@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% load static %}
+{% load group_tags %}
+{% block title %}
+    Dashboard
+{% endblock title %}
+{% block content %}
+    <section class="w-100 min-vh-100 mt-navbar">
+        <div class="container py-5">
+            <h2 class="text-center mb-5 text-primary">Restaurant Dashboard</h2>
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                <!-- OWNER DASHBOARD -->
+                {% if user|has_group:"Owner" %}
+                    <!-- Full access: Owner -->
+                    <div class="col">
+                        <a href="{% url 'menu:menu-item-list' %}" class="text-decoration-none">
+                            <div class="card h-100 shadow-sm text-center">
+                                <div class="card-body">
+                                    <h5 class="card-title">🍽️ Menu Items</h5>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col">
+                        <a href="{% url 'menu:menu-category-list' %}"
+                           class="text-decoration-none">
+                            <div class="card h-100 shadow-sm text-center">
+                                <div class="card-body">
+                                    <h5 class="card-title">📂 Menu Categories</h5>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col">
+                        <a href="{% url 'menu:daily-menu-list' %}" class="text-decoration-none">
+                            <div class="card h-100 shadow-sm text-center">
+                                <div class="card-body">
+                                    <h5 class="card-title">📅 Daily Menu</h5>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col">
+                        <a href="{% url 'menu:daily-menu-item-list' %}"
+                           class="text-decoration-none">
+                            <div class="card h-100 shadow-sm text-center">
+                                <div class="card-body">
+                                    <h5 class="card-title">🧾 Daily Menu Items</h5>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col">
+                        <a href="{% url 'tables:table-list' %}" class="text-decoration-none">
+                            <div class="card h-100 shadow-sm text-center">
+                                <div class="card-body">
+                                    <h5 class="card-title">🪑 Tables</h5>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col">
+                        <a href="{% url 'expenses:expense-list' %}" class="text-decoration-none">
+                            <div class="card h-100 shadow-sm text-center">
+                                <div class="card-body">
+                                    <h5 class="card-title">💸 Expenses</h5>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col">
+                        <a href="{% url 'reports:reports-home' %}" class="text-decoration-none">
+                            <div class="card h-100 shadow-sm text-center">
+                                <div class="card-body">
+                                    <h5 class="card-title">📈 Reports</h5>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                {% endif %}
+                <!-- CASHIER DASHBOARD -->
+                {% if user|has_group:"Cashier" or user|has_group:"Owner" %}
+                    <!-- Shared access: Cashier + Owner -->
+                    <div class="col">
+                        <a href="{% url 'orders:order-list' %}" class="text-decoration-none">
+                            <div class="card h-100 shadow-sm text-center">
+                                <div class="card-body">
+                                    <h5 class="card-title">🧾 Orders</h5>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col">
+                        <a href="{% url 'sales:sale-list' %}" class="text-decoration-none">
+                            <div class="card h-100 shadow-sm text-center">
+                                <div class="card-body">
+                                    <h5 class="card-title">💰 Sales</h5>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+{% endblock content %}

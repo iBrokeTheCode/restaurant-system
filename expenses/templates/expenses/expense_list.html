@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title %}
+    Expenses
+{% endblock title %}
+{% block content %}
+    <section class="w-100 min-vh-100 mt-navbar">
+        <div class="container py-5">
+            <!-- Alert Messages START -->
+            {% include "partials/alert_messages.html" %}
+            <!-- Alert Messages END -->
+            <div class="d-flex justify-content-between align-item-center mb-5">
+                <h2 class="mb-0">Expenses for {{ date }}</h2>
+                <a class="btn btn-primary"
+                   href="{% url "expenses:expense-create" %}?next={{ request.get_full_path|urlencode }}"
+                   title="Add new category"><i class="fa-solid fa-plus"></i> Add</a>
+            </div>
+            <!-- Filter START -->
+            {% include "core/partials/date_filter_form.html" %}
+            <!-- Filter END -->
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Description</th>
+                            <th>Amount</th>
+                            <th>Category</th>
+                            <th>Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for expense in expenses %}
+                            <tr>
+                                <td class="mb-2">{{ expense.description }}</td>
+                                <td>S/.{{ expense.amount }}</td>
+                                <td>{{ expense.get_category_display }}</td>
+                                <td>{{ expense.date }}</td>
+                                <td>
+                                    <a class="btn btn-sm btn-outline-primary"
+                                       href="{% url "expenses:expense-detail" pk=expense.pk %}?previous={{ request.get_full_path|urlencode }}"
+                                       title="Details"><i class="fa-solid fa-eye"></i></a>
+                                </td>
+                            </tr>
+                        {% empty %}
+                            <tr>
+                                <td colspan="5" class="text-center">There are no expenses added yet.</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+{% endblock content %}

@@ -73,14 +73,42 @@
 
 **Tasks:**
 
-- Create a Poetry-managed Django project.
-- Set up `docker-compose` for Django + PostgreSQL.
-- Create apps:
+- [x] Create a Poetry-managed Django project.
+- [ ] Set up `docker-compose` for Django + PostgreSQL.
+- [x] Create apps:
   - `menu`, `orders`, `tables`, `sales`, `expenses`, `users`, `reports`
 - Set up `.env` for config and connect DB.
-- Configure Git with `.gitignore`.
+- [x] Configure Git with `.gitignore`.
 
-**Tools:** Poetry, Docker, Git, PostgreSQL
+**Tools:**
+
+- Poetry
+- Docker
+- Git
+- PostgreSQL
+
+**Packages:**
+
+- [Django 5](https://www.djangoproject.com/)
+- [django-crispy-forms](https://github.com/django-crispy-forms/django-crispy-forms)
+- [crispy-bootstrap5](https://github.com/django-crispy-forms/crispy-bootstrap5)
+
+**Development Packages**
+
+- [django_extensions](https://django-extensions.readthedocs.io/en/latest/)
+- [debug_toolbar](https://django-debug-toolbar.readthedocs.io/en/latest/installation.html)
+- [djLint](https://www.djlint.com/)
+- [ruff](https://docs.astral.sh/ruff/tutorial/#getting-started) | [VSCode extension](https://marketplace.visualstudio.com/items/?itemName=charliermarsh.ruff)
+
+**Pending Packages:**
+
+- Django REST Framework (DRF)
+- Django CORS Headers
+- Django Filter
+- Django Silk (for profiling)
+- Django Spectacular (for API docs)
+- psycopg2-binary (PostgreSQL adapter)
+- Django JWT Auth (for authentication)
 
 ---
 
@@ -88,17 +116,25 @@
 
 **Goal:** Define your database structure and set up admin panel for management.
 
+```shell
+py manage.py graph_models menu orders tables sales expenses > models.dot
+
+# Then copy output code in https://dreampuf.github.io/GraphvizOnline/?engine=dot
+```
+
+![image](./ER-Diagram.svg)
+
 **Tasks:**
 
-- Design models for:
+- [x] Design models for:
   - Menu Items, Categories
   - Orders and OrderItems
-  - Tables (with status)
-  - Sales & Invoices
-  - Expenses (supplies, salaries)
-- Add `__str__`, model methods (`get_absolute_url`, properties).
-- Admin customization (filters, inlines, read-only fields).
-- Model constraints (e.g., `unique_together`, `CheckConstraint`).
+  - Tables
+  - Sales
+  - Expenses
+- [x] Add `__str__`, model methods (`get_absolute_url`, properties).
+- [x] Admin customization (filters, inlines, read-only fields).
+- [x] Model constraints (e.g., `unique_together`, `CheckConstraint`).
 
 **Concepts Used:**
 
@@ -112,13 +148,14 @@
 
 **Tasks:**
 
-- Use Django **Class-Based Views**:
+- [x] Use Django **Class-Based Views**:
   - `ListView`, `DetailView`, `CreateView`, `UpdateView`, `DeleteView`
-- Integrate **ModelForms** and form validation.
-- Build **HTML templates** for each app.
-- Use Django **Messages Framework** for feedback (success/error).
-- Add authentication views (login, logout, user permissions).
-- Apply basic styling (Bootstrap, Tailwind, or minimal CSS).
+- [x] Integrate **ModelForms** and form validation.
+- [x] Build **HTML templates** for each app.
+- [x] Use Django **Messages Framework** for feedback (success/error).
+- [x] Add authentication views (login, logout, user permissions).
+- [x] Apply basic styling (Bootstrap, Tailwind, or minimal CSS).
+- [x] Add DailyMenu model with date and menu_items fields
 
 **Concepts Used:**
 

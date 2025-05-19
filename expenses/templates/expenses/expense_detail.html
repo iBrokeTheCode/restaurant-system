@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}
+    Expense Detail
+{% endblock title %}
+{% block content %}
+    <section class="w-100 min-vh-100 mt-navbar">
+        <div class="container py-5 max-width-container">
+            <!-- Alert Messages START -->
+            {% include "partials/alert_messages.html" %}
+            <!-- Alert Messages END -->
+            <h2 class="mb-5 text-center">{{ expense.description }}</h2>
+            <div>
+                <p>
+                    <strong>Amount:</strong> S/.{{ expense.amount }}
+                </p>
+                <p>
+                    <strong>Category:</strong> {{ expense.get_category_display }}
+                </p>
+                <p>
+                    <strong>Date:</strong> {{ expense.date }}
+                </p>
+            </div>
+            <div class="mt-5 d-flex justify-content-center align-items-center gap-2">
+                <a href="{% url "expenses:expense-update" pk=expense.pk %}?next={{ request.get_full_path|urlencode }}"
+                   class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
+                <a href="{% url "expenses:expense-delete" pk=expense.pk %}?next={{ request.get_full_path|urlencode }}"
+                   class="btn btn-danger"><i class="fa-solid fa-trash"></i> Delete</a>
+                <a href="{{ previous }}" class="btn btn-outline-secondary">Cancel</a>
+            </div>
+        </div>
+    </section>
+{% endblock content %}
